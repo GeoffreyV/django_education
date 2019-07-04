@@ -1,1 +1,1 @@
-django_education
+Projet django_education
