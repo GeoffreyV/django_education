@@ -34,7 +34,6 @@ urlpatterns = [
     url('^ressources', lister_ressources),
     url('^competences', lister_competences),
     url('^jharts',home),
-
     path('sequence/<int:id_sequence>/', afficher_sequence),
     path('competence/<int:id_famille>/', afficher_famille_competence),
     path('competence/<int:id_famille>/<int:id_competence>/', afficher_competence),

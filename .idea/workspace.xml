@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e521d57f-dbde-43cf-ba6d-ca57df1f6eec" name="Default Changelist" comment="">
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/settings.py" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/settings.py" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/urls.py" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/urls.py" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/requirements.txt" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="e521d57f-dbde-43cf-ba6d-ca57df1f6eec" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/django_education/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="257">
+              <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
               <folding>
                 <element signature="e#643#675#0" expanded="true" />
               </folding>
@@ -188,6 +184,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="45" y="17" width="1555" height="882" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -371,8 +368,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/django_education/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="257">
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
           <folding>
             <element signature="e#643#675#0" expanded="true" />
           </folding>
