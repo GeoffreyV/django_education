@@ -4,11 +4,10 @@ from django import forms
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
 from django.contrib.auth import authenticate, logout
 from .models import Utilisateur, sequence, cours, famille_competence, competence, cours, td, tp, khole, Note
-#si on utilise chartjs pour les graphiques
-#from random import randint
-#from django.views.generic import TemplateView
-#from chartjs.views.lines import BaseLineChartView
+from quiz.models import Progress
 
+from jchart import Chart
+from jchart.config import Axes, DataSet, rgba
 
 
 def index(request):
@@ -114,84 +113,23 @@ def afficher_competence(request, id_famille, id_competence):
     kholes=khole.objects.filter(competence=id_competence)
     return render(request, 'competence_seule.html', {'famille':famille,'competence':competence_a_afficher, 'courss':courss, 'tds':tds, 'tps':tps,'kholes':kholes})
 
-#from chartit import DataPool, Chart
+class LineChart(Chart, Progress):
+    chart_type = 'line'
 
-# def resultats(request):
-#     ds = DataPool(
-#             series=[{
-#                 'options': {
-#                     'source': Note.objects.filter(etudiant_id=5965,ds_id=51)
-#                 },
-#                 'terms': [
-#                     'competence_id',
-#                     {'toto': 'value'},
-#                     'value'
-#                 ]
-#             }]
-#     )
-#
-#     cht = Chart(
-#             datasource=ds,
-#             series_options=[{
-#                 'options': {
-#                     'type': 'line',
-#                     'stacking': False
-#                 },
-#                 'terms': {
-#                     'competence_id': [
-#                         'value',
-#                         'toto'
-#                     ]
-#                 }
-#             }],
-#             chart_options={
-#                 'title': {
-#                     'text': 'Weather Data of Boston and Houston'
-#                 },
-#                 'xAxis': {
-#                     'title': {
-#                         'text': 'Month number'
-#                     }
-#                 }
-#             }
-#     )
-#     return render(request, 'resultats.html', {'notes': cht})
+    resultats=Progress.objects.all()
 
-#si on utilise chartjs pour les graphiques
-#class LineChartJSONView(BaseLineChartView):
-#    def get_labels(self):
-#        """Return 7 labels for the x-axis."""
-#        return ["January", "February", "March", "April", "May", "June", "July"]
+    def get_labels(self):
+        return ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"]
 
-#    def get_providers(self):
-#        """Return names of datasets."""
-#        return ["Central", "Eastside", "Westside"]
-
-#    def get_data(self):
-#        """Return 3 datasets to plot."""
-
-#        return [[75, 44, 92, 11, 44, 95, 35],
-#                [41, 92, 18, 3, 73, 87, 92],
-#                [87, 21, 94, 3, 90, 13, 65]]
+    def get_datasets(self, **kwargs):
+        return [DataSet(label="My First dataset",
+                        color=(179, 181, 198),
+                        data=[65, 59, 90, 81, 56, 55, 40]),
+                DataSet(label="My Second dataset",
+                        color=(255, 99, 132),
+                        data=[28, 48, 40, 19, 96, 27, 100])]
 
 
-#line_chart = TemplateView.as_view(template_name='line_chart.html')
-#line_chart_json = LineChartJSONView.as_view()
-
-# class PieChart(Chart):
-#     chart_type = 'pie'
-#
-#     def get_labels(self, **kwargs):
-#         return ['Red', 'Blue']
-#
-# class UnresponsiveLineChart(Chart):
-#     chart_type = 'line'
-#     responsive = False
-#     # ...
-#
-
-from jchart import Chart
-from jchart.config import Axes, DataSet, rgba
 
 class RadarChart(Chart):
     chart_type = 'radar'
@@ -207,8 +145,14 @@ class RadarChart(Chart):
                         color=(255, 99, 132),
                         data=[28, 48, 40, 19, 96, 27, 100])]
 
+#def home(request):
+#    context = {
+#        'radar_chart': RadarChart(),
+#    }
+#    return render(request, 'test.html', context)
+
 def home(request):
     context = {
-        'radar_chart': RadarChart(),
+        'radar_chart': LineChart(),
     }
     return render(request, 'test.html', context)

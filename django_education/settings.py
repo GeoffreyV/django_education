@@ -39,15 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_education',
     'jchart',
-#    'django_education.jchart_app',
     'import_export',
-#    'chartit',
-#    'chartjs',
-#    'jchart',
-    #'quiz',
-    #'multichoice',
-    #'true_false',
-    #'essay',
+    'quiz',
+    'multichoice',
+    'true_false',
+    'essay',
 ]
 
 MIDDLEWARE = [
