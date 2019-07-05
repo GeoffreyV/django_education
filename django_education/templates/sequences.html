@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Liste des séquences{% endblock %}
+{% block bodyId %}sequencePage{% endblock %}
+
+{%block content%}
+
+  <div class="container">
+
+    <!-- Marketing Icons Section -->
+    <h1> Séquences Sciences Ingénieur </h1>
+    <div class="row">
+
+            <table id="sequences">
+            {% for sequence in sequences %}
+                <tr>
+                    <td>{{sequence.str_numero}}</td><td> <a href="sequence/{{sequence.id}}/" %}">{{sequence.nom}}</a></td>
+                </tr>
+            {% endfor %}
+            </table align>
+    </div>
+  </div>
+    <!-- /.row -->
+
+{% endblock %}

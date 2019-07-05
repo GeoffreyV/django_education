@@ -1,0 +1,13 @@
+table#sequences {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th#sequences {
+  text-align: left;
+}
+
+tr:nth-child(even){
+  background-color: #dddddd;
+}

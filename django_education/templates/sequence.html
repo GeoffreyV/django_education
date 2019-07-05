@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Liste des séquences{% endblock %}
+{% block bodyId %}sequencePage{% endblock %}
+
+{%block content%}
+
+  <div class="container">
+
+    <!-- Marketing Icons Section -->
+    <h1> Séquence {{sequence.str_numero}} - {{sequence.nom}} </h1>
+      <div class="row">
+
+          <h2> Cours </h2>
+
+               {% for cours in courss %}
+
+               {{cours.str_numero}} {{cours.nom}} <br>
+
+          {% endfor %}
+
+                    <h2> TD </h2>
+<br>
+             {% for td in tds %}
+
+                {{td.nom}}<br>
+
+          {% endfor %}
+
+          <h2> TP </h2>
+<br>
+             {% for tp in tps %}
+
+                {{tp.nom}}<br>
+
+          {% endfor %}
+
+                    <h2> Kholes </h2>
+
+             {% for khole in kholes %}
+
+                {{khole.nom}}<br>
+
+          {% endfor %}
+
+
+      </div>
+  </div>
+    <!-- /.row -->
+
+{% endblock %}

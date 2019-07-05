@@ -1,0 +1,7 @@
+1,A,Analyser,"Identifier le besoin et définir les exigences du système, éfinir les frontières de l'analyse, conduire l'analyse"
+2,Mod,Modéliser,"Justifier ou choisir les grandeurs nécessaires à la modélisation, proposer un modèle, valider un modèle"
+3,Rés,Résoudre,"À partir des modèles retenus, choisir une méthode de résolution  analytique, graphique, numérique, mettre en œuvre une méthode de résolution."
+4,Exp,Expérimenter,"Découvrir le fonctionnement d’un système complexe, justifier et/ou proposer un protocole expérimental, mettre en œuvre un protocole expérimental et vérifier sa validité."
+5,Conc,Concevoir,"Imaginer des architectures et des solutions technologiques, choisir une solution technique, dimensionner une solution technique"
+6,Réa,Réaliser,"Les solutions techniques étant définies, définir et choisir les procédés de réalisation, réaliser tout ou partie d’un prototype."
+7,Com,Communiquer,"Élaborer, rechercher et traiter des informations, mettre en œuvre une communication "

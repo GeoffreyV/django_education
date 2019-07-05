@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Compétence {% endblock %}
+{% block bodyId %}sequencePage{% endblock %}
+
+{%block content%}
+
+  <div class="container">
+
+          <h1> Compétence {{famille.nom}} </h1>
+
+    <!-- Marketing Icons Section -->
+      <div class="row">
+
+      <table id="sequences">
+                    <td>{{competence.reference}} - {{competence.nom}}</td><td> </td>
+            </table align>
+
+            {% for cours in courss %}
+
+                {{cours.nom}}
+
+          {% endfor %}
+
+             {% for td in tds %}
+
+                {{td.nom}}
+
+          {% endfor %}
+
+
+             {% for tp in tps %}
+
+                {{tp.nom}}
+
+          {% endfor %}
+
+             {% for khole in kholess %}
+
+                {{khole.nom}}
+
+          {% endfor %}
+
+
+      </div>
+  </div>
+    <!-- /.row -->
+
+{% endblock %}

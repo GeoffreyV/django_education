@@ -1,0 +1,139 @@
+1,1,1,Le système et le produit,"Du besoin aux exigences, frontière du système, les solutions techniques et la décomposition structurelle"
+2,1,2,Chaines d'énergie et d'information,"Description des chaines d'énergie et d'information, les schémas électriques et pneumatiques, les unités et l'homogénéité"
+3,1,3,Dessin industriel,"Introduction au dessin, les schémas, méthode de lecture d'un plan"
+4,4,1,Géométrie pour la mécanique,"Rappels mathématiques, présentation des torseurs, repères"
+5,4,2,Les liaisons mécaniques,"Modèles des liaisons, Introduction aux torseurs, Le schéma cinématique"
+6,5,1,Théorie des mécanismes,"Liaisons équivalentes, hyperstatisme, liaisons en série et en parallèle, théorie des graphes"
+7,7,1,Modeleurs volumique,"La génération des volumes, opérations booléennes, contraintes de construction"
+8,6,1,Cinématique du point,"Dérivation vectorielle, accélération, cinématique graphique"
+9,14,1,Liaison pivot,"Exigences d'une liaison pivot, contact direct, coussinets, roulements, règles de montage. Les ajustements, les solutions pour l'étanchéité et la lubrification"
+10,2,1,Modélisation d'un SLCI,"Modélisation et mise en équation, transformées de Laplace, réponse temporelles"
+11,2,2,Analyse de la structure d'un système asservis,"Définition et structure des systèmes asservis, insertion dans les chaînes d'information et d'énergie, les critères de qualité d'un système asservi"
+12,3,1,Réponse harmonique des SLCI,"Les diagrammes harmoniques (Bode), identification"
+13,9,1,Dipôles et sources électriques,"Introduction à l'électronique de puissance, les dipôles, les sources de tension et de courant. Les associations de dipôles, les lois de l'électrocinétique."
+14,11,1,Défauts géométriques,"Le jeu, les écarts, le torseur des petits déplacements, introduction à la spécification"
+15,11,2,Spécifications géométriques,"La fonction des spécifications, définition d'une spécification (GeoSpelling). Les systèmes de référence, les spécifications ISO classiques (forme, orientation, position). Les chaînes de cotes et la cotation 3D."
+16,11,3,Métrologie,"Les outils de mesure, l'acquisition de données, la vérification de spécifications. Métrologie au marbre."
+17,8,1,Efforts mécaniques,"Modélisation locale des efforts,  torseur des actions mécaniques, modélisation et résolution graphique et analytique du Principe Fondamental de la Statique. Le modèle de Coulomb."
+18,9,2,Convertisseurs statiques,"Les interrupteurs, la cellule de commutation, les hacheurs série, 2 quadrants, 4 quadrants et les onduleurs"
+19,10,1,Logique combinatoire,"Systèmes de numérations, opérations sur les nombres binaires, fonctions et méthode de simplification"
+20,10,2,Systèmes à évènements discrets,"Les états d'un système, les diagrammes d'état et d'activité"
+21,13,1,Mécano-soudage,Présentation du procédé de mécano-soudage.
+22,13,4,Usinage,"L'usinage,  le tournage et le fraisage"
+23,2,2,Structure des SLCI,Description des SLCI par schémas blcs
+24,1,1,Etude d'un produit et d'un processus,"Introduction du principe de frontière d'étude, mise en place d'exigences et manipulation des outils du langage SysMl"
+25,1,2,Etude structurelle,Montrer le lien entre un système (et ses sous-systèmes) et les fonctions puis retourner le problème en montrant que pour une fonction il existe un certain nombre de solutions
+26,1,3,Introduction au dessin,Dessiner des formes simples
+27,4,1,Modélisation géométrique,Manipulation des vecteurs et paramétrage d'un système
+28,4,2,Modélisation cinématique des liaisons,Mise en place de torseurs cinématiques et représentation par schéma cinématique
+29,5,1,Liaisons équivalentes,Equivalence des liaisons en parallèle et en série
+30,5,2,Calculs d'hyperstatisme,"En appliquant les règles de la théorie des mécanisme, déterminer le degré d'hyperstatisme de plusieurs systèmes et proposer des solutions afin de diminuer ce degré"
+31,7,1,Modeleur volumique,"Modéliser géométriquement des solides, et mettre en mouvement un assemblage sur SolidWorks"
+32,6,1,Cinématique du point,Modéliser la cinématique du mouvement de solide en utilisant des vecteurs vitesse
+33,6,2,Lois d'entrée sortie,Résoudre des exercices de cinématique en utilisant les fermetures géométriques et cinématiques
+34,14,1,Liaison pivot,Analyser les systèmes de montage des roulements et expliquer ces solutions en réalisant un cahier des charges à l'origine de ces choix
+35,2,1,Modélisation des SLCI,Modéliser des SLCI par les équations de Laplace et déterminer leur représentation temporelle
+36,3,1,Identification des SLCI,Identifier les caractéristiques des SLCI en fonction de réponses temporelles et fréquentielles
+37,9,1,Modélisation des circuits électriques,Modéliser des circuits électriques et résoudre des équations afin de déterminer les variables électrique d'un système
+38,11,1,Défauts géométriques,Analyser l'impact des défauts géométriques
+39,11,2,Spécifications géométriques,"Mise en place de chaînes de cotes, cotation 3D, écriture de spécification"
+40,11,3,Métrologie,Mise en place de procédures de mesure au marbre ou par MMT
+41,8,1,Statique analytique,Modéliser et résoudre un exercice de statique analytique
+42,8,2,Statique graphique,Modéliser et résoudre un exercice de statique graphique
+43,8,3,Lois de Coulomb,Modéliser et résoudre un exercice de statique avec les lois de Coulomb
+44,9,2,Convertisseurs statiques,Modélisation et mise en équation d'un convertisseur statique
+45,10,1,Logique combinatoire,Manipulation de nombre et fonctions combinatoires
+46,10,2,Logique séquentielle,"Etude du comportement d'un système séquentiel, diagramme SysMl d'état"
+47,13,1,Mécano-soudage,Conception d'une pièce mécano-soudée.
+48,13,4,Usinage,Réalisation de gammes d'usinage en tournage et en fraisage
+49,1,2,Analyse fonctionnelle,Analyse du contexte de l'ingénierie. Mise en place d'une structure d'étude. Découverte et mise en œuvre des systèmes
+50,1,2,Analyse fonctionnelle,Analyse du contexte de l'ingénierie. Mise en place d'une structure d'étude. Découverte et mise en oeuvre des systèmes
+51,1,2,Analyse fonctionnelle,Analyse du contexte de l'ingénierie. Mise en place d'une structure d'étude. Découverte et mise en oeuvre des systèmes
+52,1,2,Analyse fonctionnelle,Analyse du contexte de l'ingénierie. Mise en place d'une structure d'étude. Découverte et mise en oeuvre des systèmes
+53,1,2,Analyse fonctionnelle,Analyse du contexte de l'ingénierie. Mise en place d'une structure d'étude. Découverte et mise en oeuvre des systèmes
+54,4,2,Liaisons mécaniques,"Modélisation d'un solide. Comportement des liaisons mécaniques. Modéliser les mécanismes du laboratoire par un schéma cinématique, paramétré."
+55,5,1,Théorie des mécanismes,"Le système de solides, la théorie des mécanismes. Hyperstatisme et mobilités. Proposer des solutions pour le rendre isostatique et justifier les choix de conception"
+56,7,1,Modeleurs volumique,"Modélisation cinématique des mécanismes. Représentation graphique, sur les maquettes numériques de systèmes courants, les champs de vecteurs vitesse et accélération."
+57,6,1,La cinématique des mécanismes,Lois E/S de fermeture géométrique et cinématique. Simulation du comportement de modèles. Proposer des lois de commande en fonction d'exigences. Présenter les modèles acausaux
+58,14,1,Liaison pivot,"Conception d'une liaison mécanique, guidage en rotation.
+Analyse des montages de liaisons pivot en terme des jeu, de serrage et réalisation des montages pour répondre à un cahier des charges"
+59,3,1,Réponses harmoniques,Réalisation de diagrammes de Bodes à partir des réponses harmoniques de systèmes.
+60,2,1,Modélisation des SLCI,Modélisation d'un SLCI. Identification et modélisation des systèmes asservis du laboratoire
+61,9,1,Modélisation des circuits électriques,Modèles électriques. Résolution de la loi des noeuds. Loi des mailles.
+62,11,1,Défauts géométriques,Défauts géométriques des pièces. Mesurer l'impact de défauts géométriques (écarts et jeux) sur le montage de roulements à billes
+65,8,1,Les efforts mécaniques,Principe Fondamental de la Statique. Modélisation des actions mécaniques
+66,10,1,Fonctions combinatoires,Conception d'un algorithme de calcul d'addition pour une calculatrice
+67,10,2,Logique séquentielle,Analyse du comportement algorithmique de systèmes
+68,13,1,Mécano-soudage,Conception d'une pièce mécano-soudée.
+70,4,1,Géométrie pour la mécanique et liaisons mécaniques,"Modélisation vectorielle, manipulation des repères et projections. Schéma cinématique"
+71,5,1,Théorie des mécanismes,"Liaisons équivalentes, hyperstatisme, liaisons en série et en parallèle, théorie des graphes"
+72,6,1,Cinématique du point,"Dérivation vectorielle, accélération, cinématique graphique"
+73,6,2,Cinématique à un degré de liberté,"Travail sur les profil de vitesse et d'accélération, critères de choix"
+74,14,1,Liaison pivot,Choix de solution de conception de liaisons pivots guidées par roulements
+76,9,1,Dipôles et sources électriques,"Introduction à l'électronique de puissance, les dipôles, les sources de tension et de courant. Les associations de dipôles, les lois de l'électrocinétique."
+77,11,1,Spécifications géométriques,Lecture de spécifications géométriques et dimensionnelles
+78,8,1,Efforts mécaniques,"Modélisation locale des efforts,  torseur des actions mécaniques, modélisation et résolution graphique et analytique du Principe Fondamental de la Statique. Le modèle de Coulomb."
+79,10,1,Logiques combinatoire et séquentielle,"Systèmes de numérations, opérations sur les nombres binaires, fonctions et méthode de simplification. Les états d'un système, les diagrammes d'état et d'activité."
+80,2,1,Modélisation des SLCI,Modélisation d'un SLCI. Identification et modélisation des systèmes asservis du laboratoire
+81,2,1,Modélisation des SLCI,Modélisation d'un SLCI. Identification et modélisation des systèmes asservis du laboratoire
+82,2,1,Modélisation des SLCI,Modélisation d'un SLCI. Identification et modélisation des systèmes asservis du laboratoire
+83,1,1,Analyse fonctionnelle,Manipulation des diagrammes SysMl et des chaînes d'information et d'énergie.
+85,2,2,Structure des SLCI,Modélisation de la structure d'un SLCI. Boucles ouvertes et boucles fermées.
+86,2,2,Structure des SLCI,Modélisation de la structure d'un SLCI. Boucles ouvertes et boucles fermées.
+87,2,2,Structure des SLCI,Modélisation de la structure d'un SLCI. Boucles ouvertes et boucles fermées.
+88,2,2,Structure des SLCI,Modélisation de la structure d'un SLCI. Boucles ouvertes et boucles fermées.
+89,2,1,Modélisation d'un SLCI,Transformées de Laplace. Représentation temporelle
+91,5,1,Théorie des mécanismes,"Le système de solides, la théorie des mécanismes. Hyperstatisme et mobilités. Proposer des solutions pour le rendre isostatique et justifier les choix de conception"
+92,5,1,Théorie des mécanismes,"Le système de solides, la théorie des mécanismes. Hyperstatisme et mobilités. Proposer des solutions pour le rendre isostatique et justifier les choix de conception"
+93,5,1,Théorie des mécanismes,"Le système de solides, la théorie des mécanismes. Hyperstatisme et mobilités. Proposer des solutions pour le rendre isostatique et justifier les choix de conception"
+94,4,2,Liaisons mécaniques,"Modélisation d'un solide. Comportement des liaisons mécaniques. Modéliser les mécanismes du laboratoire par un schéma cinématique, paramétré."
+95,4,2,Liaisons mécaniques,"Modélisation d'un solide. Comportement des liaisons mécaniques. Modéliser les mécanismes du laboratoire par un schéma cinématique, paramétré."
+96,4,2,Liaisons mécaniques,"Modélisation d'un solide. Comportement des liaisons mécaniques. Modéliser les mécanismes du laboratoire par un schéma cinématique, paramétré."
+97,4,3,Encastrement par vis,Découverte de la technologie et de la représentation des encastrements par vis
+98,6,1,La cinématique des mécanismes,Lois E/S de fermeture géométrique et cinématique. Simulation du comportement de modèles. Proposer des lois de commande en fonction d'exigences. Présenter les modèles acausaux
+99,6,1,La cinématique des mécanismes,Lois E/S de fermeture géométrique et cinématique. Simulation du comportement de modèles. Proposer des lois de commande en fonction d'exigences. Présenter les modèles acausaux
+100,6,1,La cinématique des mécanismes,Lois E/S de fermeture géométrique et cinématique. Simulation du comportement de modèles. Proposer des lois de commande en fonction d'exigences. Présenter les modèles acausaux
+101,6,3,La cinématique des mécanismes,Lois E/S de fermeture géométrique et cinématique. Simulation du comportement de modèles. Proposer des lois de commande en fonction d'exigences. Présenter les modèles acausaux
+102,6,2,Engrenages,Représentation et modélisation des engrenages. Formule de Willis.
+103,6,4,Engrenages,Représentation et modélisation des engrenages. Formule de Willis.
+105,7,1,Modeleurs volumique,"Modélisation cinématique des mécanismes. Représentation graphique, sur les maquettes numériques de systèmes courants, les champs de vecteurs vitesse et accélération."
+106,7,1,Modeleurs volumique,"Modélisation cinématique des mécanismes. Représentation graphique, sur les maquettes numériques de systèmes courants, les champs de vecteurs vitesse et accélération."
+107,7,1,Modeleurs volumique,"Modélisation cinématique des mécanismes. Représentation graphique, sur les maquettes numériques de systèmes courants, les champs de vecteurs vitesse et accélération."
+108,7,1,Modeleurs volumique,"Modélisation cinématique des mécanismes. Représentation graphique, sur les maquettes numériques de systèmes courants, les champs de vecteurs vitesse et accélération."
+109,8,2,Lois de Coulomb,Modéliser sous une forme simplifiée les forces de frottement qui s'exercent entre deux solides.
+110,8,1,Les efforts mécaniques,Principe Fondamental de la Statique. Modélisation des actions mécaniques.
+111,8,1,Les efforts mécaniques,Principe Fondamental de la Statique. Modélisation des actions mécaniques.
+112,8,1,Les efforts mécaniques,Principe Fondamental de la Statique. Modélisation des actions mécaniques.
+113,8,1,Les efforts mécaniques,Principe Fondamental de la Statique. Modélisation des actions mécaniques.
+114,8,2,Statique graphique,"Modélisation locale des efforts, torseur des actions mécaniques, modélisation et résolution graphique du Principe Fondamental de la Statique."
+116,8,3,Lois de Coulomb,"Modélisation locale, avec le modèle de Coulomb, des efforts, torseur des actions mécaniques, modélisation et résolution graphique et analytique du Principe Fondamental de la Statique."
+117,7,2,Conception chapeau d'assemblage,Conception d'un chapeau permettant la mise en position d'un roulement à billes.
+118,12,1,Essais mécaniques,Présentation des caractéristiques mécaniques des matériaux et des essais correspondants.
+119,12,2,Les matériaux,Présentation générale des matériaux.
+120,12,1,Essais mécaniques,Dépouillement d'essais mécaniques.
+121,12,2,Matériaux,Étude des matériaux.
+122,8,2,Statique graphique,Tracé de statique graphique sur un calque SolidWorks.
+125,8,3,Lois de Coulomb,Expérimenter l'utilisation des Lois de Coulomb sur les systèmes.
+126,8,3,Lois de Coulomb,Expérimenter l'utilisation des Lois de Coulomb sur les systèmes.
+127,13,2,Moulage,Présentation du procédé de Moulage.
+128,13,3,Forgeage,Présentation du procédé de Forgeage.
+129,12,3,Conception flasque vérin,Concevoir le flasque d'un vérin pneumatique.
+130,13,2,Moulage,Conception d'une pièce moulée.
+131,13,3,Forgeage,Conception d'une pièce forgée.
+132,13,2,Moulage,Conception d'une pièce moulée.
+133,13,3,Forgeage,Conception d'une pièce forgée.
+134,11,2,Tolérancement et spécification,Tolérancement et mise en place des zones de spécifications sur des pièces de systèmes du labo
+135,11,2,Tolérancement et spécification,Tolérancement et mise en place des zones de spécifications sur des pièces de systèmes du labo
+136,11,2,Tolérancement et spécification,Tolérancement et mise en place des zones de spécifications sur des pièces de systèmes du labo
+137,11,2,Tolérancement et spécification,Tolérancement et mise en place des zones de spécifications sur des pièces de systèmes du labo
+138,11,3,Métrologie,Mise en place de procédures de mesure au marbre
+139,10,3,Transmission de données,"Caractériser un réseau (débit, robustesse, dimension, topologie). Choisir un type de réseau à partir des exigences. Paramétrer la liaison d'un équipement raccordé à un réseau."
+140,1,1,Mesures physiques,Déterminer des caractéristiques par la mesure physique
+141,1,1,Mesures physiques,Déterminer des caractéristiques par la mesure physique
+142,1,1,Mesures physiques,Déterminer des caractéristiques par la mesure physique
+143,1,1,Mesures physiques,Déterminer des caractéristiques par la mesure physique
+144,2,1,Modélisation des SLCI,Modélisation d'un SLCI. Identification et modélisation des systèmes asservis du laboratoire
+145,2,2,Structure des SLCI,Modélisation de la structure d'un SLCI. Boucles ouvertes et boucles fermées.
+146,3,1,Réponses harmoniques,Réalisation de diagrammes de Bodes à partir des réponses harmoniques de systèmes.
+147,3,1,Réponses harmoniques,Réalisation de diagrammes de Bodes à partir des réponses harmoniques de systèmes.
+148,4,1,Géométrie pour la mécanique,Déterminer une fermeture géométrique et vérifier expérimentalement.
