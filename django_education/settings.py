@@ -37,13 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_education',
     'jchart',
     'import_export',
     'quiz',
     'multichoice',
     'true_false',
     'essay',
+    'django_education',
 ]
 
 MIDDLEWARE = [
@@ -129,5 +129,6 @@ STATIC_URL = '/static/'
 
 TEMPLATES[0]['DIRS']=[os.path.join(BASE_DIR,'django_education/templates')]
 STATICFILES_DIRS=[
-   os.path.join(BASE_DIR, 'static')
+   os.path.join(BASE_DIR, 'static'),
+   os.path.join(BASE_DIR, 'static'),
 ]

@@ -116,7 +116,7 @@ def afficher_competence(request, id_famille, id_competence):
 class LineChart(Chart, Progress):
     chart_type = 'line'
 
-    resultats=Progress.objects.all()
+    result=Progress.objects.filter(user_id=1)
 
     def get_labels(self):
         return ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"]
@@ -145,14 +145,48 @@ class RadarChart(Chart):
                         color=(255, 99, 132),
                         data=[28, 48, 40, 19, 96, 27, 100])]
 
-#def home(request):
-#    context = {
-#        'radar_chart': RadarChart(),
-#    }
-#    return render(request, 'test.html', context)
 
-def home(request):
+def chart(request):
     context = {
         'radar_chart': LineChart(),
     }
-    return render(request, 'test.html', context)
+    return render(request, 'chart.html', context)
+
+def compte(request):
+    context = {
+        'radar_chart': LineChart(),
+    }
+    return render(request, 'compte.html', context)
+
+def mes_quizzes(request):
+    context = {
+        'radar_chart': LineChart(),
+    }
+    return render(request, 'mes_quizzes.html', context)
+
+def mes_ds(request):
+    context = {
+        'radar_chart': LineChart(),
+    }
+    return render(request, 'resultats_ds.html', context)
+
+def quizzes_etudiants(request):
+    context = {
+        'radar_chart': LineChart(),
+    }
+    return render(request, 'quizzes_etudiants.html', context)
+
+def documents(request):
+    context = {
+        'radar_chart': LineChart(),
+    }
+    return render(request, 'documents.html', context)
+
+def gestion_ds(request):
+    context = {
+        'radar_chart': LineChart(),
+    }
+    return render(request, 'gestion_ds.html', context)
+
+def relative_url_view(request, year, month, day, ext, nom):
+    return redirect('/static/upload/'+year+'/'+month+'/'+day+'/'+nom+'.'+ext)

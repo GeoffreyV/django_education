@@ -151,6 +151,8 @@ class langue_vivante(matiere):
 class Utilisateur(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
+    def __str__(self):
+        return self.last_name+' '+self.first_name
 
 class Etudiant(models.Model):
     user = models.OneToOneField(Utilisateur, on_delete=models.CASCADE, primary_key=True)
@@ -206,4 +208,5 @@ class Note(models.Model):
     competence = models.ForeignKey('competence', on_delete=models.CASCADE)
     ds = models.ForeignKey('DS', on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=4, decimal_places=2)
+
 
