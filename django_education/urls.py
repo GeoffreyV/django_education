@@ -16,16 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from django.conf.urls import url, include
-from django.views.generic import RedirectView
+from django.contrib.auth import views as auth_views
 
-from .views import index, login, simple_upload, logout_view,\
+from .views import index, simple_upload,\
     lister_ressources, afficher_sequence, lister_competences, afficher_famille_competence,  afficher_competence, chart,\
-    compte, mes_quizzes, mes_ds, quizzes_etudiants, documents, gestion_ds, relative_url_view
+    compte, mes_quizzes, mes_ds, quizzes_etudiants, documents, gestion_ds, relative_url_view, resultats, resultats_vierge, details, \
+    resultats_quizz
 
 urlpatterns = [
-    url('^index$', index),
-    url('^login$', login),
-    url('^logout$', logout_view),
+    path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^password-change-done/$',
+        auth_views.password_change_done,
+        {'template_name': 'registration/password_change_done.html'},
+        name='password_change_done'
+    ),
+    url(r'^password-change/$',
+        auth_views.password_change,
+        {'template_name': 'registration/password_change.html' , 'post_change_redirect': 'password_change_done'},
+        name='password_change'
+    ),
     url('^ressources', lister_ressources),
     path('sequence/<int:id_sequence>/', afficher_sequence),
     url('^competences', lister_competences),
@@ -36,9 +45,14 @@ urlpatterns = [
     url('^mes_quizzes/', mes_quizzes),
     url('^mes_ds/', mes_ds),
     url('^quizzes_etudiants/', quizzes_etudiants),
+    path('resultats/<int:id_etudiant>/details/', details),
+    url('^resultats/details/', details),
+    path('resultats/<int:id_etudiant>/', resultats),
+    url('^resultats/', resultats_vierge),
+    url('^resultats_quizz/', resultats_quizz),
     url('^documents/', documents),
     url('^gestion_ds/', gestion_ds),
-    url('^jharts',chart),
+    url('^jchart',chart),
     url(r'^q/', include('quiz.urls')),
     url('^simple_upload$', simple_upload),
     url('^$', index),

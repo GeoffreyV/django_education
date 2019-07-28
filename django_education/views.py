@@ -2,12 +2,25 @@
 
 from django import forms
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
-from django.contrib.auth import authenticate, logout
-from .models import Utilisateur, sequence, cours, famille_competence, competence, cours, td, tp, khole, Note
-from quiz.models import Progress
+from django.contrib.auth import authenticate, logout, login
+from .models import Utilisateur, sequence, cours, famille_competence, competence, cours, td, tp, khole, Note, Etudiant
+from django.utils import timezone
+from django.db.models import Sum, Avg, Func
+from django.contrib.auth.decorators import login_required
+
+
+import datetime
+
 
 from jchart import Chart
 from jchart.config import Axes, DataSet, rgba
+
+def rentree_scolaire():
+    rentree = datetime.datetime.now(tz=timezone.utc)
+    unjour = datetime.timedelta(days=1)
+    while rentree.month!=8 or rentree.day!=27:
+        rentree -= unjour
+    return rentree
 
 
 def index(request):
@@ -17,27 +30,6 @@ def index(request):
         return render(request,'index.html', {'logged_user':logged_user})
     else:
         return render(request,'index.html')
-
-
-def login(request):
-    #Teste si le formulaire a été envoyé
-    if len(request.POST)>0:
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            user_email=form.cleaned_data['login']
-            logged_user=Utilisateur.objects.get(email=user_email)
-            request.session['logged_user_id']=logged_user.id
-            return redirect('/index')
-        else:
-            return render(request, 'login.html',{'form': form})
-    else:
-        form=LoginForm()
-        return render(request, 'login.html',{'form': form})
-
-def logout_view(request):
-    logout(request)
-    # Redirect to a success page.
-    return redirect('/index')
 
 def get_user_by_mail(mail):
     try:
@@ -113,10 +105,9 @@ def afficher_competence(request, id_famille, id_competence):
     kholes=khole.objects.filter(competence=id_competence)
     return render(request, 'competence_seule.html', {'famille':famille,'competence':competence_a_afficher, 'courss':courss, 'tds':tds, 'tps':tps,'kholes':kholes})
 
-class LineChart(Chart, Progress):
+class LineChart(Chart):
     chart_type = 'line'
 
-    result=Progress.objects.filter(user_id=1)
 
     def get_labels(self):
         return ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"]
@@ -145,12 +136,143 @@ class RadarChart(Chart):
                         color=(255, 99, 132),
                         data=[28, 48, 40, 19, 96, 27, 100])]
 
-
 def chart(request):
     context = {
         'radar_chart': LineChart(),
     }
     return render(request, 'chart.html', context)
+
+@login_required(login_url='/accounts/login/')
+def resultats_vierge(request):
+    etudiants = Etudiant.objects.filter(user__date_joined__gte=rentree_scolaire()).values('user')[0]['user']
+    return redirect('/resultats/'+str(etudiants)+'/')
+
+from quiz.models import Sitting, Progress
+
+def resultats_quizz(request):
+    sittings=Sitting.objects.all()
+    progresss=Progress.objects.all()
+    context = {
+        'sittings':sittings, 'progresss':progresss,
+    }
+    return render(request, 'resultats_quizz.html', context)
+
+def resultats(request, id_etudiant):
+    donnees=Sitting.objects.all()
+    context = {
+        'chart': ResultatsCharts(id_etudiant), 'chart2': RadarChart(), 'general': True, 'donnees':donnees,
+    }
+    return render(request, 'resultats.html', context)
+
+def details(request, id_etudiant):
+    context = {
+        'chart': DetailsCharts(id_etudiant), 'details': True,
+    }
+    return render(request, 'resultats.html', context)
+
+class Round(Func):
+    function = 'ROUND'
+    arity = 2
+
+class ResultatsCharts(Chart):
+
+    chart_type = 'radar'
+
+    def __init__(self, id_etudiant):
+        Chart.__init__(self)
+        self.etudiants = Etudiant.objects.filter(user__date_joined__gte=rentree_scolaire()).values('user','user__last_name', 'user__first_name')
+        self.etudiant_note = Etudiant.objects.filter(user=id_etudiant).values('user','user__last_name', 'user__first_name')
+        notes_glob = Note.objects.filter(etudiant=id_etudiant).exclude(value=9).exclude(competence=0)\
+            .values('competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))\
+            .order_by('competence__famille__nom')
+        notes_glob_classe = Note.objects.all().exclude(value=9).exclude(competence=0)\
+            .values('competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))\
+            .order_by('competence__famille__nom')
+
+        self.liste_label=[]
+        self.notes_eleve=[]
+        self.notes_classe=[]
+
+        for note in notes_glob_classe:
+            self.liste_label.append(note['competence__famille__nom'])
+            self.notes_classe.append(note['moyenne'])
+
+        index=0
+
+        for note in notes_glob:
+            while note['competence__famille__nom']!=self.liste_label[index]:
+                self.notes_eleve.append(0)
+                index+=1
+            self.notes_eleve.append(note['moyenne'])
+            index+=1
+
+    def get_notes_glob(self):
+        return zip(self.liste_label,self.notes_eleve,self.notes_classe)
+
+    def get_labels(self):
+        return self.liste_label
+
+    def get_etudiant_note(self):
+        return self.etudiant_note
+
+    def get_etudiants(self):
+        return self.etudiants
+
+    def get_datasets(self, **kwargs):
+        return [DataSet(label="Elève",
+                        color=(64 , 135, 196),
+                        data=self.notes_eleve),
+                DataSet(label="Classe",
+                        color=(179, 181, 198),
+                        data=self.notes_classe)]
+
+class DetailsCharts(Chart):
+    chart_type = 'bar'
+
+    def __init__(self, id_etudiant):
+        Chart.__init__(self)
+        self.etudiants = Etudiant.objects.filter(user__date_joined__gte='2018-09-01').values('user','user__last_name', 'user__first_name')
+        self.etudiant_note = Etudiant.objects.filter(user=id_etudiant).values('user','user__last_name', 'user__first_name')
+        notes = Note.objects.filter(etudiant=6155).exclude(value=9).exclude(competence=0).values('competence', 'competence__nom', 'competence__reference', 'competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))
+        notes_toute_classe = Note.objects.all().exclude(value=9).exclude(competence=0).values('competence', 'competence__nom', 'competence__reference', 'competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))
+
+        self.liste_label=[]
+        self.notes_eleve=[]
+        self.notes_classe=[]
+
+        for note in notes_toute_classe:
+            self.liste_label.append(note['competence__reference'])
+            self.notes_classe.append(note['moyenne'])
+
+        index=0
+
+        for note in notes:
+            while note['competence__reference']!=self.liste_label[index]:
+                self.notes_eleve.append(0)
+                index+=1
+            self.notes_eleve.append(note['moyenne'])
+            index+=1
+
+    def get_etudiant_note(self):
+        return self.etudiant_note
+
+    def get_etudiants(self):
+        return self.etudiants
+
+    def get_notes_glob(self):
+        return zip(self.liste_label,self.notes_eleve,self.notes_classe)
+
+    def get_labels(self):
+        return self.liste_label
+
+    def get_datasets(self, **kwargs):
+        return [DataSet(label="Elève",
+                        color=(64 , 135, 196),
+                        data=self.notes_eleve),
+                DataSet(label="Classe",
+                        color=(179, 181, 198),
+                        data=self.notes_classe)]
+
 
 def compte(request):
     context = {

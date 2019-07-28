@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'base1.html' %}
 
 {% load static %}
 
-{% block content %}
+{% block carousel %}
    <header>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
@@ -12,21 +12,21 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <!-- Slide One - Set the background image for this slide in the line below -->
-        <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
+        <div class="carousel-item active" style="background-image: url('{% static "img/Slide1.JPG" %}')">
           <div class="carousel-caption d-none d-md-block">
             <h3>First Slide</h3>
             <p>This is a description for the first slide.</p>
           </div>
         </div>
         <!-- Slide Two - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+        <div class="carousel-item" style="background-image: url('{% static "img/Slide2.JPG" %}')">
           <div class="carousel-caption d-none d-md-block">
             <h3>Second Slide</h3>
             <p>This is a description for the second slide.</p>
           </div>
         </div>
         <!-- Slide Three - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+        <div class="carousel-item" style="background-image: url('{% static "img/Slide3.JPG" %}')">
           <div class="carousel-caption d-none d-md-block">
             <h3>Third Slide</h3>
             <p>This is a description for the third slide.</p>
@@ -44,10 +44,12 @@
     </div>
   </header>
 
-<!-- Page Content -->
-<div class="container">
+{% endblock %}
 
-    <h1 class="my-4">Welcome to Modern Business</h1>
+{% block titre_page %}Welcome {% if logged_user %}{{user}}{% endif %} {% endblock %}
+
+{% block content1 %}
+<!-- Page Content -->
 
     {% if logged_user %}
     <p>Bienvenue {{logged_user.first_name}}  {{logged_user.last_name}}, sur mon site.</p>
@@ -125,7 +127,6 @@
         </div>
     </div>
 
-</div>
 <!-- /.container -->
 
 {% endblock %}

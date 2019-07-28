@@ -108,6 +108,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "django_education.Utilisateur"
 
+LOGIN_REDIRECT_URL = "/"
+
+LOGOUT_REDIRECT_URL = "/"
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -132,3 +136,4 @@ STATICFILES_DIRS=[
    os.path.join(BASE_DIR, 'static'),
    os.path.join(BASE_DIR, 'static'),
 ]
+

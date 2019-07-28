@@ -1,0 +1,40 @@
+{% extends "base1.html" %}
+
+{% load static %}
+
+
+{% block title %}Liste des séquences{% endblock %}
+{% block bodyId %}sequencePage{% endblock %}
+
+{% block titre_page %}Résultats de {% for etudiant_selected in chart.get_etudiant_note %} {{etudiant_selected.user__last_name}} {{etudiant_selected.user__first_name}} {% endfor %}{% endblock %}
+
+{% block content1 %}
+
+
+    {% for sitting in sittings %}
+<p>
+        {{ sitting}}
+        {{ sitting.user }}
+        {{ sitting.quiz }}
+        {{ sitting.question_order }}
+        {{ sitting.question_list }}
+        {{ sitting.incorrect_questions }}
+        {{ sitting.current_score }}
+        {{ sitting.complete }}
+        {{ sitting.user_answers }}
+        {{ sitting.start }}
+</p>
+
+    {% endfor %}
+
+    {% for progress in progresss %}
+<p>
+        {{ progress}}
+        {{ progress.user }}
+        {{ progress.score }}
+</p>
+
+    {% endfor %}
+
+
+{% endblock %}

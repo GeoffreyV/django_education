@@ -1,111 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base1.html' %}
 
 {% load static %}
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Trombinoscope - {% block title %}Bienvenue{% endblock %}</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
-
-      <!-- Custom fonts for this template -->
-    <link href="{% static "vendor/fontawesome-free/css/all.min.css" %}" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
-    <script src="/highcharts.js" type="text/javascript"></script>
-    <script src="{% static 'js/excanvas.js' %}"></script>
+{% block titre_page %}Welcome {{user}}{% endblock %}
 
 
+{% block content1 %}
 
-    <!-- Custom styles for this template -->
-    <link href="{% static "css/modern-business.css" %}" rel="stylesheet">
-    <link href="{% static "css/costadoat_education.css" %}" rel="stylesheet">
-
-</head>
-
-<body id="{%block bodyId %}genericPage{% endblock %}">
-
-
- <!-- Navigation -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="/index">PTSI-PT Lycée Dorian</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/ressources">Ressources</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/competences">Compétences</a>
-          </li>
-          {% if logged_user.is_student %}
-               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ logged_user.first_name }}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                  <a class="dropdown-item" href="/compte">Compte</a>
-                  <a class="dropdown-item" href="/mes_quizzes">Mes quizzes</a>
-                  <a class="dropdown-item" href="/resultats_ds">Résultats des DS</a>
-                  <a class="dropdown-item" href="/logout">Déconnection</a>
-                </div>
-              </li>
-                  {% elif logged_user.is_teacher %}
-               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ logged_user }}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                  <a class="dropdown-item" href="/compte">Compte</a>
-                  <a class="dropdown-item" href="/quizzes_etudiants">Statistiques</a>
-                  <a class="dropdown-item" href="portfolio-3-col.html">Compte</a>
-                  <a class="dropdown-item" href="/logout">Déconnection</a>
-                </div>
-              </li>
-
-                  {% else %}
-              <li class="nav-item">
-                  <a class="nav-link" href="/login">Login</a>
-              </li>
-                {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="/jharts">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
+      <div class="quizz">
             {% block content %}{% endblock %}
+       </div>
 
- <!-- Footer -->
-   <footer class="py-5 bg-light">
-    <div class="container">
-      <p class="m-0 text-center text-black">Copyright &copy; Your Website 2019</p>
-    </div>
-    <!-- /.container -->
-  </footer>
-
-<!-- Bootstrap core JavaScript -->
-<script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
-  <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
-
-<script src="{% static "js/clean-blog.min.js" %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-</body>
-
-</html>
+{% endblock %}

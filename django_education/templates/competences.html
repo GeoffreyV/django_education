@@ -1,14 +1,14 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
+
+{% load static %}
+
 {% block title %}Liste des séquences{% endblock %}
 {% block bodyId %}sequencePage{% endblock %}
 
-{%block content%}
-{% load static %}
+{% block titre_page %}Compétences{% endblock %}
 
-  <div class="container">
+{%block content1 %}
 
-    <!-- Portfolio Section -->
-    <h2>Compétences</h2>
       <div class="row">
       {% for competence in competences %}
 

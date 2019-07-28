@@ -3,6 +3,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+github='https://github.com/Costadoat/S'
+
 class sequence(models.Model):
     numero = models.IntegerField()
     nom = models.CharField(max_length=15)
@@ -83,6 +85,17 @@ class ressource(models.Model):
     def str_numero(self):
         return "%02d" % self.numero
 
+
+def url(self,lien,type):
+    dossier=github+("%02d" % self.sequence)+"/raw/master/"+type+("%02d" % self.numero)\
+                 +" "+self.nom+"/"
+    if lien=='git':
+        return dossier
+    elif lien=='pdf':
+        return dossier+("%02d" % self.sequence)+"-"+type+("%02d" % self.numero)+".pdf"
+    elif lien=='prive':
+        return dossier+("%02d" % self.sequence)+"-"+type+("%02d" % self.numero)+"_prive.pdf"
+
 class cours(ressource):
     def __str__(self):
         return 'S'+str("%02d" % self.sequence)+'-'+str("%02d" % self.numero)+' '+self.nom
@@ -90,6 +103,13 @@ class cours(ressource):
         return str("%02d" % self.numero)
     class Meta:
                 ordering = ['sequence', 'numero']
+    def url_pdf(self):
+        return url(self,"pdf","C")
+    def url_prive(self):
+        return url(self,"prive","C")
+    def url_git(self):
+        return url(self,"git","C")
+
 
 class td(ressource):
     def __str__(self):
@@ -99,16 +119,31 @@ class td(ressource):
     pass
     class Meta:
                 ordering = ['sequence', 'numero']
-
+    def url_pdf(self):
+        return url(self,"pdf","TD")
+    def url_prive(self):
+        return url(self,"prive","TD")
+    def url_git(self):
+        return url(self,"git","TD")
 
 class tp(ressource):
     ilot = models.IntegerField()
+    def nom_ilot(self):
+        return self.systeme.all()[0]
     def __str__(self):
         return 'S'+str("%02d" % self.sequence)+'-'+str("%02d" % self.numero)+' '+self.nom
     def str_numero(self):
         return str("%02d" % self.numero)
+    def str_numero_ilot(self):
+        return str("%02d" % self.ilot)
     class Meta:
                 ordering = ['sequence', 'numero']
+    def url_pdf(self):
+        return url(self,"pdf","TP")
+    def url_prive(self):
+        return url(self,"prive","TP")
+    def url_git(self):
+        return url(self,"git","TP")
 
 class khole(ressource):
     def __str__(self):
@@ -117,6 +152,12 @@ class khole(ressource):
         return str("%02d" % self.numero)
     class Meta:
                 ordering = ['sequence', 'numero']
+    def url_pdf(self):
+        return url(self,"pdf","KH")
+    def url_prive(self):
+        return url(self,"prive","KH")
+    def url_git(self):
+        return url(self,"git","KH")
 
 class ressource_info(models.Model):
     sequence = models.IntegerField()
@@ -152,7 +193,7 @@ class Utilisateur(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
     def __str__(self):
-        return self.last_name+' '+self.first_name
+        return self.last_name+' '+self.first_name#+' ('+self.username+')'
 
 class Etudiant(models.Model):
     user = models.OneToOneField(Utilisateur, on_delete=models.CASCADE, primary_key=True)
@@ -208,5 +249,5 @@ class Note(models.Model):
     competence = models.ForeignKey('competence', on_delete=models.CASCADE)
     ds = models.ForeignKey('DS', on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=4, decimal_places=2)
-
-
+    class Meta:
+        ordering = ['competence']
