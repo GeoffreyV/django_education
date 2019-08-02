@@ -20,12 +20,22 @@
                     <td>{{cours.str_numero}}</td>
                       <td> {{cours.nom}}</td>
                         <td> <a href="{{cours.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
-                          <td> <a href="{{cours.url_prive}}"><i class='fas far fa-file-archive'></i></a></td>
+                          <td> <a href="{{cours.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
                             <td> <a href="{{cours.url_git}}"><i class='fab fa-github'></i></a></td>
                 </tr>
                 {% endfor %}
            </table>
 
+           <h2 class="my-4"> Quizzes </h2><br>
+
+          <table id="quizzes" class="table">
+               {% for quiz in quizzes %}
+                  <tr>
+                    <td>{{quiz.title}}</td>
+                        <td> <a href="/q/{{quiz.url}}"><i class="fas fa-check-square"></i></a></td>
+                </tr>
+                {% endfor %}
+           </table>
                     <h2 class="my-4"> Travaux Dirigés </h2>
 
           <table id="td" class="table">
@@ -34,7 +44,7 @@
                     <td>{{td.str_numero}}</td>
                       <td> {{td.nom}}</td>
                         <td> <a href="{{td.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
-                          <td> <a href="{{td.url_prive}}"><i class='fas far fa-file-archive'></i></a></td>
+                          <td> <a href="{{td.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
                             <td> <a href="{{td.url_git}}"><i class='fab fa-github'></i></a></td>
                 </tr>
                 {% endfor %}
@@ -48,7 +58,7 @@
                     <td>{{tp.str_numero}} - {{tp.str_numero_ilot}}</td>
                       <td> {{tp.nom}} ({{tp.nom_ilot}})</td>
                         <td> <a href="{{tp.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
-                          <td> <a href="{{tp.url_prive}}"><i class='fas far fa-file-archive'></i></a></td>
+                          <td> <a href="{{tp.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
                             <td> <a href="{{tp.url_git}}"><i class='fab fa-github'></i></a></td>
                 </tr>
                 {% endfor %}
@@ -63,7 +73,7 @@
                     <td>{{khole.str_numero}}</td>
                       <td> {{khole.nom}}</td>
                         <td> <a href="{{khole.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
-                          <td> <a href="{{khole.url_prive}}"><i class='fas far fa-file-archive'></i></a></td>
+                          <td> <a href="{{khole.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
                             <td> <a href="{{khole.url_git}}"><i class='fab fa-github'></i></a></td>
                 </tr>
                 {% endfor %}

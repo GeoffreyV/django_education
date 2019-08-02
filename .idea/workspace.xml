@@ -7,20 +7,16 @@
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/models.py" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/models.py" afterDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/settings.py" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/settings.py" afterDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/css/costadoat_education.css" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/css/costadoat_education.css" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/1900x1080.png" beforeDir="false" />
+      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/Slide3.JPG" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/Slide3.JPG" afterDir="false" />
+      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/analyser.jpg" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/analyser.jpg" afterDir="false" />
+      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/modeliser.jpg" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/modeliser.jpg" afterDir="false" />
+      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/resoudre.jpg" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/static/img/resoudre.jpg" afterDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/base.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/base.html" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/chart.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/chart.html" afterDir="false" />
+      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/base1.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/base1.html" afterDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/competence.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/competence.html" afterDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/competence_seule.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/competence_seule.html" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/competences.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/competences.html" afterDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/index.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/index.html" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/line_chart.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/line_chart.html" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/login.html" beforeDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/resultats.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/resultats.html" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/sequence.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/sequence.html" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/sequences.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/sequences.html" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/simple_upload.html" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/simple_upload.html" afterDir="false" />
-      <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/templates/welcome.html" beforeDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/urls.py" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/urls.py" afterDir="false" />
       <change beforePath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/views.py" beforeDir="false" afterPath="$USER_HOME$/Documents/Renaud/Dorian/Prepa/django_education/django_education/views.py" afterDir="false" />
     </list>
@@ -35,50 +31,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/django_education/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="286">
+              <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
               <folding>
-                <element signature="e#643#675#0" expanded="true" />
+                <element signature="e#0#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/django_education/templates/registration/password_change_done.html">
+        <entry file="file://$PROJECT_DIR$/django_education/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/django_education/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1200">
-              <caret line="110" column="24" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/django_education/templates/competence.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="53" selection-start-line="5" selection-end-line="5" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/django_education/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="153" column="13" selection-start-line="153" selection-start-column="13" selection-end-line="153" selection-end-column="13" />
+            <state relative-caret-position="370">
+              <caret line="200" column="20" selection-start-line="200" selection-start-column="20" selection-end-line="200" selection-end-column="20" />
               <folding>
-                <element signature="e#24#48#0" expanded="true" />
+                <element signature="e#24#52#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/django_education/templates/simple_upload.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -86,44 +64,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/django_education/templates/base1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1185">
-              <caret line="79" column="65" selection-start-line="79" selection-start-column="65" selection-end-line="79" selection-end-column="65" />
+            <state relative-caret-position="240">
+              <caret line="85" column="65" selection-start-line="85" selection-start-column="65" selection-end-line="85" selection-end-column="65" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/django_education/templates/base.html">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/django_education/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" selection-start-line="3" selection-end-line="4" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/django_education/static/css/mylogin.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/django_education/templates/resultats.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="69" selection-start-line="69" selection-end-line="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/django_education/templates/resultats_quizz.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+            <state relative-caret-position="310">
+              <caret line="41" selection-start-line="41" selection-end-line="41" />
+              <folding>
+                <element signature="e#24#48#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -150,9 +104,18 @@
       <find>fade</find>
       <find>#56baed</find>
       <find>#</find>
-      <find>resul</find>
       <find>login</find>
       <find>resu</find>
+      <find>_eleve</find>
+      <find>log</find>
+      <find>resul</find>
+      <find>init</find>
+      <find>input[type=password]</find>
+      <find>user</find>
+      <find>ressour</find>
+      <find>upload</find>
+      <find>upda</find>
+      <find>Etudian</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -172,29 +135,31 @@
         <option value="$PROJECT_DIR$/django_education/templates/welcome.html" />
         <option value="$PROJECT_DIR$/django_education/templates/chart.html" />
         <option value="$PROJECT_DIR$/django_education/static/js/django_education.js" />
-        <option value="$PROJECT_DIR$/django_education/templates/simple_upload.html" />
         <option value="$PROJECT_DIR$/django_education/templates/line_chart.html" />
         <option value="$PROJECT_DIR$/django_education/templates/login.html" />
         <option value="$PROJECT_DIR$/django_education/backend.py" />
-        <option value="$PROJECT_DIR$/django_education/models.py" />
         <option value="$PROJECT_DIR$/django_education/templates/sequences.html" />
-        <option value="$PROJECT_DIR$/django_education/templates/sequence.html" />
         <option value="$PROJECT_DIR$/django_education/templates/competences.html" />
-        <option value="$PROJECT_DIR$/django_education/templates/competence_seule.html" />
-        <option value="$PROJECT_DIR$/django_education/templates/competence.html" />
-        <option value="$PROJECT_DIR$/django_education/templates/index.html" />
         <option value="$PROJECT_DIR$/django_education/static/css/my-login.css" />
-        <option value="$PROJECT_DIR$/django_education/templates/base.html" />
         <option value="$PROJECT_DIR$/django_education/templates/registration/login.html" />
-        <option value="$PROJECT_DIR$/django_education/static/css/costadoat_education.css" />
         <option value="$PROJECT_DIR$/django_education/static/css/mylogin.css" />
-        <option value="$PROJECT_DIR$/django_education/templates/base1.html" />
         <option value="$PROJECT_DIR$/django_education/templates/registration/password_change.html" />
         <option value="$PROJECT_DIR$/django_education/templates/registration/password_change_done.html" />
-        <option value="$PROJECT_DIR$/django_education/settings.py" />
-        <option value="$PROJECT_DIR$/django_education/templates/resultats.html" />
-        <option value="$PROJECT_DIR$/django_education/urls.py" />
         <option value="$PROJECT_DIR$/django_education/templates/resultats_quizz.html" />
+        <option value="$PROJECT_DIR$/django_education/settings.py" />
+        <option value="$PROJECT_DIR$/django_education/models.py" />
+        <option value="$PROJECT_DIR$/django_education/templates/resultats.html" />
+        <option value="$PROJECT_DIR$/django_education/templates/base.html" />
+        <option value="$PROJECT_DIR$/django_education/forms.py" />
+        <option value="$PROJECT_DIR$/django_education/templates/contact.html" />
+        <option value="$PROJECT_DIR$/django_education/templates/competence.html" />
+        <option value="$PROJECT_DIR$/django_education/templates/competence_seule.html" />
+        <option value="$PROJECT_DIR$/django_education/static/css/costadoat_education.css" />
+        <option value="$PROJECT_DIR$/django_education/templates/index.html" />
+        <option value="$PROJECT_DIR$/django_education/templates/sequence.html" />
+        <option value="$PROJECT_DIR$/django_education/templates/base1.html" />
+        <option value="$PROJECT_DIR$/django_education/urls.py" />
+        <option value="$PROJECT_DIR$/django_education/templates/simple_upload.html" />
         <option value="$PROJECT_DIR$/django_education/views.py" />
       </list>
     </option>
@@ -222,6 +187,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Course" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -264,7 +230,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Course" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -372,16 +337,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/django_education/templates/welcome.html" />
     <entry file="file://$PROJECT_DIR$/django_education/templates/chart.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -397,13 +352,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/simple_upload.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/django_education/templates/line_chart.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -413,69 +361,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/django_education/templates/login.html" />
     <entry file="file://$PROJECT_DIR$/django_education/backends.py" />
-    <entry file="file://$PROJECT_DIR$/django_education/templates/competences.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/competence_seule.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2910">
-          <caret line="195" column="50" selection-start-line="195" selection-start-column="50" selection-end-line="195" selection-end-column="50" />
-          <folding>
-            <element signature="e#24#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/sequences.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/sequence.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" selection-start-line="48" selection-end-line="48" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/static/css/costadoat_education.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/django_education/templates/registration/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="615">
           <caret line="41" column="91" selection-start-line="41" selection-start-column="91" selection-end-line="41" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/registration/password_change.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="61" />
         </state>
       </provider>
     </entry>
@@ -486,27 +375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/competence.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="53" selection-start-line="5" selection-end-line="5" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/base1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="79" column="65" selection-start-line="79" selection-start-column="65" selection-end-line="79" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="4" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/django_education/static/css/mylogin.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -514,41 +382,152 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/settings.py">
+    <entry file="file://$PROJECT_DIR$/django_education/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="110" column="24" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/django_education/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="135">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
           <folding>
-            <element signature="e#643#675#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/django_education/templates/resultats.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="69" selection-start-line="69" selection-end-line="71" />
+        <state relative-caret-position="705">
+          <caret line="47" column="83" selection-start-line="47" selection-start-column="83" selection-end-line="47" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/sequences.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="60" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/django_education/templates/resultats_quizz.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+        <state relative-caret-position="120">
+          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/registration/password_change.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="58" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/static/css/costadoat_education.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="81" column="18" selection-start-line="81" selection-start-column="18" selection-end-line="81" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="106" column="10" selection-start-line="106" selection-start-column="10" selection-end-line="106" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/sequence.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="75" column="91" selection-start-line="75" selection-start-column="71" selection-end-line="75" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/contact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="12" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/competence.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/competences.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="69" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/competence_seule.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/base1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="85" column="65" selection-start-line="85" selection-start-column="65" selection-end-line="85" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="200" column="20" selection-start-line="200" selection-start-column="20" selection-end-line="200" selection-end-column="20" />
+          <folding>
+            <element signature="e#24#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/django_education/templates/simple_upload.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/django_education/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="153" column="13" selection-start-line="153" selection-start-column="13" selection-end-line="153" selection-end-column="13" />
+        <state relative-caret-position="310">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
           <folding>
             <element signature="e#24#48#0" expanded="true" />
           </folding>

@@ -17,10 +17,10 @@
 
         {{competence.description}}
 
-             <h3 class="my-4"> Ressources </h3> <br />
+          <br />
 
             {% if courss %}
-            <h4 class="my-4"> Cours </h4>
+            <h3 class="my-4"> Cours </h3>
             {% endif %}
           <table id="cours" class="table">
 
@@ -35,7 +35,7 @@
                 {% endfor %}
            </table>
           {% if tds %}
-          <h2 class="my-4"> Travaux Dirigés </h2>
+          <h3 class="my-4"> Travaux Dirigés </h3>
            {% endif %}
           <table id="td" class="table">
                {% for td in tds %}
@@ -49,7 +49,7 @@
                 {% endfor %}
            </table>
                 {% if tps %}
-                    <h2 class="my-4"> Travaux Pratiques </h2>
+                    <h3 class="my-4"> Travaux Pratiques </h3>
 
           <table id="tp" class="table">
                {% for tp in tps %}
@@ -65,7 +65,7 @@
 
            </table>
 
-                    <h2 class="my-4"> Kholes </h2>
+                    <h3 class="my-4"> Kholes </h3>
 
           <table id="khole" class="table">
                {% for khole in kholes %}

@@ -3,10 +3,12 @@
 from django import forms
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
 from django.contrib.auth import authenticate, logout, login
-from .models import Utilisateur, sequence, cours, famille_competence, competence, cours, td, tp, khole, Note, Etudiant
+from .models import Utilisateur, sequence, cours, famille_competence, competence, cours, td, tp, khole, Note, Etudiant, langue_vivante
+from quiz.models import Quiz
 from django.utils import timezone
 from django.db.models import Sum, Avg, Func
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 
 import datetime
@@ -24,54 +26,26 @@ def rentree_scolaire():
 
 
 def index(request):
-    if 'logged_user_id' in request.session:
-        logged_user_id=request.session['logged_user_id']
-        logged_user=Utilisateur.objects.get(id=logged_user_id)
-        return render(request,'index.html', {'logged_user':logged_user})
-    else:
-        return render(request,'index.html')
+    return render(request,'index.html')
 
-def get_user_by_mail(mail):
-    try:
-        return Utilisateur.objects.get(email=mail)
-    except Utilisateur.DoesNotExist:
-        return None
-
-def get_mail_by_username(username):
-    try:
-        return Utilisateur.objects.get(username=username).email
-    except Utilisateur.DoesNotExist:
-        return None
-
-class LoginForm(forms.Form):
-    login = forms.CharField(label='Mail/Username:')
-    password = forms.CharField(label='Mot de passe:', widget = forms.PasswordInput)
-
-    def clean(self):
-        cleaned_data=super(LoginForm, self).clean()
-        login=cleaned_data.get("login")
-        password = cleaned_data.get("password")
-        login_by_mail=get_user_by_mail(login)
-        if login_by_mail !=None:
-            username=login_by_mail
-        else:
-            username=login
-            cleaned_data['login']=get_mail_by_username(login)
-
-        if username and password:
-            user = authenticate(username=username, password=password)
-            if user is None:
-                raise forms.ValidationError("Adresse mail ou mot de passe érroné(e).")
-
-        return cleaned_data
-
-
-def simple_upload(request):
+def upload_eleves(request):
     if request.method == 'POST':
-        new_persons = request.FILES['myfile']
-        imported_data = new_persons.read().decode("utf-8")
-        lignes = imported_data.split("\n")
-        print(imported_data)
+        if 'upload_eleves' in request.POST:
+            new_persons = request.FILES['myfile']
+            imported_data = new_persons.read().decode("utf-8")
+            lignes = imported_data.split("\n")
+            for ligne1 in lignes[1:-1]:
+                ligne=ligne1.split(',')
+                print(ligne)
+                user = Utilisateur.objects.create_user(username=ligne[3], email=ligne[3], first_name=ligne[2], last_name=ligne[1], password=ligne[2]+ligne[1], is_student=True)
+                etudiant = Etudiant(user=user, annee='PTSI', lv1=langue_vivante.objects.get(langue='Anglais'))
+                etudiant.save()
+        elif 'upload_ds' in request.POST:
+            new_persons = request.FILES['myfile']
+            imported_data = new_persons.read().decode("iso8859-1")
+            lignes = imported_data.split("\n")
+            print(imported_data[0])
+        return render(request, 'simple_upload.html',{'done': True})
     return render(request, 'simple_upload.html')
 
 def lister_ressources(request):
@@ -84,7 +58,8 @@ def afficher_sequence(request, id_sequence):
     tds=td.objects.filter(sequence=id_sequence)
     tps=tp.objects.filter(sequence=id_sequence)
     kholes=khole.objects.filter(sequence=id_sequence)
-    return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':tps,'kholes':kholes})
+    quizzes=Quiz.objects.filter(category=id_sequence)
+    return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':tps,'kholes':kholes,'quizzes':quizzes,})
 
 def lister_competences(request):
     competences=famille_competence.objects.all()
@@ -157,12 +132,40 @@ def resultats_quizz(request):
     }
     return render(request, 'resultats_quizz.html', context)
 
-def resultats(request, id_etudiant):
-    donnees=Sitting.objects.all()
+def ds_eleve(request, id_etudiant):
+    notes_ds=Note.objects.filter(etudiant=id_etudiant).values('id','ds__numero','value','ds').order_by('ds','id')
+    liste_ds=[]
+    ds=["DS%02d" % (notes_ds[0]['ds__numero'])]
+    note=[]
+    max_nb_note=0
+    for notes in notes_ds:
+        if "DS%02d" % (notes['ds__numero'])!=ds[0]:
+            if   len(note)>max_nb_note:
+                max_nb_note=len(note)
+            ds.append(note[:-1])
+            ds.append(note[-1])
+            note=[]
+            liste_ds.append(ds)
+            ds=["DS%02d" % (notes['ds__numero'])]
+        if float(notes['value'])==9.0:
+            note.append('X')
+        else:
+            note.append(float(notes['value']))
+    nb_note=range(max_nb_note)[1:]
     context = {
-        'chart': ResultatsCharts(id_etudiant), 'chart2': RadarChart(), 'general': True, 'donnees':donnees,
+        'chart': DetailsCharts(id_etudiant), 'liste_ds': liste_ds, 'nb_note': nb_note, 'ds': True,
     }
     return render(request, 'resultats.html', context)
+
+def resultats(request, id_etudiant):
+    print(id_etudiant, request.user.id)
+    if request.user.is_teacher or (request.user.is_student and request.user.id==id_etudiant):
+        context = {
+            'chart': ResultatsCharts(id_etudiant), 'chart2': RadarChart(), 'general': True,
+        }
+        return render(request, 'resultats.html', context)
+    else:
+        return render(request, '/index')
 
 def details(request, id_etudiant):
     context = {
@@ -312,3 +315,37 @@ def gestion_ds(request):
 
 def relative_url_view(request, year, month, day, ext, nom):
     return redirect('/static/upload/'+year+'/'+month+'/'+day+'/'+nom+'.'+ext)
+
+
+from .forms import ContactForm
+
+def contact(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ContactForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            sender = form.cleaned_data['sender']
+            cc_myself = form.cleaned_data['cc_myself']
+
+            recipients = ['info@example.com']
+            if cc_myself:
+                recipients.append(sender)
+
+            send_mail(subject, message, sender, recipients)
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        if request.user.is_authenticated:
+            form = ContactForm(initial={'sender': request.user.email})
+        else:
+            form = ContactForm()
+    return render(request, 'contact.html', {'form': form,'thanks': False })
+
+
+def thanks(request):
+    return render(request, 'contact.html', {'thanks': True})

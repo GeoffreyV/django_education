@@ -14,22 +14,22 @@
         <!-- Slide One - Set the background image for this slide in the line below -->
         <div class="carousel-item active" style="background-image: url('{% static "img/Slide1.JPG" %}')">
           <div class="carousel-caption d-none d-md-block">
-            <h3>First Slide</h3>
-            <p>This is a description for the first slide.</p>
+            <h3>Sciences de l'Ingénieur en CPGE</h3>
+            <p>Ressources pour l'étude des SI en CPGE</p>
           </div>
         </div>
         <!-- Slide Two - Set the background image for this slide in the line below -->
         <div class="carousel-item" style="background-image: url('{% static "img/Slide2.JPG" %}')">
           <div class="carousel-caption d-none d-md-block">
-            <h3>Second Slide</h3>
-            <p>This is a description for the second slide.</p>
+            <h3>La PTSI/PT du Lycée Dorian (75011)</h3>
+            <p>Infos et actualités sur le <a href="https://www.lycee-dorian.fr/">site</a> du lycée</p>
           </div>
         </div>
         <!-- Slide Three - Set the background image for this slide in the line below -->
         <div class="carousel-item" style="background-image: url('{% static "img/Slide3.JPG" %}')">
           <div class="carousel-caption d-none d-md-block">
-            <h3>Third Slide</h3>
-            <p>This is a description for the third slide.</p>
+            <h3>L'organisation par compétences</h3>
+            <p>Ce site propose les ressources par compétences et permet leur évaluation.</p>
           </div>
         </div>
       </div>
@@ -46,47 +46,43 @@
 
 {% endblock %}
 
-{% block titre_page %}Welcome {% if logged_user %}{{user}}{% endif %} {% endblock %}
+{% block titre_page %}Bienvenue {% if user %}{{user.first_name}}{% endif %} {% endblock %}
 
 {% block content1 %}
 <!-- Page Content -->
-
-    {% if logged_user %}
-    <p>Bienvenue {{logged_user.first_name}}  {{logged_user.last_name}}, sur mon site.</p>
-    {% endif %}
 
     <!-- Marketing Icons Section -->
     <div class="row">
         <div class="col-lg-4 mb-4">
             <div class="card h-100">
-                <h4 class="card-header">Card Title</h4>
+                <h4 class="card-header">Ressources SI et Info</h4>
                 <div class="card-body">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                    <p class="card-text">Des ressources sont disponibles pour le programmme de SI et d'informatique pour la classe de PTSI.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Learn More</a>
+                    <a href="/ressources" class="btn btn-primary">En savoir plus</a>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 mb-4">
             <div class="card h-100">
-                <h4 class="card-header">Card Title</h4>
+                <h4 class="card-header">GitHub</h4>
                 <div class="card-body">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>
+                    <p class="card-text">Les sources <span class="latex">L<sup>A</sup>T<sub>E</sub>X</span> des ressources sont disponibles sur mon compte GitHub..</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Learn More</a>
+                    <a href="https://github.com/Costadoat" class="btn btn-primary">En savoir plus</a>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 mb-4">
             <div class="card h-100">
-                <h4 class="card-header">Card Title</h4>
+                <h4 class="card-header">Creative Commons</h4>
                 <div class="card-body">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                    <p class="card-text">Les ressources de ce site sont sous licence Creative Commons. Cette licence permet aux autres de distribuer, remixer, arranger, et adapter votre œuvre, même à des fins commerciales. </p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Learn More</a>
+                    <a href="https://creativecommons.org/licenses/by/4.0/" class="btn btn-primary">En savoir plus</a>
                 </div>
             </div>
         </div>
@@ -96,21 +92,17 @@
     <!-- Features Section -->
     <div class="row">
         <div class="col-lg-6">
-            <h2>Modern Business Features</h2>
-            <p>The Modern Business template by Start Bootstrap includes:</p>
+            <h2>Gestion des compétences</h2>
+            <p>Plusieurs moyens sont mis en oeuvre pour travailler par compétences :</p>
             <ul>
-                <li>
-                    <strong>Bootstrap v4</strong>
-                </li>
-                <li>jQuery</li>
-                <li>Font Awesome</li>
-                <li>Working contact form with validation</li>
-                <li>Unstyled page elements for easy customization</li>
+                <li>Classement des ressources par compétences</li>
+                <li><strong>Evaluation</strong> des compétences par famille</li>
+                <li><strong>Evaluation</strong> détaillé des compétences</li>
             </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
+            <p>Il est important de détecter et de travailler plus spécifiquement ses points faibles.</p>
         </div>
         <div class="col-lg-6">
-            <img class="img-fluid rounded" src="http://placehold.it/700x450" alt="">
+            <img class="img-fluid rounded" src="{% static 'img/eval_competence.png' %}" alt="">
         </div>
     </div>
     <!-- /.row -->
@@ -120,10 +112,10 @@
     <!-- Call to Action Section -->
     <div class="row mb-4">
         <div class="col-md-8">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
+            <p> En cas de question ou pour apprendre à utiliser ce site, ne pas hésiter à utiliser le formulaire de contact. </p>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-lg btn-secondary btn-block" href="#">Call to Action</a>
+            <a class="btn btn-lg btn-secondary btn-block" href="/contact">Contact</a>
         </div>
     </div>
 

@@ -6,9 +6,11 @@
 {% block title %}Liste des séquences{% endblock %}
 {% block bodyId %}sequencePage{% endblock %}
 
-{% block titre_page %}Résultats de {% for etudiant_selected in chart.get_etudiant_note %} {{etudiant_selected.user__last_name}} {{etudiant_selected.user__first_name}} {% endfor %}{% endblock %}
+{% block titre_page %}Résultats {% if user.is_teacher %} de {% for etudiant_selected in chart.get_etudiant_note %} {{etudiant_selected.user__last_name}} {{etudiant_selected.user__first_name}} {% endfor %}{% endif %}{% endblock %}
 
 {% block content1 %}
+
+{% if user.is_teacher %}
 
 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" id = "etudiant" onchange="location = this.value;">
     {% for etudiant_selected in chart.get_etudiant_note %}
@@ -28,10 +30,26 @@
     <a class="nav-link  {% if details %}active{% endif %} " href="/resultats/{{etudiant_selected.user}}/details/">Détails</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">DS</a>
+    <a class="nav-link  {% if ds %}active{% endif %} " href="/resultats/{{etudiant_selected.user}}/ds/">DS</a>
   </li>
 </ul>
     {% endfor %}
+
+{% elif user.is_student %}
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link  {% if general %}active{% endif %} " href="/resultats/{{user.id}}/">Général</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link  {% if details %}active{% endif %} " href="/resultats/{{user.id}}/details/">Détails</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link  {% if ds %}active{% endif %} " href="/resultats/{{user.id}}/ds/">DS</a>
+  </li>
+</ul>
+
+    {% endif %}
 
       {% if details %}
     <p> Résultats pour chaque compétences </p>
@@ -65,6 +83,39 @@
       {{ chart.as_html }}
     </div>
   </div>
+        {% elif ds %}
+
+    <p> Résultats pour chaque DS </p>
+
+<div class="table-responsive">
+      <table class="table">
+           <thead>
+
+                <tr>
+                  <th  class="text-center" scope="col">DS</th>
+                  <th  class="text-center" scope="col">Note</th>
+                  <th colspan="{{nb_note|last}}">Notes par question</th>
+                </tr>
+               <tr>
+                  <td class='text-right' colspan="2"></td>
+                    {% for i in nb_note %}
+                  <td  class="text-center" scope="col">{{i}}</td>
+                    {% endfor %}
+                </tr>
+              </thead>
+           <tbody>
+            {% for ds in liste_ds %}
+                <tr>
+                    <td class="text-center">{{ds.0}}</td>
+                    <td class="text-center">{{ds.2}}</td>
+                    {% for note in ds.1 %}
+                        <td class="text-center">{{note}}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+    </div>
 
         {% endif %}
 
