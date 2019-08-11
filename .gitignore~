@@ -10,6 +10,7 @@ $RECYCLE.BIN/
 local_settings.pu
 uploads/
 venv/
+migrations/
 
 # Windows Installer files
 *.cab
