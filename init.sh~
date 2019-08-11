@@ -1,5 +1,0 @@
-rm -rf db.sqlite3
-python manage.py makemigrations
-python manage.py migrate --run-syncdb
-python manage.py createsuperuser --username=renaud --email=costadoat@crans.org --last_name=Costadoat --first_name=Renaud
-sqlite3 db.sqlite3 '.read data/init.sql'

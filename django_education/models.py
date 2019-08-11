@@ -7,8 +7,8 @@ github='https://github.com/Costadoat/S'
 
 class sequence(models.Model):
     numero = models.IntegerField()
-    nom = models.CharField(max_length=15)
-    description = models.CharField(max_length=150)
+    nom = models.CharField(max_length=35)
+    description = models.CharField(max_length=500)
     def __str__(self):
         return "%02d" % self.numero+' '+self.nom
     def str_numero(self):
@@ -18,13 +18,13 @@ class sequence(models.Model):
 
 class sequence_info(models.Model):
     numero = models.IntegerField()
-    nom = models.CharField(max_length=15)
-    description = models.CharField(max_length=150)
+    nom = models.CharField(max_length=35)
+    description = models.CharField(max_length=500)
     def __str__(self):
         return str(self.numero)+' '+self.nom
 
 class filiere_prepa(models.Model):
-    sigle=models.CharField(max_length=15)
+    sigle=models.CharField(max_length=35)
     nom = models.CharField(max_length=50)
     def __str__(self):
         return self.sigle
@@ -32,7 +32,7 @@ class filiere_prepa(models.Model):
             ordering = ['id']
 
 class ecole(models.Model):
-    sigle=models.CharField(max_length=15)
+    sigle=models.CharField(max_length=35)
     nom = models.CharField(max_length=50)
 
 class concours(models.Model):
@@ -44,10 +44,10 @@ class sujet(models.Model):
     annee = models.DateField()
 
 class systeme(models.Model):
-    nom = models.CharField(max_length=15)
-    description = models.CharField(max_length=150)
-    img = models.CharField(max_length=20)
-    sujet = models.OneToOneField('sujet', on_delete=models.PROTECT, null=True, blank=True)
+    nom = models.CharField(max_length=35)
+    description = models.CharField(max_length=500)
+    img = models.CharField(max_length=30)
+    sujet = models.OneToOneField(sujet, on_delete=models.PROTECT, null=True, blank=True)
     def __str__(self):
         return self.nom
     class Meta:
@@ -55,8 +55,8 @@ class systeme(models.Model):
 
 class famille_competence(models.Model):
     reference = models.CharField(max_length=10)
-    nom = models.CharField(max_length=15)
-    description = models.CharField(max_length=150)
+    nom = models.CharField(max_length=35)
+    description = models.CharField(max_length=500)
     def __str__(self):
         return str(self.reference)+' '+self.nom
     def image(self):
@@ -66,8 +66,8 @@ class competence(models.Model):
     famille=models.ForeignKey(famille_competence, on_delete=models.CASCADE)
     parent = models.ManyToManyField('self')
     reference = models.CharField(max_length=10)
-    nom = models.CharField(max_length=15)
-    description = models.CharField(max_length=150)
+    nom = models.CharField(max_length=100)
+    description = models.CharField(max_length=500)
     semestre = models.IntegerField()
     active = models.BooleanField()
     def __str__(self):
@@ -79,8 +79,8 @@ class ressource(models.Model):
     competence = models.ManyToManyField(competence)
     sequence = models.IntegerField()
     numero = models.IntegerField()
-    nom = models.CharField(max_length=15)
-    description = models.CharField(max_length=150)
+    nom = models.CharField(max_length=35)
+    description = models.CharField(max_length=500)
     systeme = models.ManyToManyField('systeme')
     def str_numero(self):
         return "%02d" % self.numero
@@ -162,8 +162,8 @@ class khole(ressource):
 class ressource_info(models.Model):
     sequence = models.IntegerField()
     numero = models.IntegerField()
-    nom = models.CharField(max_length=15)
-    description = models.CharField(max_length=150)
+    nom = models.CharField(max_length=35)
+    description = models.CharField(max_length=500)
 
 class cours_info(ressource_info):
     prerequis=models.ManyToManyField('self')
@@ -183,7 +183,7 @@ class matiere(models.Model):
 
 
 class langue_vivante(matiere):
-    langue=models.CharField(max_length=15)
+    langue=models.CharField(max_length=35)
     def __str__(self):
         return self.langue
     class Meta:

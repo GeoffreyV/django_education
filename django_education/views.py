@@ -96,21 +96,6 @@ class LineChart(Chart):
                         data=[28, 48, 40, 19, 96, 27, 100])]
 
 
-
-class RadarChart(Chart):
-    chart_type = 'radar'
-
-    def get_labels(self):
-        return ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"]
-
-    def get_datasets(self, **kwargs):
-        return [DataSet(label="My First dataset",
-                        color=(179, 181, 198),
-                        data=[65, 59, 90, 81, 56, 55, 40]),
-                DataSet(label="My Second dataset",
-                        color=(255, 99, 132),
-                        data=[28, 48, 40, 19, 96, 27, 100])]
-
 def chart(request):
     context = {
         'radar_chart': LineChart(),
@@ -158,10 +143,9 @@ def ds_eleve(request, id_etudiant):
     return render(request, 'resultats.html', context)
 
 def resultats(request, id_etudiant):
-    print(id_etudiant, request.user.id)
     if request.user.is_teacher or (request.user.is_student and request.user.id==id_etudiant):
         context = {
-            'chart': ResultatsCharts(id_etudiant), 'chart2': RadarChart(), 'general': True,
+            'chart': ResultatsCharts(id_etudiant), 'general': True,
         }
         return render(request, 'resultats.html', context)
     else:
@@ -180,7 +164,14 @@ class Round(Func):
 class ResultatsCharts(Chart):
 
     chart_type = 'radar'
+    options = {
+        'scale': {'ticks': {
+                'suggestedMin': 0,
+                'suggestedMax': 5,
+                'stepSize': 1,
 
+            }}
+    }
     def __init__(self, id_etudiant):
         Chart.__init__(self)
         self.etudiants = Etudiant.objects.filter(user__date_joined__gte=rentree_scolaire()).values('user','user__last_name', 'user__first_name')
@@ -208,6 +199,18 @@ class ResultatsCharts(Chart):
                 index+=1
             self.notes_eleve.append(note['moyenne'])
             index+=1
+
+    def get_options(self):
+        options = {
+            "scale": {
+                "display": False,
+                "ticks": {
+                    "minDataValue": 0,
+                    "maxDataValue": 5
+                }
+            }
+        }
+        return options
 
     def get_notes_glob(self):
         return zip(self.liste_label,self.notes_eleve,self.notes_classe)
@@ -275,43 +278,6 @@ class DetailsCharts(Chart):
                 DataSet(label="Classe",
                         color=(179, 181, 198),
                         data=self.notes_classe)]
-
-
-def compte(request):
-    context = {
-        'radar_chart': LineChart(),
-    }
-    return render(request, 'compte.html', context)
-
-def mes_quizzes(request):
-    context = {
-        'radar_chart': LineChart(),
-    }
-    return render(request, 'mes_quizzes.html', context)
-
-def mes_ds(request):
-    context = {
-        'radar_chart': LineChart(),
-    }
-    return render(request, 'resultats_ds.html', context)
-
-def quizzes_etudiants(request):
-    context = {
-        'radar_chart': LineChart(),
-    }
-    return render(request, 'quizzes_etudiants.html', context)
-
-def documents(request):
-    context = {
-        'radar_chart': LineChart(),
-    }
-    return render(request, 'documents.html', context)
-
-def gestion_ds(request):
-    context = {
-        'radar_chart': LineChart(),
-    }
-    return render(request, 'gestion_ds.html', context)
 
 def relative_url_view(request, year, month, day, ext, nom):
     return redirect('/static/upload/'+year+'/'+month+'/'+day+'/'+nom+'.'+ext)
