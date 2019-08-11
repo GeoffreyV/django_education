@@ -17,6 +17,7 @@ migrations/
 *.msi
 *.msm
 *.msp
+*~
 
 # Fichiers Latex
 *.aux
