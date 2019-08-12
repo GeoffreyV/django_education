@@ -60,7 +60,7 @@ class famille_competence(models.Model):
     def __str__(self):
         return str(self.reference)+' '+self.nom
     def image(self):
-        return self.nom.lower().replace('é','e')+'.jpg'
+        return self.nom.lower().replace('é','e')+'.jp2'
 
 class competence(models.Model):
     famille=models.ForeignKey(famille_competence, on_delete=models.CASCADE)
