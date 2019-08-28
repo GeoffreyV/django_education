@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'gunicorn'
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.free.fr'
+EMAIL_PORT = 25
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

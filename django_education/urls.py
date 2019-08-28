@@ -6,7 +6,7 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 
 from .views import index, upload_eleves,\
-    lister_ressources, afficher_sequence, lister_competences, afficher_famille_competence,  afficher_competence, chart,\
+    lister_ressources_si, afficher_sequence_si, lister_ressources_info, afficher_sequence_info, lister_competences, afficher_famille_competence,  afficher_competence, chart,\
     relative_url_view, resultats, resultats_vierge, details, ds_eleve, \
     resultats_quizz, contact, thanks
 
@@ -21,8 +21,10 @@ urlpatterns = [
         auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'),
         name='password_change'
     ),
-    url('^ressources', lister_ressources),
-    path('sequence/<int:id_sequence>/', afficher_sequence),
+    path('si/<int:id_sequence>/', afficher_sequence_si),
+    path('info/<int:id_sequence>/', afficher_sequence_info),
+    url('^si/', lister_ressources_si),
+    url('^info/', lister_ressources_info),
     url('^competences', lister_competences),
     path('competence/<int:id_famille>/', afficher_famille_competence),
     path('competence/<int:id_famille>/<int:id_competence>/', afficher_competence),

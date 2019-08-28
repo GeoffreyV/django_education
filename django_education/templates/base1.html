@@ -41,18 +41,24 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/ressources">Ressources</a>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle dropbtn" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ressources
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-content" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="/si/">Sciences Ingénieur</a>
+              <a class="dropdown-item" href="/info/">Informatique</a>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/competences">Compétences</a>
           </li>
           {% if user.is_student %}
                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle dropbtn" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ user.last_name }} {{ user.first_name }}
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <div class="dropdown-menu dropdown-menu-right dropdown-content" aria-labelledby="navbarDropdownPortfolio">
                   <a class="dropdown-item" href="/password-change/">Mot de passe</a>
                   <a class="dropdown-item" href="/q">Mes quizzes</a>
                   <a class="dropdown-item" href="/resultats/{{user.id}}/">Résultats des DS</a>
@@ -61,10 +67,10 @@
               </li>
                   {% elif user.is_teacher %}
                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle dropbtn" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ user.last_name }} {{ user.first_name }}
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <div class="dropdown-menu dropdown-menu-right dropdown-content" aria-labelledby="navbarDropdownPortfolio">
                   <a class="dropdown-item" href="/password-change/">Mot de passe</a>
                   <a class="dropdown-item" href="/resultats_quizz">Statistiques</a>
                   <a class="dropdown-item" href="/resultats/">Résultats</a>

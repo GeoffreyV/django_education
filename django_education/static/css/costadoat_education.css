@@ -344,3 +344,38 @@ input[type=text]:placeholder {
 #icon {
   width:60%;
 }
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+
+ressources {
+  width: 100%;
+  table-layout: fixed;
+}
+.five {
+  width: 5%;
+}
+.ten {
+  width: 10%;
+}
+.seventyfive {
+  width: 75%;
+}
+
+sequences {
+  width: 100%;
+  table-layout: fixed;
+}
+.five {
+  width: 5%;
+}
+.ninety {
+  width: 90%;
+}

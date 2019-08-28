@@ -6,6 +6,19 @@
 
 {% block content1 %}
 
+{% if thanks %}
+
+<div class="card">
+  <div class="card-body">
+    <p> Votre message a bien été envoyé. </p>
+  </div>
+</div>
+
+<br>
+
+    <a href="/" ><button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour </button></a>
+{% else %}
+
 <div class="card">
   <div class="card-body">
     <p> N'hésitez pas à envoyer un message si vous avez la moindre question sur une ressource, un exercice ou sur le fonctionnement du site. </p>
@@ -22,6 +35,7 @@
     <input type="submit" value="Envoyer">
 </form>
 
+{% endif %}
 
 
 {% endblock %}
