@@ -62,7 +62,8 @@ def afficher_sequence_si(request, id_sequence):
     tds=td.objects.filter(sequence=id_sequence)
     tps=tp.objects.filter(sequence=id_sequence)
     kholes=khole.objects.filter(sequence=id_sequence)
-    quizzes=Quiz.objects.filter(category=id_sequence)
+    quizzes=Quiz.objects.filter(category__category="SI-S%02d" % id_sequence)
+    print("SI-I%02d" % id_sequence)
     return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':tps,'kholes':kholes,'quizzes':quizzes,'si':True})
 
 
@@ -71,7 +72,7 @@ def afficher_sequence_info(request, id_sequence):
     courss=cours_info.objects.filter(sequence=id_sequence)
     tds=td_info.objects.filter(sequence=id_sequence)
     tps=tp_info.objects.filter(sequence=id_sequence)
-    quizzes=Quiz.objects.filter(category=id_sequence)
+    quizzes=Quiz.objects.filter(category__category="Info-S%02d" % id_sequence)
     return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':tps,'quizzes':quizzes,'info':True})
 
 

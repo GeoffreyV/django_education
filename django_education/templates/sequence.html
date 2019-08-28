@@ -44,8 +44,9 @@
             <table id="quizzes" class="table ressources">
                 {% for quiz in quizzes %}
                     <tr>
+                        <td class="ten"><span style="text-transform:uppercase">{{quiz.url}}</span></td>
                         <td class="seventyfive">{{quiz.title}}</td>
-                        <td> <a href="/q/{{quiz.url}}"><i class="fas fa-check-square"></i></a></td>
+                        <td class="fifteen"> <a href="/q/{{quiz.url}}"><i class="fas fa-check-square"></i></a></td>
                     </tr>
                 {% endfor %}
            </table>
