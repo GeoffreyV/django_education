@@ -28,7 +28,7 @@ urlpatterns = [
     url('^competences', lister_competences),
     path('competence/<int:id_famille>/', afficher_famille_competence),
     path('competence/<int:id_famille>/<int:id_competence>/', afficher_competence),
-    url('^q/quizz01/take/uploads/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/(?P<nom>[\w-]+).(?P<ext>[\w-]+)', relative_url_view),
+    path('q/<str:nomquiz>/<str:action>/uploads/<str:year>/<str:month>/<str:day>/<str:nom>.<str:ext>', relative_url_view),
     path('resultats/<int:id_etudiant>/ds/', ds_eleve),
     path('resultats/<int:id_etudiant>/details/', details),
     url('^resultats/details/', details),

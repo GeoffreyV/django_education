@@ -302,8 +302,8 @@ class DetailsCharts(Chart):
                         data=self.notes_classe)]
 
 
-def relative_url_view(request, year, month, day, ext, nom):
-    return redirect('/static/upload/'+year+'/'+month+'/'+day+'/'+nom+'.'+ext)
+def relative_url_view(request, nomquiz, action, year, month, day, ext, nom):
+    return redirect('/static/uploads/'+year+'/'+month+'/'+day+'/'+nom+'.'+ext)
 
 
 def contact(request):
