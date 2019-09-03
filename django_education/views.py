@@ -34,8 +34,9 @@ def upload_eleves(request):
             lignes = imported_data.split("\n")
             for ligne1 in lignes[1:-1]:
                 ligne=ligne1.split(',')
-                print(ligne)
-                user = Utilisateur.objects.create_user(username=ligne[3], email=ligne[3], first_name=ligne[2], last_name=ligne[1], password=ligne[2]+ligne[1], is_student=True)
+                #La façon dont sont générés les mots de passe est disponible en ligne, il faut donc absolument les modifier.
+                user = Utilisateur.objects.create_user(username=ligne[3], email=ligne[3], first_name=ligne[2], last_name=ligne[1], \
+                                                       password=ligne[2][0].lower()+ligne[1].split('-')[0][0:5].lower(), is_student=True)
                 etudiant = Etudiant(user=user, annee='PTSI', lv1=langue_vivante.objects.get(langue='Anglais'))
                 etudiant.save()
         elif 'upload_ds' in request.POST:
