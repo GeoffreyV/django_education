@@ -126,11 +126,28 @@ class ressource(models.Model):
         return "%02d" % self.numero
 
 
-def url(self,matiere,lien,type):
-    if matiere=='si':
+def url(self,matiere,lien,type,ilot):
+    if matiere=='si' and ilot==0:
         dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.sequence.numero) + ' ' + \
           self.sequence.nom + '/' + type + ("%02d" % self.numero) \
           + " " + self.nom + "/"
+        if lien == 'git':
+           return dossier
+        elif lien == 'pdf':
+            return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + ".pdf"
+        elif lien == 'prive':
+            return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + "_prive.pdf"
+    elif matiere=='si' and ilot!=0:
+        dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.sequence.numero) + ' ' + \
+          self.sequence.nom + '/' + type + ("%02d" % self.numero) \
+          + " " + self.nom + '/Ilot_' + ("%02d" % ilot) + " " + str(self.nom_ilot()) + '/'
+        if lien == 'git':
+           return dossier
+        elif lien == 'pdf':
+            return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + '-I' + "%02d" % ilot + ".pdf"
+        elif lien == 'prive':
+            return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + '-I' + "%02d" % ilot + "_prive.pdf"
+
     else:
         if type == 'C':
             nom_type = 'Cours'
@@ -138,12 +155,12 @@ def url(self,matiere,lien,type):
             nom_type = type
         dossier = github + 'Informatique/raw/master/' + nom_type + '/' + type + ("%02d" % self.numero) \
           + " " + self.nom + "/"
-    if lien == 'git':
-        return dossier
-    elif lien == 'pdf':
-        return dossier + 'I-' + type + ("%02d" % self.numero) + ".pdf"
-    elif lien == 'prive':
-        return dossier + 'I-' + type + ("%02d" % self.numero) + "_prive.pdf"
+        if lien == 'git':
+            return dossier
+        elif lien == 'pdf':
+            return dossier + 'I-' + type + ("%02d" % self.numero) + ".pdf"
+        elif lien == 'prive':
+            return dossier + 'I-' + type + ("%02d" % self.numero) + "_prive.pdf"
 
 
 class cours(ressource):
@@ -158,13 +175,13 @@ class cours(ressource):
         ordering = ['sequence', 'numero']
 
     def url_pdf(self):
-        return url(self,"si","pdf","C")
+        return url(self,"si","pdf","C",0)
 
     def url_prive(self):
-        return url(self,"si","prive","C")
+        return url(self,"si","prive","C",0)
 
     def url_git(self):
-        return url(self,"si","git","C")
+        return url(self,"si","git","C",0)
 
 
 class td(ressource):
@@ -179,13 +196,13 @@ class td(ressource):
         ordering = ['sequence', 'numero']
 
     def url_pdf(self):
-        return url(self,"si","pdf","TD")
+        return url(self,"si","pdf","TD",0)
 
     def url_prive(self):
-        return url(self,"si","prive","TD")
+        return url(self,"si","prive","TD",0)
 
     def url_git(self):
-        return url(self,"si","git","TD")
+        return url(self,"si","git","TD",0)
 
 
 class tp(ressource):
@@ -205,15 +222,15 @@ class tp(ressource):
 
     class Meta:
         ordering = ['sequence', 'numero']
-
+    print(ilot)
     def url_pdf(self):
-        return url(self,"si","pdf","TP")
+        return url(self,"si","pdf","TP",self.ilot)
 
     def url_prive(self):
-        return url(self,"si","prive","TP")
+        return url(self,"si","prive","TP",self.ilot)
 
     def url_git(self):
-        return url(self,"si","git","TP")
+        return url(self,"si","git","TP",self.ilot)
 
 
 class khole(ressource):
@@ -228,13 +245,13 @@ class khole(ressource):
         ordering = ['sequence', 'numero']
 
     def url_pdf(self):
-        return url(self,"si","pdf","KH")
+        return url(self,"si","pdf","KH",0)
 
     def url_prive(self):
-        return url(self,"si","prive","KH")
+        return url(self,"si","prive","KH",0)
 
     def url_git(self):
-        return url(self,"si","git","KH")
+        return url(self,"si","git","KH",0)
 
 
 class ressource_info(models.Model):
