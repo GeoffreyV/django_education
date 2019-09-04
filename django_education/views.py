@@ -323,7 +323,7 @@ def contact(request):
             if cc_myself:
                 recipients.append(sender)
             if subject and message and sender:
-                send_mail(subject, message, sender, recipients)
+                send_mail('[Costadoat.fr] '+subject, message, sender, recipients)
                 return HttpResponseRedirect('/thanks/')
 
     # if a GET (or any other method) we'll create a blank form
