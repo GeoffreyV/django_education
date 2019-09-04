@@ -29,6 +29,7 @@ urlpatterns = [
     path('competence/<int:id_famille>/', afficher_famille_competence),
     path('competence/<int:id_famille>/<int:id_competence>/', afficher_competence),
     path('q/<str:nomquiz>/<str:action>/uploads/<str:year>/<str:month>/<str:day>/<str:nom>.<str:ext>', relative_url_view),
+    path('admin/multichoice/mcquestion/<str:nomquiz>/<str:action>/uploads/<str:year>/<str:month>/<str:day>/<str:nom>.<str:ext>', relative_url_view),
     path('resultats/<int:id_etudiant>/ds/', ds_eleve),
     path('resultats/<int:id_etudiant>/details/', details),
     url('^resultats/details/', details),

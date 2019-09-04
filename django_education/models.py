@@ -276,13 +276,13 @@ class cours_info(ressource_info):
         ordering = ['sequence', 'numero']
 
     def url_pdf(self):
-        return url(self,"info","pdf","C")
+        return url(self,"info","pdf","C",0)
 
     def url_prive(self):
-        return url(self,"info","prive","C")
+        return url(self,"info","prive","C",0)
 
     def url_git(self):
-        return url(self,"info","git","C")
+        return url(self,"info","git","C",0)
 
 
 class td_info(ressource_info):
@@ -297,13 +297,13 @@ class td_info(ressource_info):
         ordering = ['sequence', 'numero']
 
     def url_pdf(self):
-        return url(self,"info","pdf","TD")
+        return url(self,"info","pdf","TD",0)
 
     def url_prive(self):
-        return url(self,"info","prive","TD")
+        return url(self,"info","prive","TD",0)
 
     def url_git(self):
-        return url(self,"info","git","TD")
+        return url(self,"info","git","TD",0)
 
 
 class tp_info(ressource_info):
@@ -318,13 +318,13 @@ class tp_info(ressource_info):
         ordering = ['sequence', 'numero']
 
     def url_pdf(self):
-        return url(self,"info","pdf","TP")
+        return url(self,"info","pdf","TP",0)
 
     def url_prive(self):
-        return url(self,"info","prive","TP")
+        return url(self,"info","prive","TP",0)
 
     def url_git(self):
-        return url(self,"info","git","TP")
+        return url(self,"info","git","TP",0)
 
 
 class matiere(models.Model):

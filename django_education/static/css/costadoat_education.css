@@ -333,8 +333,6 @@ input[type=text]:placeholder {
   width: 100%;
 }
 
-
-
 /* OTHERS */
 
 *:focus {
@@ -381,4 +379,10 @@ sequences {
 }
 .ninety {
   width: 90%;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #4087c4;
 }
