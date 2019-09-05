@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
 from .models import Utilisateur, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
     td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante
-from quiz.models import Quiz
+from quiz.models import Quiz, Category, Progress
 from django.utils import timezone
 from django.db.models import Sum, Avg, Func
 from django.contrib.auth.decorators import login_required
@@ -124,14 +124,34 @@ def resultats_vierge(request):
     etudiants = Etudiant.objects.filter(user__date_joined__gte=rentree_scolaire()).values('user')[0]['user']
     return redirect('/resultats/'+str(etudiants)+'/')
 
-from quiz.models import Sitting, Progress
-
 @login_required(login_url='/accounts/login/')
 def resultats_quizz(request):
-    sittings=Sitting.objects.all()
-    progresss=Progress.objects.all()
+    #sittings=Sitting.objects.all().order_by('user')
+    eleves=Etudiant.objects.filter(annee='PTSI').select_related('progress').values('user__last_name','user__first_name', 'user__progress__score')
+    categories=Category.objects.all()
+    cats=[]
+    for categorie in categories:
+        cats.append(categorie.category)
+    notes_triees=[]
+    for eleve in eleves:
+        notes=str(eleve['user__progress__score']).split(',')
+        notes_triees_eleve=[['#FFFFFF','-/-'] for i in range(len(cats))]
+        for cat in cats:
+            try:
+                test_col=float(notes[notes.index(cat)+1])/float(notes[notes.index(cat)+2])
+                if test_col<0.3:
+                    color='#f01547'
+                elif test_col >=0.3 and test_col<0.7:
+                    color='#ff5733'
+                elif test_col>=0.7:
+                    color='#3dd614'
+                notes_triees_eleve[notes.index(cat)]=[color,str(notes[notes.index(cat)+1])+'/'+str(notes[notes.index(cat)+2])]
+            except ValueError:
+                thing_index = -1
+        notes_triees.append([eleve['user__last_name'].replace(' "','').replace('" ','').replace('"',''), \
+                             eleve['user__first_name'].replace(' "','').replace('" ','').replace('"',''),notes_triees_eleve])
     context = {
-        'sittings':sittings, 'progresss':progresss,
+    'notes_triees':notes_triees, 'cats':cats
     }
     return render(request, 'resultats_quizz.html', context)
 
@@ -159,6 +179,7 @@ def ds_eleve(request, id_etudiant):
     context = {
         'chart': DetailsCharts(id_etudiant), 'liste_ds': liste_ds, 'nb_note': nb_note, 'ds': True,
     }
+
     return render(request, 'resultats.html', context)
 
 @login_required(login_url='/accounts/login/')
