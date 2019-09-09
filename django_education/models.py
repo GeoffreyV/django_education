@@ -161,7 +161,8 @@ def url(self,matiere,lien,type,ilot):
             return dossier + 'I-' + type + ("%02d" % self.numero) + ".pdf"
         elif lien == 'prive':
             return dossier + 'I-' + type + ("%02d" % self.numero) + "_prive.pdf"
-
+        elif lien == 'python':
+            return dossier + 'Code/I-' + type + ("%02d" % self.numero) + ".py"
 
 class cours(ressource):
 
@@ -182,6 +183,7 @@ class cours(ressource):
 
     def url_git(self):
         return url(self,"si","git","C",0)
+
 
 
 class td(ressource):
@@ -284,6 +286,8 @@ class cours_info(ressource_info):
     def url_git(self):
         return url(self,"info","git","C",0)
 
+    def url_python(self):
+        return url(self,"info","python","C",0)
 
 class td_info(ressource_info):
 
@@ -305,6 +309,9 @@ class td_info(ressource_info):
     def url_git(self):
         return url(self,"info","git","TD",0)
 
+    def url_python(self):
+        return url(self,"info","python","TD",0)
+
 
 class tp_info(ressource_info):
 
@@ -325,6 +332,9 @@ class tp_info(ressource_info):
 
     def url_git(self):
         return url(self,"info","git","TP",0)
+
+    def url_python(self):
+        return url(self,"info","python","TP",0)
 
 
 class matiere(models.Model):

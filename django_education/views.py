@@ -36,7 +36,8 @@ def upload_eleves(request):
                 ligne=ligne1.split(',')
                 #La façon dont sont générés les mots de passe est disponible en ligne, il faut donc absolument les modifier.
                 user = Utilisateur.objects.create_user(username=ligne[3], email=ligne[3], first_name=ligne[2], last_name=ligne[1], \
-                                                       password=ligne[2][0].lower()+ligne[1].split('-')[0][0:5].lower(), is_student=True)
+                                                       password=ligne[2][0].lower()+ligne[1].replace('-','').replace("'","").replace(' ','')[0:5].lower()\
+                                                       , is_student=True)
                 etudiant = Etudiant(user=user, annee='PTSI', lv1=langue_vivante.objects.get(langue='Anglais'))
                 etudiant.save()
         elif 'upload_ds' in request.POST:
@@ -64,7 +65,6 @@ def afficher_sequence_si(request, id_sequence):
     tps=tp.objects.filter(sequence=id_sequence)
     kholes=khole.objects.filter(sequence=id_sequence)
     quizzes=Quiz.objects.filter(category__category="SI-S%02d" % id_sequence)
-    print("SI-I%02d" % id_sequence)
     return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':tps,'kholes':kholes,'quizzes':quizzes,'si':True})
 
 
@@ -203,7 +203,7 @@ class Round(Func):
     function = 'ROUND'
     arity = 2
 
-@login_required(login_url='/accounts/login/')
+
 class ResultatsCharts(Chart):
 
     chart_type = 'radar'
@@ -222,7 +222,7 @@ class ResultatsCharts(Chart):
         notes_glob = Note.objects.filter(etudiant=id_etudiant).exclude(value=9).exclude(competence=0)\
             .values('competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))\
             .order_by('competence__famille__nom')
-        notes_glob_classe = Note.objects.all().exclude(value=9).exclude(competence=0)\
+        notes_glob_classe = Note.objects.filter(etudiant__user__date_joined__gte=rentree_scolaire()).exclude(value=9).exclude(competence=0)\
             .values('competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))\
             .order_by('competence__famille__nom')
 
@@ -281,7 +281,7 @@ class DetailsCharts(Chart):
 
     def __init__(self, id_etudiant):
         Chart.__init__(self)
-        self.etudiants = Etudiant.objects.filter(user__date_joined__gte='2018-09-01').values('user','user__last_name', 'user__first_name')
+        self.etudiants = Etudiant.objects.filter(user__date_joined__gte=rentree_scolaire()).values('user','user__last_name', 'user__first_name')
         self.etudiant_note = Etudiant.objects.filter(user=id_etudiant).values('user','user__last_name', 'user__first_name')
         notes = Note.objects.filter(etudiant=6155).exclude(value=9).exclude(competence=0).values('competence', 'competence__nom', 'competence__reference', 'competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))
         notes_toute_classe = Note.objects.all().exclude(value=9).exclude(competence=0).values('competence', 'competence__nom', 'competence__reference', 'competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))
