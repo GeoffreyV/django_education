@@ -27,16 +27,29 @@ def index(request):
 
 
 def upload_eleves(request):
+
+    def remove_space(nom_init):
+        nom=nom_init
+        while nom[0]==' ':
+            nom=nom[1:]
+        while nom[-1]==' ':
+            nom=nom[:-1]
+        return nom
+
     if request.method == 'POST':
         if 'upload_eleves' in request.POST:
             new_persons = request.FILES['myfile']
             imported_data = new_persons.read().decode("utf-8")
             lignes = imported_data.split("\n")
             for ligne1 in lignes[1:-1]:
-                ligne=ligne1.split(',')
+                ligne=ligne1.split(';')
+                mail=remove_space(ligne[3])
+                nom=remove_space(ligne[1])
+                prenom=remove_space(ligne[2])
                 #La façon dont sont générés les mots de passe est disponible en ligne, il faut donc absolument les modifier.
-                user = Utilisateur.objects.create_user(username=ligne[3], email=ligne[3], first_name=ligne[2], last_name=ligne[1], \
-                                                       password=ligne[2][0].lower()+ligne[1].replace('-','').replace("'","").replace(' ','')[0:5].lower()\
+                user = Utilisateur.objects.create_user(username=mail, email=mail, first_name=prenom, last_name=nom, \
+                                                       password=nom.replace('-','').replace("'","").replace(' ','')[0:6].lower() \
+                                                                +prenom.replace('-','').replace("'","").replace(' ','')[0:2].lower()\
                                                        , is_student=True)
                 etudiant = Etudiant(user=user, annee='PTSI', lv1=langue_vivante.objects.get(langue='Anglais'))
                 etudiant.save()
@@ -64,7 +77,7 @@ def afficher_sequence_si(request, id_sequence):
     tds=td.objects.filter(sequence=id_sequence)
     tps=tp.objects.filter(sequence=id_sequence)
     kholes=khole.objects.filter(sequence=id_sequence)
-    quizzes=Quiz.objects.filter(category__category="SI-S%02d" % id_sequence)
+    quizzes=Quiz.objects.filter(category__category__startswith="SI-S%02d" % id_sequence)
     return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':tps,'kholes':kholes,'quizzes':quizzes,'si':True})
 
 
@@ -127,7 +140,8 @@ def resultats_vierge(request):
 @login_required(login_url='/accounts/login/')
 def resultats_quizz(request):
     #sittings=Sitting.objects.all().order_by('user')
-    eleves=Etudiant.objects.filter(annee='PTSI').select_related('progress').values('user__last_name','user__first_name', 'user__progress__score')
+    eleves=Etudiant.objects.filter(annee='PTSI').select_related('progress')\
+        .values('user__last_name','user__first_name', 'user__progress__score').order_by('user__last_name','user__first_name')
     categories=Category.objects.all()
     cats=[]
     for categorie in categories:
