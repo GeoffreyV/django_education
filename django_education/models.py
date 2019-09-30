@@ -147,7 +147,6 @@ def url(self,matiere,lien,type,ilot):
             return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + '-I' + "%02d" % ilot + ".pdf"
         elif lien == 'prive':
             return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + '-I' + "%02d" % ilot + "_prive.pdf"
-
     else:
         if type == 'C':
             nom_type = 'Cours'

@@ -13,6 +13,7 @@ import datetime
 from jchart import Chart
 from jchart.config import Axes, DataSet, rgba
 
+github='https://github.com/Costadoat/'
 
 def rentree_scolaire():
     rentree = datetime.datetime.now(tz=timezone.utc)
@@ -64,11 +65,13 @@ def upload_eleves(request):
 
 def lister_ressources_si(request):
     sequences=sequence.objects.all()
-    return render(request, 'sequences.html', {'sequences':sequences, 'si':True})
+    dossier_ds = github + 'Sciences-Ingenieur/raw/master/DS/'
+    return render(request, 'sequences.html', {'sequences':sequences, 'dossier_ds':dossier_ds, 'si':True})
 
 def lister_ressources_info(request):
     sequences=sequence_info.objects.all()
-    return render(request, 'sequences.html', {'sequences':sequences, 'info':True})
+    dossier_ds = github + 'Informatique/raw/master/DS/'
+    return render(request, 'sequences.html', {'sequences':sequences, 'dossier_ds':dossier_ds, 'info':True})
 
 
 def afficher_sequence_si(request, id_sequence):
@@ -159,7 +162,7 @@ def resultats_quizz(request):
                     color='#ff5733'
                 elif test_col>=0.7:
                     color='#3dd614'
-                notes_triees_eleve[notes.index(cat)]=[color,str(notes[notes.index(cat)+1])+'/'+str(notes[notes.index(cat)+2])]
+                notes_triees_eleve[notes.index(cat)//3]=[color,str(notes[notes.index(cat)+1])+'/'+str(notes[notes.index(cat)+2])]
             except ValueError:
                 thing_index = -1
         notes_triees.append([eleve['user__last_name'].replace(' "','').replace('" ','').replace('"',''), \

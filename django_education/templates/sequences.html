@@ -17,7 +17,7 @@
  <!-- Marketing Icons Section -->
     <div class="row">
 
-        <table id="sequences" class="table table-striped sequences">
+    <table id="sequences" class="table table-striped sequences">
             {% for sequence in sequences %}
                 <tr>
                     <td class="five">{{sequence.str_numero}}</td>
@@ -27,6 +27,16 @@
             {% endfor %}
             </table>
     </div>
+
+    <table id="DS" class="table table-striped sequences">
+
+                <tr>
+                    <td class="ninety"> <a href="{{dossier_ds}}" %}">Historique des DS</a></td>
+                    <td class="ten"> <a href="{{dossier_ds}}" %}"><i class='fas fa-angle-right'></i></a></td>
+                </tr>
+            </table>
+    </div>
+
     <!-- /.row -->
 
 {%else%}
@@ -42,6 +52,14 @@
                     <td class="five"> <a href="/info/{{sequence.id}}/" %}"><i class='fas fa-angle-right'></i></a></td>
                 </tr>
             {% endfor %}
+            </table>
+
+            <table id="DS" class="table table-striped sequences">
+
+                <tr>
+                    <td class="ninety"> <a href="{{dossier_ds}}" %}">Historique des DS</a></td>
+                    <td class="ten"> <a href="{{dossier_ds}}" %}"><i class='fas fa-angle-right'></i></a></td>
+                </tr>
             </table>
     </div>
     <!-- /.row -->
