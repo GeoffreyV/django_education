@@ -25,7 +25,7 @@ SECRET_KEY = 'cffqzfyctgin+9q+j(0cegjfd#mvw+q%^*%qprc*qzck(=c^tm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.0.16','78.192.222.66','www.costadoat.fr']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.0.16','78.192.222.66','www.costadoat.fr','costadoat.fr']
 
 # Application definition
 

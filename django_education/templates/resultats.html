@@ -55,6 +55,32 @@
     <p> Résultats pour chaque compétences </p>
 
                   {{ chart.as_html }}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Référence</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for comp in chart.get_liste_comp %}
+      <tr onclick="window.location='/competence/{{comp.1}}/{{comp.0}}'" class="table-{{comp.5}}">
+      <th scope="row">{{comp.1}}-{{comp.0}}</th>
+      <td>{{comp.2}}</td>
+      <td>{{comp.3}}</td>
+      <td>{{comp.4}}</td>
+    </tr>
+
+
+
+        {% endfor %}
+  </tbody>
+</table>
+
+
       {% elif general %}
 <p> Résultats classés par familles de compétences </p>
 
@@ -87,35 +113,59 @@
 
     <p> Résultats pour chaque DS </p>
 
-<div class="table-responsive">
-      <table class="table">
-           <thead>
+{% for ds in liste_ds %}
+<div class="card">
+     <div class="card-body">
+            <div class="container">
+                <div class="row">
+                        <div class="col-9">
+                            <h5 class="card-title">DS du {{ds.0.date|date:"d/m/y"|lower}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Moyenne: {{ds.0.moyenne|floatformat}}, Ecart-type: {{ds.0.ecart_type|floatformat}}, Ajustement:  {{ds.0.ajustement|floatformat}}</h6>
+                        </div>
+                        <div class="col">
+                             <h1>Note: {{ds.5}}</h1>
+                        </div>
+                </div>
+            </div>
+                <div class="table-responsive">
+                             <table class="table table-bordered">
+                                   <tbody>
+                                        <tr>
+                                            <td></td>
+                                            {% for i in ds.4 %}
+                                                <td colspan={{i.1}}, style="text-align:center">P{{i.0}} ({{i.2}}pts)</td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">#</td>
+                                            {% for id in ds.2 %}
+                                                <td style="text-align:center">{{id}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">Coeff</td>
+                                            {% for coef in coefficients %}
+                                                <td style="text-align:center">{{coef}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">Note</td>
+                                            {% for note in ds.1 %}
+                                                <td style="text-align:center">{{note}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    </tbody>
+                            </table>
 
-                <tr>
-                  <th  class="text-center" scope="col">DS</th>
-                  <th  class="text-center" scope="col">Note</th>
-                  <th colspan="{{nb_note|last}}">Notes par question</th>
-                </tr>
-               <tr>
-                  <td class='text-right' colspan="2"></td>
-                    {% for i in nb_note %}
-                  <td  class="text-center" scope="col">{{i}}</td>
-                    {% endfor %}
-                </tr>
-              </thead>
-           <tbody>
-            {% for ds in liste_ds %}
-                <tr>
-                    <td class="text-center">{{ds.0}}</td>
-                    <td class="text-center">{{ds.2}}</td>
-                    {% for note in ds.1 %}
-                        <td class="text-center">{{note}}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-                </tbody>
-            </table>
-    </div>
+                    </div>
+
+      </div>
+</div>
+
+
+
+</div>
+{% endfor %}
 
         {% endif %}
 

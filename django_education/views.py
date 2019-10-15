@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
 from .models import Utilisateur, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
-    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante
+    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante, DS
 from quiz.models import Quiz, Category, Progress
 from django.utils import timezone
 from django.db.models import Sum, Avg, Func
@@ -12,6 +12,7 @@ from .forms import ContactForm
 import datetime
 from jchart import Chart
 from jchart.config import Axes, DataSet, rgba
+from math import ceil
 
 github='https://github.com/Costadoat/'
 
@@ -172,29 +173,51 @@ def resultats_quizz(request):
     }
     return render(request, 'resultats_quizz.html', context)
 
+def calcul_note(coefficients,notes,ajustement,question_parties,points_parties):
+    p,l_q=0,0
+    note=0
+    for (i,n) in enumerate(notes):
+        if n=='X':
+            n=0
+        if i==sum(question_parties[0:p+1]):
+            p+=1
+            l_q=i
+        note+=(points_parties[p]/(5.*sum(coefficients[l_q:question_parties[p]+l_q]))*n*coefficients[i])
+    return ceil(note*ajustement*10)/10.
+
 @login_required(login_url='/accounts/login/')
 def ds_eleve(request, id_etudiant):
-    notes_ds=Note.objects.filter(etudiant=id_etudiant).values('id','ds__numero','value','ds').order_by('ds','id')
-    liste_ds=[]
-    ds=["DS%02d" % (notes_ds[0]['ds__numero'])]
+    notes_ds=Note.objects.filter(etudiant=id_etudiant).values('id','ds__type_de_ds','ds__numero','value','ds').order_by('ds','id')
+    ds=DS.objects.get(id=notes_ds[0]['ds'])
+    coefficients=[int(x) for x in ds.coefficients[1:-1].split(',')]
+    question_parties=[int(x) for x in ds.question_parties[1:-1].split(',')]
+    points_parties=[int(x) for x in ds.points_parties[1:-1].split(',')]
+    parties=[]
+    for i in range(len(question_parties)):
+        parties.append([i+1,question_parties[i],points_parties[i]])
     note=[]
-    max_nb_note=0
+    liste_ds=[]
     for notes in notes_ds:
-        if "DS%02d" % (notes['ds__numero'])!=ds[0]:
-            if   len(note)>max_nb_note:
-                max_nb_note=len(note)
-            ds.append(note[:-1])
-            ds.append(note[-1])
-            note=[]
-            liste_ds.append(ds)
-            ds=["DS%02d" % (notes['ds__numero'])]
-        if float(notes['value'])==9.0:
-            note.append('X')
+        if notes['ds']==ds.id:
+            if notes['value']==None:
+                note.append('X')
+            elif float(notes['value'])==9.0:
+                note.append('X')
+            else:
+                note.append(float(notes['value']))
         else:
-            note.append(float(notes['value']))
-    nb_note=range(max_nb_note)[1:]
+            note=[]
+            ds=DS.objects.get(id=notes_ds[0]['ds'])
+            coefficients=[int(x) for x in ds.coefficients[1:-1].split(',')]
+            question_parties=[int(x) for x in ds.question_parties[1:-1].split(',')]
+            points_parties=[int(x) for x in ds.points_parties[1:-1].split(',')]
+            parties=[]
+            for i in range(len(question_parties)):
+                parties.append([i,question_parties[i],points_parties[i]])
+            liste_ds.append([ds,note,range(1,len(note)+1),coefficients,parties,calcul_note(coefficients,note,ds.ajustement,question_parties,points_parties)])
+    liste_ds.append([ds,note,range(1,len(note)+1),coefficients,parties,calcul_note(coefficients,note,ds.ajustement,question_parties,points_parties)])
     context = {
-        'chart': DetailsCharts(id_etudiant), 'liste_ds': liste_ds, 'nb_note': nb_note, 'ds': True,
+        'chart': DetailsCharts(id_etudiant), 'liste_ds': liste_ds, 'coefficients' : coefficients, 'ds': True,
     }
 
     return render(request, 'resultats.html', context)
@@ -292,33 +315,56 @@ class ResultatsCharts(Chart):
                         color=(179, 181, 198),
                         data=self.notes_classe)]
 
-@login_required(login_url='/accounts/login/')
 class DetailsCharts(Chart):
     chart_type = 'bar'
+    options= {
+            "scales": {
+                "yAxes": [{
+                    "ticks": {
+                        "suggestedMin": 0,
+                        "suggestedMax": 5
+                    }
+                }]
+            }
+    }
 
     def __init__(self, id_etudiant):
         Chart.__init__(self)
         self.etudiants = Etudiant.objects.filter(user__date_joined__gte=rentree_scolaire()).values('user','user__last_name', 'user__first_name')
         self.etudiant_note = Etudiant.objects.filter(user=id_etudiant).values('user','user__last_name', 'user__first_name')
-        notes = Note.objects.filter(etudiant=6155).exclude(value=9).exclude(competence=0).values('competence', 'competence__nom', 'competence__reference', 'competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))
-        notes_toute_classe = Note.objects.all().exclude(value=9).exclude(competence=0).values('competence', 'competence__nom', 'competence__reference', 'competence__famille__nom').annotate(moyenne=Round(Avg('value'),2))
-
+        notes = Note.objects.filter(etudiant__user=id_etudiant).exclude(value=9).exclude(competence=0)\
+            .values('competence', 'competence__famille', 'competence__nom', 'competence__reference', 'competence__famille__nom')\
+            .annotate(moyenne=Round(Avg('value'),2)).order_by('competence__reference')
+        notes_toute_classe = Note.objects.filter(etudiant__user__date_joined__gte=rentree_scolaire())\
+            .exclude(value=9).exclude(competence=0).values('competence', 'competence__famille', 'competence__nom', 'competence__reference', 'competence__famille__nom')\
+            .annotate(moyenne=Round(Avg('value'),2)).order_by('competence__reference')
         self.liste_label=[]
+        self.liste_comp=[]
         self.notes_eleve=[]
         self.notes_classe=[]
 
         for note in notes_toute_classe:
+            self.liste_comp.append([note['competence'],note['competence__famille'],note['competence__reference'],note['competence__nom'],"","danger"])
             self.liste_label.append(note['competence__reference'])
             self.notes_classe.append(note['moyenne'])
 
         index=0
 
         for note in notes:
-            while note['competence__reference']!=self.liste_label[index]:
+            while note['competence']!=self.liste_comp[index][0]:
+                self.liste_comp[index][4]=0
                 self.notes_eleve.append(0)
                 index+=1
+            if note['moyenne']>3.5:
+                self.liste_comp[index][5]="success"
+            elif note['moyenne']>1.5:
+                self.liste_comp[index][5]="warning"
             self.notes_eleve.append(note['moyenne'])
+            self.liste_comp[index][4]=note['moyenne']
             index+=1
+
+    def get_liste_comp(self):
+        return self.liste_comp
 
     def get_etudiant_note(self):
         return self.etudiant_note
@@ -333,6 +379,7 @@ class DetailsCharts(Chart):
         return self.liste_label
 
     def get_datasets(self, **kwargs):
+        print(self.notes_eleve)
         return [DataSet(label="Elève",
                         color=(64 , 135, 196),
                         data=self.notes_eleve),

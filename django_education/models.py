@@ -2,9 +2,17 @@
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 github='https://github.com/Costadoat/'
+
+def current_year():
+    return datetime.date.today().year
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
+
 
 
 class sequence(models.Model):
@@ -42,7 +50,7 @@ class filiere_prepa(models.Model):
     nom = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.sigle
+        return str(self.sigle)
 
     class Meta:
             ordering = ['id']
@@ -55,24 +63,33 @@ class ecole(models.Model):
 
 class concours(models.Model):
     filiere = models.ForeignKey('filiere_prepa', on_delete=models.CASCADE)
+    nom = models.CharField(max_length=100)
 
-
-class sujet(models.Model):
-    concours = models.ForeignKey('concours', on_delete=models.CASCADE)
-    annee = models.DateField()
+    def __str__(self):
+        return self.nom+' ('+str(self.filiere)+')'
 
 
 class systeme(models.Model):
     nom = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
     img = models.CharField(max_length=100)
-    sujet = models.OneToOneField(sujet, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.nom
 
     class Meta:
-            ordering = ['id']
+            ordering = ['nom']
+
+class sujet(models.Model):
+    concours = models.ForeignKey('concours', on_delete=models.CASCADE)
+    annee = models.IntegerField(('year'), validators=[MinValueValidator(1984), max_value_current_year])
+    systeme = models.OneToOneField(systeme, on_delete=models.PROTECT, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.systeme)+' ('+str(self.concours)+' '+str(self.annee)+')'
+
+    class Meta:
+            ordering = ['systeme__nom']
 
 
 class famille_competence(models.Model):
@@ -223,7 +240,7 @@ class tp(ressource):
 
     class Meta:
         ordering = ['sequence', 'numero']
-    print(ilot)
+
     def url_pdf(self):
         return url(self,"si","pdf","TP",self.ilot)
 
@@ -413,14 +430,28 @@ class DS(models.Model):
     )
     numero = models.IntegerField()
     date = models.DateField()
-    nom=models.CharField(max_length=100)
+    sujet_support=models.ManyToManyField('sujet', blank=True)
+    nb_questions=models.IntegerField()
+    nb_parties=models.IntegerField()
+    coefficients=models.CharField(max_length=100)
+    ajustement=models.FloatField()
+    question_parties=models.CharField(max_length=100)
+    points_parties=models.CharField(max_length=100)
+    moyenne=models.FloatField()
+    ecart_type=models.FloatField()
 
+    def __str__(self):
+        return str(self.date)+' DS'+str(self.numero)
+
+    class Meta:
+        ordering = ['-date']
 
 class Note(models.Model):
     etudiant = models.ForeignKey('Etudiant', on_delete=models.CASCADE)
+    numero=models.IntegerField()
     competence = models.ForeignKey('competence', on_delete=models.CASCADE)
     ds = models.ForeignKey('DS', on_delete=models.CASCADE)
-    value = models.DecimalField(max_digits=4, decimal_places=2)
+    value = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
 
     class Meta:
         ordering = ['competence']
