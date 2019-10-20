@@ -352,7 +352,6 @@ input[type=text]:placeholder {
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
-
 ressources {
   width: 100%;
   table-layout: fixed;
@@ -388,4 +387,27 @@ sequences {
   color: #fff;
   text-decoration: none;
   background-color: #4087c4;
+}
+
+.table-container {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+}
+.table-cell-container {
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+    &.center{
+        text-align: center;
+    }
+    img{
+        display: inline-block;
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100%;
+
+    }
 }

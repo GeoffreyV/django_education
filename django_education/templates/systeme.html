@@ -1,32 +1,64 @@
 {% extends "base1.html" %}
 
-    {% block title %}Compétence {% endblock %}
-{% block bodyId %}sequencePage{% endblock %}
+{% load static %}
 
-{% block titre_page %} {{famille.nom}} {% endblock %}
+{% block title %}Système{% endblock %}
+{% block bodyId %}systemPage{% endblock %}
+
+{% block titre_page %}{{systeme.nom}}{% endblock %}
 
 {%block content1 %}
-
-<div class="card">
-  <div class="card-body">
-      <p> Description: {{famille.description}} </p>
-  </div>
-</div>
 
   </br>
 
           <div align="right">
-            <a href="/competences" ><button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour</button></a>
+            <a href="/systemes" ><button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour</button></a>
          </div>
   </br>
-              <table id="sequences" class="table table-striped">
-                {% for competence in competences %}
-                <tr>
-                    <td>{{sequence.str_numero}}</td><td> <a href="/competence/{{competence.famille.id}}/{{competence.id}}" %}">{{competence.reference}} - {{competence.nom}}</a></td>
-                    <td> <a href="/competence/{{competence.famille.id}}/{{competence.id}}" %}"><i class='fas fa-angle-right'></i></a></td>
-                </tr>
-            {% endfor %}
-            </table>
+
+
+<div class="card">
+  <div class="card-body">
+            <img class="rounded mx-auto d-block" src="{% static systeme.image.url %}" width="40%" alt="myimage" />
+      <p> <b>Description:</b> {{systeme.description}} </p>
+  </div>
+</div>
+
+{% if utilise %}
+ </br>
+
+<br class="row">
+<p>Ce système est utilisé dans la ressource suivante:</p>
+    <table class="table">
+      <body>
+      {% for cours in courss %}
+        <tr onclick="window.location=''" class="table">
+              <td class="col-xs-1" style="text-align:center">Cours</td>
+              <td class="col-xs-5" style="text-align:center">{{cours}}</td>
+        </tr>
+    {% endfor %}
+    {% for td in tds %}
+        <tr onclick="window.location=''" class="table">
+              <td class="col-xs-1" style="text-align:center">TD</td>
+              <td class="col-xs-5" style="text-align:center">{{td}}</td>
+        </tr>
+    {% endfor %}
+    {% for tp in tps %}
+        <tr onclick="window.location=''" class="table">
+              <td class="col-xs-1" style="text-align:center">TP</td>
+              <td class="col-xs-1" style="text-align:center">{{tp}}</td>
+        </tr>
+    {% endfor %}
+    {% for khole in kholes %}
+        <tr onclick="window.location=''" class="table">
+              <td class="col-xs-1" style="text-align:center">Khôle</td>
+              <td class="col-xs-1" style="text-align:center">{{khole}}</td>
+        </tr>
+    {% endfor %}
+      </body>
+</table>
+</div>
+{% endif %}
 
     <!-- /.row -->
 

@@ -68,11 +68,13 @@ class concours(models.Model):
     def __str__(self):
         return self.nom+' ('+str(self.filiere)+')'
 
+    class Meta:
+            ordering = ['nom']
 
 class systeme(models.Model):
     nom = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
-    img = models.CharField(max_length=100)
+    image = models.FileField(upload_to='systemes/')
 
     def __str__(self):
         return self.nom
@@ -84,6 +86,8 @@ class sujet(models.Model):
     concours = models.ForeignKey('concours', on_delete=models.CASCADE)
     annee = models.IntegerField(('year'), validators=[MinValueValidator(1984), max_value_current_year])
     systeme = models.OneToOneField(systeme, on_delete=models.PROTECT, null=True, blank=True)
+    SUJET_PT = [('SiA', 'SiA'),('SiB', 'SiB'),('SiC', 'SiC')]
+    sujet_pt = models.CharField(max_length=3,choices=SUJET_PT,default='',null=True, blank=True)
 
     def __str__(self):
         return str(self.systeme)+' ('+str(self.concours)+' '+str(self.annee)+')'
