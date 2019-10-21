@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
 from .models import Utilisateur, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
-    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme
+    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme, parametre
 from quiz.models import Quiz, Category, Progress
 from django.utils import timezone
 from django.db.models import Sum, Avg, Func
@@ -13,6 +13,7 @@ import datetime
 from jchart import Chart
 from jchart.config import Axes, DataSet, rgba
 from math import ceil
+from .filters import SystemeFiltre
 
 github='https://github.com/Costadoat/'
 
@@ -63,10 +64,6 @@ def upload_eleves(request):
         return render(request, 'simple_upload.html',{'done': True})
     return render(request, 'simple_upload.html')
 
-def lister_systemes(request):
-    systemes=systeme.objects.all().order_by('id')
-    return render(request, 'systemes.html', {'systemes':systemes})
-
 def afficher_systeme(request, id_systeme):
     systeme_a_afficher=systeme.objects.get(id=id_systeme)
     courss=cours.objects.filter(systeme=systeme_a_afficher)
@@ -74,10 +71,14 @@ def afficher_systeme(request, id_systeme):
     tps=tp.objects.filter(systeme=systeme_a_afficher)
     kholes=khole.objects.filter(systeme=systeme_a_afficher)
     ds=DS.objects.filter(sujet_support__systeme=systeme_a_afficher)
+    parametres=parametre.objects.filter(systeme=systeme_a_afficher)
     utilise=False
     if len(courss)+len(tds)+len(tps)+len(kholes)>0:
         utilise=True
-    return render(request, 'systeme.html', {'systeme':systeme_a_afficher, 'courss':courss, 'tds':tds, 'tps':tps,'kholes':kholes, 'utilise':utilise})
+    return render(request, 'systeme.html', {'systeme':systeme_a_afficher, 'courss':courss, 'tds':tds,\
+                                            'tps':tps,'kholes':kholes, 'utilise':utilise, 'parametres':parametres,\
+                                            'exist_parametre':len(parametres)>0
+        })
 
 
 def lister_ressources_si(request):
@@ -440,3 +441,9 @@ def contact(request):
 
 def thanks(request):
     return render(request, 'contact.html', {'thanks': True})
+
+def lister_systemes(request):
+    systeme_liste = systeme.objects.all().order_by('id')
+    systeme_filtre = SystemeFiltre(request.GET, queryset=systeme_liste)
+    return render(request, 'systemes.html', {'filter': systeme_filtre})
+

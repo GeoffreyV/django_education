@@ -4,6 +4,8 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
+from django_filters.views import FilterView
+from .filters import SystemeFiltre
 
 from .views import index, upload_eleves,\
     lister_ressources_si, afficher_sequence_si, lister_ressources_info, afficher_sequence_info, lister_competences,\
@@ -21,12 +23,17 @@ urlpatterns = [
         auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'),
         name='password_change'
     ),
+    url(r'^password-change/$',
+        auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'),
+        name='password_change'
+    ),
     path('si/<int:id_sequence>/', afficher_sequence_si),
     path('info/<int:id_sequence>/', afficher_sequence_info),
     url('^si/', lister_ressources_si),
     url('^info/', lister_ressources_info),
     url('^competences', lister_competences),
-    url('^systemes', lister_systemes),
+    url(r'^systemes/$', FilterView.as_view(filterset_class=SystemeFiltre,
+            template_name='systemes.html'), name='lister_systemes'),
     path('systeme/<int:id_systeme>/', afficher_systeme),
     path('competence/<int:id_famille>/', afficher_famille_competence),
     path('competence/<int:id_famille>/<int:id_competence>/', afficher_competence),

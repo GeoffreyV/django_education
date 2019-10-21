@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'true_false',
     'essay',
     'django_education',
-    'gunicorn'
+    'gunicorn',
+    'django_filters',
 ]
 
 

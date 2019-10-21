@@ -10,14 +10,24 @@
 {%block content1 %}
 
 
+<form class="form-inline responsive" method="get">
+  <div class="form-group">
+    Filtrer nom du système:
+  </div>
+  <div class="form-group">
+    {{ filter.form.nom }}
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+</form>
+
+
 <div class="table-container">
 <div class="table-cell-container center">
     <table class="table">
       <body>
-      {% for systeme in systemes %}
+      {% for systeme in filter.qs %}
         <tr onclick="window.location='/systeme/{{systeme.id}}'" class="table">
-              <th class="col-xs-1" style="text-align:center">{{systeme.id}}</th>
-              <td class="col-xs-5" style="text-align:center"> <a href="/systeme/{{systeme.id}}">{{systeme.nom}}</a></td>
+            <th class="col-xs-1" style="text-align:center"><a href="/systeme/{{systeme.id}}">{{systeme.nom}}</a></th>
               <td class="col-xs-3" style="text-align:center"><img src="{% static systeme.image.url %}" height="100" alt="myimage" /></td>
         </tr>
 

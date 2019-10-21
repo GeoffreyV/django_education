@@ -60,6 +60,26 @@
 </div>
 {% endif %}
 
+
+
+{% if exist_parametre %}
+ </br>
+
+<br class="row">
+<p>Paramètres du système:</p>
+    <table class="table">
+      <body>
+      {% for parametre in parametres %}
+        <tr onclick="window.location=''" class="table">
+              <td class="col-xs-1" style="text-align:center">{{parametre.grandeur.nom}}</td>
+              <td class="col-xs-5" style="text-align:center">{{parametre.valeur}}</td>
+              <td class="col-xs-1" style="text-align:center">{{parametre.grandeur.unite|safe}}</td>
+        </tr>
+    {% endfor %}
+      </body>
+</table>
+</div>
+{% endif %}
     <!-- /.row -->
 
 {% endblock %}

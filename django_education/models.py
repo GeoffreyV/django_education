@@ -13,8 +13,6 @@ def current_year():
 def max_value_current_year(value):
     return MaxValueValidator(current_year())(value)
 
-
-
 class sequence(models.Model):
     numero = models.IntegerField()
     nom = models.CharField(max_length=100)
@@ -81,6 +79,36 @@ class systeme(models.Model):
 
     class Meta:
             ordering = ['nom']
+
+class grandeur(models.Model):
+    nom = models.CharField(max_length=100)
+    unite = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nom
+
+
+class parametre(models.Model):
+    grandeur = models.ForeignKey('grandeur', on_delete=models.CASCADE)
+    valeur = models.FloatField()
+    systeme = models.ForeignKey('systeme', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.systeme)+' ('+str(self.grandeur)+')'
+
+
+class type_de_fichier(models.Model):
+    nom = models.CharField(max_length=100)
+    icone = models.CharField(max_length=100)
+    extension = models.CharField(max_length=100)
+    def __str__(self):
+        return self.nom
+
+class fichier_systeme(models.Model):
+    type_de_fichier = models.ForeignKey('type_de_fichier', on_delete=models.CASCADE)
+    nom = models.CharField(max_length=100)
+    def __str__(self):
+        return self.type_de_fichier+': '+nom
 
 class sujet(models.Model):
     concours = models.ForeignKey('concours', on_delete=models.CASCADE)
