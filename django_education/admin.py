@@ -8,9 +8,13 @@ from .models import sequence, filiere_prepa, ecole, concours, sujet, systeme, co
 class ParametreInline(admin.TabularInline):
     model=parametre
 
+class FichierInline(admin.TabularInline):
+    model=fichier_systeme
+
 class SystemeAdmin(admin.ModelAdmin):
     inlines=[
         ParametreInline,
+        FichierInline,
     ]
 
 admin.site.register(sequence)

@@ -57,14 +57,12 @@
     {% endfor %}
       </body>
 </table>
-</div>
+ </br>
 {% endif %}
 
 
 
 {% if exist_parametre %}
- </br>
-
 <br class="row">
 <p>Paramètres du système:</p>
     <table class="table">
@@ -78,8 +76,29 @@
     {% endfor %}
       </body>
 </table>
-</div>
+ </br>
+{% endif %}
+
+
+{% if exist_fichier %}
+
+
+<br class="row">
+<p>Fichiers liés au système:</p>
+    <table class="table">
+      <body>
+      {% for fichier in fichiers %}
+        <tr onclick="window.location='{{fichier.url_fichier}}' "class="table">
+            <td class="ten"> <a href="{{fichier.url_fichier}}"><img height="50" src="{% static fichier.type_de_fichier.icone %}"></a></td>
+            <td class="ninety" style="text-align:center" > <a href="{{fichier.url_fichier}}"> {{fichier.nom}}</td>
+        </tr>
+    {% endfor %}
+      </body>
+</table>
+ </br>
+
 {% endif %}
     <!-- /.row -->
+</div>
 
 {% endblock %}

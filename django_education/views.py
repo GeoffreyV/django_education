@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
 from .models import Utilisateur, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
-    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme, parametre
+    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme, parametre, fichier_systeme
 from quiz.models import Quiz, Category, Progress
 from django.utils import timezone
 from django.db.models import Sum, Avg, Func
@@ -72,12 +72,14 @@ def afficher_systeme(request, id_systeme):
     kholes=khole.objects.filter(systeme=systeme_a_afficher)
     ds=DS.objects.filter(sujet_support__systeme=systeme_a_afficher)
     parametres=parametre.objects.filter(systeme=systeme_a_afficher)
+    fichiers=fichier_systeme.objects.filter(systeme=systeme_a_afficher)
     utilise=False
     if len(courss)+len(tds)+len(tps)+len(kholes)>0:
         utilise=True
     return render(request, 'systeme.html', {'systeme':systeme_a_afficher, 'courss':courss, 'tds':tds,\
                                             'tps':tps,'kholes':kholes, 'utilise':utilise, 'parametres':parametres,\
-                                            'exist_parametre':len(parametres)>0
+                                            'exist_parametre':len(parametres)>0, 'fichiers':fichiers,\
+                                            'exist_fichier':len(fichiers)>0
         })
 
 

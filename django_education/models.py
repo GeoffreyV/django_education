@@ -101,14 +101,21 @@ class type_de_fichier(models.Model):
     nom = models.CharField(max_length=100)
     icone = models.CharField(max_length=100)
     extension = models.CharField(max_length=100)
+
     def __str__(self):
         return self.nom
 
 class fichier_systeme(models.Model):
     type_de_fichier = models.ForeignKey('type_de_fichier', on_delete=models.CASCADE)
     nom = models.CharField(max_length=100)
+    nom_fichier = models.CharField(max_length=100)
+    systeme = models.ForeignKey('systeme', on_delete=models.CASCADE)
     def __str__(self):
-        return self.type_de_fichier+': '+nom
+        return str(self.type_de_fichier)+': '+str(self.nom)
+    def url_fichier(self):
+        return github + 'Sciences-Ingenieur/raw/master/Systemes/' + self.systeme.nom + '/' + \
+                  self.nom_fichier + '.' + self.type_de_fichier.extension
+
 
 class sujet(models.Model):
     concours = models.ForeignKey('concours', on_delete=models.CASCADE)
