@@ -13,6 +13,12 @@ def current_year():
 def max_value_current_year(value):
     return MaxValueValidator(current_year())(value)
 
+def annee_scolaire(date):
+    if date.month>0 and date.month<9:
+        return str(date.year-1)+'-'+str(date.year)
+    else:
+        return str(date.year)+'-'+str(date.year+1)
+
 class sequence(models.Model):
     numero = models.IntegerField()
     nom = models.CharField(max_length=100)
@@ -105,6 +111,13 @@ class type_de_fichier(models.Model):
     def __str__(self):
         return self.nom
 
+class type_image_systeme(models.Model):
+    nom = models.CharField(max_length=100)
+    extension = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nom
+
 class fichier_systeme(models.Model):
     type_de_fichier = models.ForeignKey('type_de_fichier', on_delete=models.CASCADE)
     nom = models.CharField(max_length=100)
@@ -115,6 +128,17 @@ class fichier_systeme(models.Model):
     def url_fichier(self):
         return github + 'Sciences-Ingenieur/raw/master/Systemes/' + self.systeme.nom + '/' + \
                   self.nom_fichier + '.' + self.type_de_fichier.extension
+
+class image_systeme(models.Model):
+    type_image_systeme = models.ForeignKey('type_image_systeme', on_delete=models.CASCADE)
+    nom = models.CharField(max_length=100)
+    nom_image = models.CharField(max_length=100)
+    systeme = models.ForeignKey('systeme', on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.type_image_systeme)+': '+str(self.nom)
+    def url_image(self):
+        return github + 'Sciences-Ingenieur/raw/master/Systemes/' + self.systeme.nom + '/' + \
+                  self.nom_image + '.' + self.type_image_systeme.extension
 
 
 class sujet(models.Model):
@@ -176,10 +200,31 @@ class ressource(models.Model):
     numero = models.IntegerField()
     nom = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
-    systeme = models.ManyToManyField('systeme')
+    systeme = models.ManyToManyField('systeme', blank=True)
 
     def str_numero(self):
         return "%02d" % self.numero
+
+    def type_de_ressource(self):
+        for name in ['cours','td','tp','khole']:
+            try:
+                attr = getattr(self, name)
+                if isinstance(attr, self.__class__):
+                    if name=='cours':
+                        return name,'C'
+                    elif name=='khole':
+                        return name,'KH'
+                    else:
+                        return name,name.upper()
+            except:
+                pass
+
+    def ilot(self):
+        try:
+            attr = getattr(self, 'tp')
+            return attr.ilot
+        except:
+            return 0
 
 
 def url(self,matiere,lien,type,ilot):
@@ -454,6 +499,14 @@ class Professeur(models.Model):
     def __str__(self):
         return self.user.last_name+' '+self.user.first_name
 
+def url_ds(self, lien):
+    dossier = github + 'Sciences-Ingenieur/raw/master/DS/' + annee_scolaire(self.date) +'/DS'+ ("%02d" % self.numero) + "/"
+    if lien == 'git':
+       return dossier
+    elif lien == 'pdf':
+        return dossier + 'DS' + str("%02d" % self.numero) + ".pdf"
+    elif lien == 'prive':
+        return dossier + 'DS' + str("%02d" % self.numero) + "_prive.pdf"
 
 class DS(models.Model):
     TYPE_DE_DS = [
@@ -469,21 +522,43 @@ class DS(models.Model):
     )
     numero = models.IntegerField()
     date = models.DateField()
-    sujet_support=models.ManyToManyField('sujet', blank=True)
-    nb_questions=models.IntegerField()
-    nb_parties=models.IntegerField()
-    coefficients=models.CharField(max_length=100)
-    ajustement=models.FloatField()
-    question_parties=models.CharField(max_length=100)
-    points_parties=models.CharField(max_length=100)
-    moyenne=models.FloatField()
-    ecart_type=models.FloatField()
+    sujet_support=models.ManyToManyField(sujet, blank=True)
+    nb_questions=models.IntegerField(null=True, blank=True)
+    nb_parties=models.IntegerField(null=True, blank=True)
+    coefficients=models.CharField(max_length=100, null=True, blank=True)
+    ajustement=models.FloatField(null=True, blank=True)
+    question_parties=models.CharField(max_length=100, null=True, blank=True)
+    points_parties=models.CharField(max_length=100, null=True, blank=True)
+    moyenne=models.FloatField(null=True, blank=True)
+    ecart_type=models.FloatField(null=True, blank=True)
+
+    def annee(self):
+        return annee_scolaire(self.date)
+
+    def support(self):
+        if len(self.sujet_support.all())>0:
+            return self.sujet_support.all()[0]
+        else:
+            return ''
 
     def __str__(self):
-        return str(self.date)+' DS'+str(self.numero)
+        if len(self.sujet_support.all())>0:
+            support=' ('+str(self.sujet_support.all()[0])+')'
+        else:
+            support=''
+        return str(self.date)+' DS'+str(self.numero)+support
 
     class Meta:
         ordering = ['-date']
+
+    def url_ds_pdf(self):
+        return url_ds(self,"pdf")
+
+    def url_ds_prive(self):
+        return url_ds(self,"prive")
+
+    def url_ds_git(self):
+        return url_ds(self,"git")
 
 class Note(models.Model):
     etudiant = models.ForeignKey('Etudiant', on_delete=models.CASCADE)

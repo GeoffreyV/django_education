@@ -2,7 +2,9 @@
 
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
 from .models import Utilisateur, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
-    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme, parametre, fichier_systeme
+    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme, parametre, fichier_systeme,\
+    image_systeme
+
 from quiz.models import Quiz, Category, Progress
 from django.utils import timezone
 from django.db.models import Sum, Avg, Func
@@ -14,6 +16,8 @@ from jchart import Chart
 from jchart.config import Axes, DataSet, rgba
 from math import ceil
 from .filters import SystemeFiltre
+from django.http import HttpResponse
+from urllib.request import urlopen
 
 github='https://github.com/Costadoat/'
 
@@ -23,7 +27,6 @@ def rentree_scolaire():
     while rentree.month!=8 or rentree.day!=27:
         rentree -= unjour
     return rentree
-
 
 def index(request):
     return render(request,'index.html')
@@ -70,29 +73,41 @@ def afficher_systeme(request, id_systeme):
     tds=td.objects.filter(systeme=systeme_a_afficher)
     tps=tp.objects.filter(systeme=systeme_a_afficher)
     kholes=khole.objects.filter(systeme=systeme_a_afficher)
-    ds=DS.objects.filter(sujet_support__systeme=systeme_a_afficher)
+    dss=DS.objects.filter(sujet_support__systeme=systeme_a_afficher)
     parametres=parametre.objects.filter(systeme=systeme_a_afficher)
     fichiers=fichier_systeme.objects.filter(systeme=systeme_a_afficher)
+    images=image_systeme.objects.filter(systeme=systeme_a_afficher)
     utilise=False
-    if len(courss)+len(tds)+len(tps)+len(kholes)>0:
+    if len(courss)+len(tds)+len(tps)+len(kholes)+len(dss)>0:
         utilise=True
     return render(request, 'systeme.html', {'systeme':systeme_a_afficher, 'courss':courss, 'tds':tds,\
-                                            'tps':tps,'kholes':kholes, 'utilise':utilise, 'parametres':parametres,\
+                                            'tps':tps,'kholes':kholes,'dss':dss,'utilise':utilise, 'parametres':parametres,\
                                             'exist_parametre':len(parametres)>0, 'fichiers':fichiers,\
-                                            'exist_fichier':len(fichiers)>0
+                                            'exist_fichier':len(fichiers)>0, 'images':images,\
+                                            'exist_image':len(images)>0
         })
 
 
 def lister_ressources_si(request):
     sequences=sequence.objects.all()
-    dossier_ds = github + 'Sciences-Ingenieur/raw/master/DS/'
-    return render(request, 'sequences.html', {'sequences':sequences, 'dossier_ds':dossier_ds, 'si':True})
+    return render(request, 'sequences.html', {'sequences':sequences, 'si':True})
 
 def lister_ressources_info(request):
     sequences=sequence_info.objects.all()
     dossier_ds = github + 'Informatique/raw/master/DS/'
     return render(request, 'sequences.html', {'sequences':sequences, 'dossier_ds':dossier_ds, 'info':True})
 
+def lister_ds_si(request):
+    dss=DS.objects.all()
+    liste_ds=[]
+    annee=[str(dss[0].annee()),[]]
+    for ds in dss:
+        if str(ds.annee())!=annee[0]:
+            liste_ds.append(annee)
+            annee=[str(ds.annee()),[]]
+        annee[1].append(ds)
+    liste_ds.append(annee)
+    return render(request, 'annales_ds.html', {'liste_ds':liste_ds, 'si':True})
 
 def afficher_sequence_si(request, id_sequence):
     sequence_a_afficher=sequence.objects.get(id=id_sequence)
@@ -130,30 +145,51 @@ def afficher_competence(request, id_famille, id_competence):
     tds=td.objects.filter(competence=id_competence)
     tps=tp.objects.filter(competence=id_competence)
     kholes=khole.objects.filter(competence=id_competence)
-    return render(request, 'competence_seule.html', {'famille':famille,'competence':competence_a_afficher, 'courss':courss, 'tds':tds, 'tps':tps,'kholes':kholes})
+    notes=Note.objects.filter(competence=id_competence).values('ds','numero')
+    liste_notes=[]
+    liste_ds=[]
+    for note in notes:
+        if str(note['ds']) not in liste_ds:
+            liste_ds.append(str(note['ds']))
+            liste_notes.append([DS.objects.get(id=note['ds']),[]])
+        idx=liste_ds.index(str(note['ds']))
+        if str(note['numero']) not in liste_notes[idx][1]:
+            liste_notes[idx][1].append(str(note['numero']))
+    for ds in liste_notes:
+        ds[1]=','.join(ds[1])
+    if request.user.is_authenticated:
+        if request.user.is_student:
+            etudiant=Etudiant.objects.get(user=request.user)
+            chart_afficher=CompetenceChart(etudiant,competence_a_afficher)
+        else:
+            chart_afficher=False
+    else:
+        chart_afficher=False
+    return render(request, 'competence_seule.html', {'chart':chart_afficher ,'famille':famille,'competence':competence_a_afficher,\
+                                    'courss':courss,'tds':tds,'tps':tps,'kholes':kholes,'dss':liste_notes})
 
 
-class LineChart(Chart):
+class CompetenceChart(Chart):
     chart_type = 'line'
 
+    def __init__(self, etudiant,competence):
+        Chart.__init__(self)
+        notes_eleve=Note.objects.filter(competence=competence).filter(etudiant=etudiant).values('ds__date','ds','numero','value')
+        self.liste_note=[]
+        self.liste_date=[]
+        for note in notes_eleve:
+            self.liste_note.append(note['value'])
+            self.liste_date.append(str(note['ds__date'])+' ('+str(note['numero'])+')')
+        self.nom_dataset=competence.nom
 
     def get_labels(self):
-        return ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"]
+        return self.liste_date
 
     def get_datasets(self, **kwargs):
-        return [DataSet(label="My First dataset",
-                        color=(179, 181, 198),
-                        data=[65, 59, 90, 81, 56, 55, 40]),
-                DataSet(label="My Second dataset",
-                        color=(255, 99, 132),
-                        data=[28, 48, 40, 19, 96, 27, 100])]
+        return [DataSet(label=self.nom_dataset,
+                        color=(64, 135, 196),
+                        data=self.liste_note)]
 
-
-def chart(request):
-    context = {
-        'radar_chart': LineChart(),
-    }
-    return render(request, 'chart.html', context)
 
 @login_required(login_url='/accounts/login/')
 def resultats_vierge(request):
@@ -398,14 +434,12 @@ class DetailsCharts(Chart):
         return self.liste_label
 
     def get_datasets(self, **kwargs):
-        print(self.notes_eleve)
         return [DataSet(label="Elève",
                         color=(64 , 135, 196),
                         data=self.notes_eleve),
                 DataSet(label="Classe",
                         color=(179, 181, 198),
                         data=self.notes_classe)]
-
 
 def relative_url_view(request, nomquiz, action, year, month, day, ext, nom):
     return redirect('/static/uploads/'+year+'/'+month+'/'+day+'/'+nom+'.'+ext)
@@ -448,4 +482,20 @@ def lister_systemes(request):
     systeme_liste = systeme.objects.all().order_by('id')
     systeme_filtre = SystemeFiltre(request.GET, queryset=systeme_liste)
     return render(request, 'systemes.html', {'filter': systeme_filtre})
+
+def afficher_sysml(request,id_systeme):
+    return render(request, 'sysml.html', {'thanks': True, 'id_systeme':id_systeme})
+
+def relative_url_sysml(request, id_systeme, dossier, data):
+    nom_systeme=systeme.objects.get(id=id_systeme)
+    return redirect('https://github.com/Costadoat/Sciences-Ingenieur/raw/master/Systemes/'+str(nom_systeme)+'/SysMl/'+dossier+'/'+data)
+
+
+def relative_url_image_sysml(request, id_systeme, data):
+    return redirect('/static/sysml_player/images/'+data)
+
+def afficher_data_js(request, id_systeme):
+    nom_systeme=systeme.objects.get(id=id_systeme)
+    url='https://raw.githubusercontent.com/Costadoat/Sciences-Ingenieur/master/Systemes/'+str(nom_systeme)+'/SysMl/data.js'
+    return HttpResponse(urlopen(url).read())
 

@@ -30,33 +30,56 @@
 <br class="row">
 <p>Ce système est utilisé dans la ressource suivante:</p>
     <table class="table">
-      <body>
       {% for cours in courss %}
-        <tr onclick="window.location=''" class="table">
-              <td class="col-xs-1" style="text-align:center">Cours</td>
+        <tr onclick="window.location='/si/{{cours.sequence.numero}}/'" class="table">
+              <td class="col-xs-1" style="text-align:center">Cours </td>
               <td class="col-xs-5" style="text-align:center">{{cours}}</td>
+              <td class="five"> <a href="{{cours.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
+              <td class="five"> <a href="{{cours.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
+              <td class="five"> <a href="{{cours.url_git}}"><i class='fab fa-github'></i></a></td>
+              <td class="five"> <a href="/si/{{cours.sequence.numero}}/">Sequence</i></a></td>
         </tr>
     {% endfor %}
     {% for td in tds %}
-        <tr onclick="window.location=''" class="table">
-              <td class="col-xs-1" style="text-align:center">TD</td>
+        <tr onclick="window.location='/si/{{td.sequence.numero}}/'" class="table">
+              <td class="col-xs-1" style="text-align:center">TD </td>
               <td class="col-xs-5" style="text-align:center">{{td}}</td>
+              <td class="five"> <a href="{{td.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
+              <td class="five"> <a href="{{td.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
+              <td class="five"> <a href="{{td.url_git}}"><i class='fab fa-github'></i></a></td>
+              <td class="five"> <a href="/si/{{td.sequence.numero}}/">Sequence</i></a></td>
         </tr>
     {% endfor %}
     {% for tp in tps %}
-        <tr onclick="window.location=''" class="table">
+        <tr onclick="window.location='/si/{{tp.sequence.numero}}/'" class="table">
               <td class="col-xs-1" style="text-align:center">TP</td>
               <td class="col-xs-1" style="text-align:center">{{tp}}</td>
+              <td class="five"> <a href="{{tp.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
+              <td class="five"> <a href="{{tp.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
+              <td class="five"> <a href="{{tp.url_git}}"><i class='fab fa-github'></i></a></td>
+              <td class="five"> <a href="/si/{{tp.sequence.numero}}/">Sequence</i></a></td>
         </tr>
     {% endfor %}
     {% for khole in kholes %}
-        <tr onclick="window.location=''" class="table">
+        <tr onclick="window.location='/si/{{khole.sequence.numero}}/'" class="table">
               <td class="col-xs-1" style="text-align:center">Khôle</td>
               <td class="col-xs-1" style="text-align:center">{{khole}}</td>
+              <td class="five"> <a href="{{khole.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
+              <td class="five"> <a href="{{khole.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
+              <td class="five"> <a href="{{khole.url_git}}"><i class='fab fa-github'></i></a></td>
+              <td class="five"> <a href="/si/{{khole.sequence.numero}}/">Sequence</i></a></td>
         </tr>
     {% endfor %}
-      </body>
-</table>
+    {% for ds in dss %}
+        <tr onclick="window.location='/si/annales_ds'" class="table">
+              <td class="col-xs-1" style="text-align:center">DS</td>
+              <td class="col-xs-1" style="text-align:center">{{ds}}</td>
+              <td class="five"> <a href="{{ds.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
+              <td class="five"> <a href="{{ds.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
+              <td class="five"> <a href="{{ds.url_git}}"><i class='fab fa-github'></i></a></td>
+        </tr>
+    {% endfor %}
+ </table>
  </br>
 {% endif %}
 
@@ -66,7 +89,6 @@
 <br class="row">
 <p>Paramètres du système:</p>
     <table class="table">
-      <body>
       {% for parametre in parametres %}
         <tr onclick="window.location=''" class="table">
               <td class="col-xs-1" style="text-align:center">{{parametre.grandeur.nom}}</td>
@@ -74,7 +96,6 @@
               <td class="col-xs-1" style="text-align:center">{{parametre.grandeur.unite|safe}}</td>
         </tr>
     {% endfor %}
-      </body>
 </table>
  </br>
 {% endif %}
@@ -86,18 +107,30 @@
 <br class="row">
 <p>Fichiers liés au système:</p>
     <table class="table">
-      <body>
       {% for fichier in fichiers %}
         <tr onclick="window.location='{{fichier.url_fichier}}' "class="table">
             <td class="ten"> <a href="{{fichier.url_fichier}}"><img height="50" src="{% static fichier.type_de_fichier.icone %}"></a></td>
             <td class="ninety" style="text-align:center" > <a href="{{fichier.url_fichier}}"> {{fichier.nom}}</td>
         </tr>
     {% endfor %}
-      </body>
 </table>
+ </br>
+{% endif %}
+
+{% if exist_image %}
+
+<br class="row">
+<p>Ressources visuelles du système:</p>
+      {% for image in images %}
+    {{image.type_image_systeme}}
+    <div class="text-center">
+        <img src="{{image.url_image}}?sanitize=true" class="img-fluid" alt="Responsive image">
+    </div>
+    {% endfor %}
  </br>
 
 {% endif %}
+
     <!-- /.row -->
 </div>
 

@@ -22,7 +22,21 @@
 
       <p>{{competence.description}}</p>
 </div></div>
+
+    <br />
+
+    {% if chart%}
+
+    <p>Historique des notes pour la compétence {{competence.reference}}</p>
+
+        {{ chart.as_html }}
+
+    {% endif %}
+
       <div class="row">
+
+
+
 
             {% if courss %}
             <h3 class="my-4"> Cours </h3>
@@ -70,7 +84,9 @@
 
            </table>
 
-                    <h3 class="my-4"> Kholes </h3>
+          {% if kholes %}
+            <h3 class="my-4"> Kholes </h3>
+            {% endif %}
 
           <table id="khole" class="table">
                {% for khole in kholes %}
@@ -80,6 +96,30 @@
                         <td> <a href="{{khole.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
                           <td> <a href="{{khole.url_prive}}"><i class='fas far fa-file-archive'></i></a></td>
                             <td> <a href="{{khole.url_git}}"><i class='fab fa-github'></i></a></td>
+                </tr>
+                {% endfor %}
+
+           </table>
+
+          {% if dss %}
+            <h3 class="my-4"> DS </h3>
+            {% endif %}
+
+          <table id="ds" class="table">
+                  <tr>
+                      <th>Date</th>
+                      <th>Système support</th>
+                      <th>Questions</th>
+                      <th colspan="3">Ressources</th>
+                </tr>
+               {% for ds in dss %}
+                  <tr>
+                    <td>{{ds.0.date|date:'d/m/Y'}}</td>
+                       <td>{{ds.0.support.systeme}}</td>
+                      <td> {{ds.1}}</td>
+                        <td> <a href="{{ds.0.url_ds_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
+                          <td> <a href="{{ds.0.url_ds_prive}}"><i class='fas far fa-file-archive'></i></a></td>
+                            <td> <a href="{{ds.0.url_ds_git}}"><i class='fab fa-github'></i></a></td>
                 </tr>
                 {% endfor %}
 
