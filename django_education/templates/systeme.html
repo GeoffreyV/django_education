@@ -117,6 +117,18 @@
  </br>
 {% endif %}
 
+{% if systeme.sysml %}
+<br class="row">
+<p>Modèle Sysml:</p>
+    <table class="table">
+        <tr onclick="window.location='sysml' "class="table">
+            <td class="ten"> <a href="sysml"><img height="50" src="{% static 'img/sysml.png' %}"></a></td>
+            <td class="ninety" style="text-align:center" > <a href="sysml"> Diagrammes SysMl</td>
+        </tr>
+</table>
+ </br>
+{% endif %}
+
 {% if exist_image %}
 
 <br class="row">

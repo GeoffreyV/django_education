@@ -79,7 +79,7 @@ class systeme(models.Model):
     nom = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
     image = models.FileField(upload_to='systemes/')
-
+    sysml = models.BooleanField(default=False)
     def __str__(self):
         return self.nom
 
@@ -107,6 +107,7 @@ class type_de_fichier(models.Model):
     nom = models.CharField(max_length=100)
     icone = models.CharField(max_length=100)
     extension = models.CharField(max_length=100)
+    nom_latex = models.CharField(max_length=100)
 
     def __str__(self):
         return self.nom
@@ -314,7 +315,12 @@ class tp(ressource):
         return self.systeme.all()[0]
 
     def __str__(self):
-        return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom
+        print(self.id,self.ilot, len(self.systeme.all()))
+        if str("%02d" % self.ilot)!='00' and len(self.systeme.all())!=0:
+            return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom+' Ilot '+str("%02d" % self.ilot)+' ('+self.nom_ilot().nom+')'
+        else:
+            return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom
+
 
     def str_numero(self):
         return str("%02d" % self.numero)
@@ -323,7 +329,7 @@ class tp(ressource):
         return str("%02d" % self.ilot)
 
     class Meta:
-        ordering = ['sequence', 'numero']
+        ordering = ['sequence', 'numero', 'ilot']
 
     def url_pdf(self):
         return url(self,"si","pdf","TP",self.ilot)
