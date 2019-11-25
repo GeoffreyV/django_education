@@ -4,6 +4,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+import unicodedata
+
+def remove_accents(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
 
 github='https://github.com/Costadoat/'
 
@@ -127,8 +133,8 @@ class fichier_systeme(models.Model):
     def __str__(self):
         return str(self.type_de_fichier)+': '+str(self.nom)
     def url_fichier(self):
-        return github + 'Sciences-Ingenieur/raw/master/Systemes/' + self.systeme.nom + '/' + \
-                  self.nom_fichier + '.' + self.type_de_fichier.extension
+        return remove_accents(github + 'Sciences-Ingenieur/raw/master/Systemes/' + self.systeme.nom + '/' + \
+                  self.nom_fichier + '.' + self.type_de_fichier.extension)
 
 class image_systeme(models.Model):
     type_image_systeme = models.ForeignKey('type_image_systeme', on_delete=models.CASCADE)

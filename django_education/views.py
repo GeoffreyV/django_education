@@ -18,8 +18,13 @@ from math import ceil
 from .filters import SystemeFiltre
 from django.http import HttpResponse
 from urllib.request import urlopen
+import unicodedata
 
 github='https://github.com/Costadoat/'
+
+def remove_accents(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 def rentree_scolaire():
     rentree = datetime.datetime.now(tz=timezone.utc)
@@ -488,7 +493,7 @@ def afficher_sysml(request,id_systeme):
 
 def relative_url_sysml(request, id_systeme, dossier, data):
     nom_systeme=systeme.objects.get(id=id_systeme)
-    return redirect('https://github.com/Costadoat/Sciences-Ingenieur/raw/master/Systemes/'+str(nom_systeme)+'/SysMl/'+dossier+'/'+data)
+    return redirect(remove_accents('https://github.com/Costadoat/Sciences-Ingenieur/raw/master/Systemes/'+str(nom_systeme)+'/SysMl/'+dossier+'/'+data))
 
 
 def relative_url_image_sysml(request, id_systeme, data):
@@ -496,6 +501,6 @@ def relative_url_image_sysml(request, id_systeme, data):
 
 def afficher_data_js(request, id_systeme):
     nom_systeme=systeme.objects.get(id=id_systeme)
-    url='https://raw.githubusercontent.com/Costadoat/Sciences-Ingenieur/master/Systemes/'+str(nom_systeme)+'/SysMl/data.js'
+    url=remove_accents('https://raw.githubusercontent.com/Costadoat/Sciences-Ingenieur/master/Systemes/'+str(nom_systeme)+'/SysMl/data.js')
     return HttpResponse(urlopen(url).read())
 
