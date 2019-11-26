@@ -249,33 +249,33 @@ def calcul_note(coefficients,notes,ajustement,question_parties,points_parties):
 def ds_eleve(request, id_etudiant):
     notes_ds=Note.objects.filter(etudiant=id_etudiant).values('id','ds__type_de_ds','ds__numero','value','ds').order_by('ds','id')
     ds=DS.objects.get(id=notes_ds[0]['ds'])
-    coefficients=[int(x) for x in ds.coefficients[1:-1].split(',')]
+    coefficients=[float(x) for x in ds.coefficients[1:-1].split(',')]
     question_parties=[int(x) for x in ds.question_parties[1:-1].split(',')]
-    points_parties=[int(x) for x in ds.points_parties[1:-1].split(',')]
+    points_parties=[float(x) for x in ds.points_parties[1:-1].split(',')]
     parties=[]
     for i in range(len(question_parties)):
         parties.append([i+1,question_parties[i],points_parties[i]])
     note=[]
     liste_ds=[]
     for notes in notes_ds:
-        if notes['ds']==ds.id:
-            if notes['value']==None:
-                note.append('X')
-            elif float(notes['value'])==9.0:
-                note.append('X')
-            else:
-                note.append(float(notes['value']))
-        else:
+        if notes['ds']!=ds.id:
+            liste_ds.append([ds,note,range(1,len(note)+1),coefficients,parties,calcul_note(coefficients,note,ds.ajustement,question_parties,points_parties)])
             note=[]
-            ds=DS.objects.get(id=notes_ds[0]['ds'])
-            coefficients=[int(x) for x in ds.coefficients[1:-1].split(',')]
+            ds=DS.objects.get(id=notes['ds'])
+            coefficients=[float(x) for x in ds.coefficients[1:-1].split(',')]
             question_parties=[int(x) for x in ds.question_parties[1:-1].split(',')]
-            points_parties=[int(x) for x in ds.points_parties[1:-1].split(',')]
+            points_parties=[float(x) for x in ds.points_parties[1:-1].split(',')]
             parties=[]
             for i in range(len(question_parties)):
-                parties.append([i,question_parties[i],points_parties[i]])
-            liste_ds.append([ds,note,range(1,len(note)+1),coefficients,parties,calcul_note(coefficients,note,ds.ajustement,question_parties,points_parties)])
+                parties.append([i+1,question_parties[i],points_parties[i]])
+        if notes['value']==None:
+            note.append('X')
+        elif float(notes['value'])==9.0:
+            note.append('X')
+        else:
+            note.append(float(notes['value']))
     liste_ds.append([ds,note,range(1,len(note)+1),coefficients,parties,calcul_note(coefficients,note,ds.ajustement,question_parties,points_parties)])
+    print(liste_ds)
     context = {
         'chart': DetailsCharts(id_etudiant), 'liste_ds': liste_ds, 'coefficients' : coefficients, 'ds': True,
     }
@@ -415,12 +415,13 @@ class DetailsCharts(Chart):
                 self.liste_comp[index][4]=0
                 self.notes_eleve.append(0)
                 index+=1
-            if note['moyenne']>3.5:
-                self.liste_comp[index][5]="success"
-            elif note['moyenne']>1.5:
-                self.liste_comp[index][5]="warning"
-            self.notes_eleve.append(note['moyenne'])
-            self.liste_comp[index][4]=note['moyenne']
+            if note['moyenne']!=None:
+                if float(note['moyenne'])>3.5:
+                    self.liste_comp[index][5]="success"
+                elif float(note['moyenne'])>1.5:
+                    self.liste_comp[index][5]="warning"
+                self.notes_eleve.append(note['moyenne'])
+                self.liste_comp[index][4]=note['moyenne']
             index+=1
 
     def get_liste_comp(self):

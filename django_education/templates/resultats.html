@@ -144,7 +144,7 @@
                                         </tr>
                                         <tr>
                                             <td style="text-align:center">Coeff</td>
-                                            {% for coef in coefficients %}
+                                            {% for coef in ds.3 %}
                                                 <td style="text-align:center">{{coef}}</td>
                                             {% endfor %}
                                         </tr>
@@ -163,10 +163,8 @@
 </div>
 
 
-
-</div>
 {% endfor %}
-
+</div>
         {% endif %}
 
 {% endblock %}
