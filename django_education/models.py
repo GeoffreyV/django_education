@@ -144,8 +144,8 @@ class image_systeme(models.Model):
     def __str__(self):
         return str(self.type_image_systeme)+': '+str(self.nom)
     def url_image(self):
-        return github + 'Sciences-Ingenieur/raw/master/Systemes/' + self.systeme.nom + '/' + \
-                  self.nom_image + '.' + self.type_image_systeme.extension
+        return remove_accents(github + 'Sciences-Ingenieur/raw/master/Systemes/' + self.systeme.nom + '/' + \
+                  self.nom_image + '.' + self.type_image_systeme.extension)
 
 
 class sujet(models.Model):
