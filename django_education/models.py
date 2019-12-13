@@ -369,7 +369,7 @@ class khole(ressource):
 
 
 class ressource_info(models.Model):
-    sequence = models.IntegerField()
+    sequence = models.ForeignKey(sequence, on_delete=models.CASCADE)
     numero = models.IntegerField()
     nom = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
@@ -404,7 +404,7 @@ class cours_info(ressource_info):
 class td_info(ressource_info):
 
     def __str__(self):
-        return 'I-'+ self.type +'-'+str("%02d" % self.numero)+' '+self.nom
+        return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom
 
     def str_numero(self):
         return str("%02d" % self.numero)
