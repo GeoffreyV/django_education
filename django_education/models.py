@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 import unicodedata
+from math import ceil
 
 def remove_accents(input_str):
     nfkd_form = unicodedata.normalize('NFKD', input_str)
@@ -320,6 +321,9 @@ class tp(ressource):
     def nom_ilot(self):
         return self.systeme.all()[0]
 
+    def lien_ilot(self):
+        return '/systeme/'+str(self.systeme.all()[0].id)
+
     def __str__(self):
         print(self.id,self.ilot, len(self.systeme.all()))
         if str("%02d" % self.ilot)!='00' and len(self.systeme.all())!=0:
@@ -571,6 +575,70 @@ class DS(models.Model):
 
     def url_ds_git(self):
         return url_ds(self,"git")
+
+    def coefficients_liste(self):
+        return [float(x) for x in self.coefficients[1:-1].split(',')]
+
+    def question_parties_liste(self):
+        return [int(x) for x in self.question_parties[1:-1].split(',')]
+
+    def points_parties_liste(self):
+        return [float(x) for x in self.points_parties[1:-1].split(',')]
+
+    def parties_liste(self):
+        parties=[]
+        question_parties=self.question_parties_liste()
+        points_parties=self.points_parties_liste()
+        for i in range(len(question_parties)):
+            parties.append([i+1,question_parties[i],points_parties[i]])
+        return parties
+
+    def calcul_note(self,coefficients,notes,ajustement,question_parties,points_parties):
+        p,l_q=0,0
+        note=0
+        for (i,n) in enumerate(notes):
+            if n=='X':
+                n=0
+            if i==sum(question_parties[0:p+1]):
+                p+=1
+                l_q=i
+            note+=(points_parties[p]/(5.*sum(coefficients[l_q:question_parties[p]+l_q]))*n*coefficients[i])
+        return ceil(note*ajustement*10)/10.
+
+    def notes_eleve_liste(self,etudiant):
+        notes_ds=Note.objects.filter(etudiant=etudiant,ds=self).values('value').order_by('id')
+        note=[]
+        for notes in notes_ds:
+            if notes['value']==None or float(notes['value'])==9.0:
+                note.append('X')
+            else:
+                note.append(float(notes['value']))
+        return(note)
+
+
+    def note_eleve(self,etudiant):
+        notes_ds=Note.objects.filter(etudiant=etudiant,ds=self).values('value').order_by('id')
+        note=[]
+        taux=0
+        for notes in notes_ds:
+            if notes['value']==None or float(notes['value'])==9.0:
+                note.append('X')
+            else:
+                note.append(float(notes['value']))
+                taux+=1
+        taux='{:2.1f}%'.format(100*taux/len(notes_ds))
+        return(self.calcul_note(self.coefficients_liste(),note,self.ajustement,self.question_parties_liste(),self.points_parties_liste()),taux)
+
+    def notes_classe_liste(self):
+        etudiants=Note.objects.filter(ds=self).values('etudiant').order_by('etudiant').distinct()
+        liste_notes=[]
+        for etudiant in etudiants:
+            liste_notes.append(self.note_eleve(etudiant['etudiant']))
+        return(sorted(liste_notes, reverse = True))
+
+    def classement_eleve(self,etudiant):
+        classement=str(self.notes_classe_liste().index(self.note_eleve(etudiant))+1)+'/'+str(len(self.notes_classe_liste()))
+        return classement
 
 class Note(models.Model):
     etudiant = models.ForeignKey('Etudiant', on_delete=models.CASCADE)

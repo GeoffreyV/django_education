@@ -91,7 +91,7 @@
                         {% if si %}
                             {% if tp.str_numero_ilot %}
                                 <td class="ten">{{tp.str_numero}} - {{tp.str_numero_ilot}}</td>
-                                <td class="seventyfive"> {{tp.nom}} ({{tp.nom_ilot}})</td>
+                        <td class="seventyfive"> {{tp.nom}} (<a href="{{tp.lien_ilot}}">{{tp.nom_ilot}}</a>)</td>
                             {% else %}
                                 <td class="ten">{{tp.str_numero}}</td>
                                 <td class="seventyfive"> {{tp.nom}}</td>
