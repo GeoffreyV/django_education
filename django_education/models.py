@@ -90,6 +90,10 @@ class systeme(models.Model):
     def __str__(self):
         return self.nom
 
+    def uses(self):
+        liste_ressources=ressource.objects.filter(systeme=self)
+        return len(liste_ressources)
+
     class Meta:
             ordering = ['nom']
 

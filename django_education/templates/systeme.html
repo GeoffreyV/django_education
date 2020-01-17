@@ -91,7 +91,7 @@
     <table class="table">
       {% for parametre in parametres %}
         <tr onclick="window.location=''" class="table">
-              <td class="col-xs-1" style="text-align:center">{{parametre.grandeur.nom}}</td>
+              <td class="col-xs-1" style="text-align:center">{{parametre.grandeur.nom|safe}}</td>
               <td class="col-xs-5" style="text-align:center">{{parametre.valeur}}</td>
               <td class="col-xs-1" style="text-align:center">{{parametre.grandeur.unite|safe}}</td>
         </tr>

@@ -449,11 +449,6 @@ def contact(request):
 def thanks(request):
     return render(request, 'contact.html', {'thanks': True})
 
-def lister_systemes(request):
-    systeme_liste = systeme.objects.all().order_by('id')
-    systeme_filtre = SystemeFiltre(request.GET, queryset=systeme_liste)
-    return render(request, 'systemes.html', {'filter': systeme_filtre})
-
 def afficher_sysml(request,id_systeme):
     return render(request, 'sysml.html', {'thanks': True, 'id_systeme':id_systeme})
 
