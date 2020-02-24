@@ -126,6 +126,7 @@ class type_de_fichier(models.Model):
 class type_image_systeme(models.Model):
     nom = models.CharField(max_length=100)
     extension = models.CharField(max_length=100)
+    nom_latex = models.CharField(max_length=100)
 
     def __str__(self):
         return self.nom
