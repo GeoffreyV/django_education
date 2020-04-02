@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
 from .models import Utilisateur, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
-    td, td_info, tp, tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme, parametre, fichier_systeme,\
+    td, td_info, tp, ilot,tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme, parametre, fichier_systeme,\
     image_systeme
 
 from quiz.models import Quiz, Category, Progress
@@ -76,17 +76,17 @@ def afficher_systeme(request, id_systeme):
     systeme_a_afficher=systeme.objects.get(id=id_systeme)
     courss=cours.objects.filter(systeme=systeme_a_afficher)
     tds=td.objects.filter(systeme=systeme_a_afficher)
-    tps=tp.objects.filter(systeme=systeme_a_afficher)
+    ilots=ilot.objects.filter(systeme=systeme_a_afficher)
     kholes=khole.objects.filter(systeme=systeme_a_afficher)
     dss=DS.objects.filter(sujet_support__systeme=systeme_a_afficher)
     parametres=parametre.objects.filter(systeme=systeme_a_afficher)
     fichiers=fichier_systeme.objects.filter(systeme=systeme_a_afficher)
     images=image_systeme.objects.filter(systeme=systeme_a_afficher)
     utilise=False
-    if len(courss)+len(tds)+len(tps)+len(kholes)+len(dss)>0:
+    if len(courss)+len(tds)+len(ilots)+len(kholes)+len(dss)>0:
         utilise=True
     return render(request, 'systeme.html', {'systeme':systeme_a_afficher, 'courss':courss, 'tds':tds,\
-                                            'tps':tps,'kholes':kholes,'dss':dss,'utilise':utilise, 'parametres':parametres,\
+                                            'ilots':ilots,'kholes':kholes,'dss':dss,'utilise':utilise, 'parametres':parametres,\
                                             'exist_parametre':len(parametres)>0, 'fichiers':fichiers,\
                                             'exist_fichier':len(fichiers)>0, 'images':images,\
                                             'exist_image':len(images)>0
@@ -115,13 +115,18 @@ def lister_ds_si(request):
     return render(request, 'annales_ds.html', {'liste_ds':liste_ds, 'si':True})
 
 def afficher_sequence_si(request, id_sequence):
-    sequence_a_afficher=sequence.objects.get(id=id_sequence)
-    courss=cours.objects.filter(sequence=id_sequence)
-    tds=td.objects.filter(sequence=id_sequence)
-    tps=tp.objects.filter(sequence=id_sequence)
-    kholes=khole.objects.filter(sequence=id_sequence)
+    sequence_a_afficher=sequence.objects.get(numero=id_sequence)
+    courss=cours.objects.filter(sequence__numero=id_sequence)
+    tds=td.objects.filter(sequence__numero=id_sequence)
+    tps=tp.objects.filter(sequence__numero=id_sequence)
+    liste_ilots=[]
+    for tp_one in tps:
+        ilots=ilot.objects.filter(tp=tp_one)
+        print(ilots[0].systeme.nom)
+        liste_ilots.append([tp_one,ilots])
+    kholes=khole.objects.filter(sequence__numero=id_sequence)
     quizzes=Quiz.objects.filter(category__category__startswith="SI-S%02d" % id_sequence)
-    return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':tps,'kholes':kholes,'quizzes':quizzes,'si':True})
+    return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':liste_ilots,'kholes':kholes,'quizzes':quizzes,'si':True})
 
 
 def afficher_sequence_info(request, id_sequence):
@@ -464,4 +469,3 @@ def afficher_data_js(request, id_systeme):
     nom_systeme=systeme.objects.get(id=id_systeme)
     url=remove_accents('https://raw.githubusercontent.com/Costadoat/Sciences-Ingenieur/master/Systemes/'+str(nom_systeme)+'/SysMl/data.js')
     return HttpResponse(urlopen(url).read())
-

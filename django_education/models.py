@@ -232,35 +232,46 @@ class ressource(models.Model):
             except:
                 pass
 
+    def __str__(self):
+        return 'S'+str("%02d" % self.sequence.numero)+'-'+self.type_de_ressource()[1]+str("%02d" % self.numero)+' '+self.nom
+
     def ilot(self):
-        try:
-            attr = getattr(self, 'tp')
-            return attr.ilot
-        except:
+        if self.type_de_ressource()[1]=='TP':
+            return self.tp.ilot
+        else:
             return 0
 
+    def url_pdf(self):
+        return url(self,"si","pdf",self.type_de_ressource()[1],self.ilot())
+
+    def url_prive(self):
+        return url(self,"si","prive",self.type_de_ressource()[1],self.ilot())
+
+    def url_git(self):
+        return url(self,"si","git",self.type_de_ressource()[1],self.ilot())
 
 def url(self,matiere,lien,type,ilot):
-    if matiere=='si' and ilot==0:
-        dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.sequence.numero) + ' ' + \
-          self.sequence.nom + '/' + type + ("%02d" % self.numero) \
-          + " " + self.nom + "/"
-        if lien == 'git':
-           return dossier
-        elif lien == 'pdf':
-            return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + ".pdf"
-        elif lien == 'prive':
-            return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + "_prive.pdf"
-    elif matiere=='si' and ilot!=0:
-        dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.sequence.numero) + ' ' + \
-          self.sequence.nom + '/' + type + ("%02d" % self.numero) \
-          + " " + self.nom + '/Ilot_' + ("%02d" % ilot) + " " + str(self.nom_ilot()) + '/'
-        if lien == 'git':
-           return dossier
-        elif lien == 'pdf':
-            return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + '-I' + "%02d" % ilot + ".pdf"
-        elif lien == 'prive':
-            return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + '-I' + "%02d" % ilot + "_prive.pdf"
+    if matiere=='si':
+        if ilot==0:
+            dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.sequence.numero) + ' ' + \
+              self.sequence.nom + '/' + type + ("%02d" % self.numero) \
+              + " " + self.nom + "/"
+            if lien == 'git':
+               return dossier
+            elif lien == 'pdf':
+                return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + ".pdf"
+            elif lien == 'prive':
+                return dossier + str("%02d" % self.sequence.numero) + '-' + type + ("%02d" % self.numero) + "_prive.pdf"
+        else:
+            dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.tp.sequence.numero) + ' ' + \
+              self.tp.sequence.nom + '/' + type + ("%02d" % self.tp.numero) \
+              + " " + self.tp.nom + "/Ilot_" + ("%02d" % self.numero) + " " + self.systeme.nom + "/"
+            if lien == 'git':
+               return dossier
+            elif lien == 'pdf':
+                return dossier + str("%02d" % self.tp.sequence.numero) + '-' + type + ("%02d" % self.tp.numero) + '-I' + ("%02d" % self.numero) + ".pdf"
+            elif lien == 'prive':
+                return dossier + str("%02d" % self.tp.sequence.numero) + '-' + type + ("%02d" % self.tp.numero) + '-I' + ("%02d" % self.numero) + "_prive.pdf"
     else:
         if type == 'C':
             nom_type = 'Cours'
@@ -304,6 +315,9 @@ class td(ressource):
     def __str__(self):
         return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom
 
+    def reference(self):
+        return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)
+
     def str_numero(self):
         return str("%02d" % self.numero)
 
@@ -321,40 +335,63 @@ class td(ressource):
 
 
 class tp(ressource):
-    ilot = models.IntegerField()
-
-    def nom_ilot(self):
-        return self.systeme.all()[0]
-
-    def lien_ilot(self):
-        return '/systeme/'+str(self.systeme.all()[0].id)
 
     def __str__(self):
-        print(self.id,self.ilot, len(self.systeme.all()))
-        if str("%02d" % self.ilot)!='00' and len(self.systeme.all())!=0:
-            return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom+' Ilot '+str("%02d" % self.ilot)+' ('+self.nom_ilot().nom+')'
-        else:
-            return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom
+        return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom
 
+    def reference(self):
+        return 'S'+str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)
 
     def str_numero(self):
         return str("%02d" % self.numero)
 
-    def str_numero_ilot(self):
-        return str("%02d" % self.ilot)
+    def ilots(self):
+        ilots=ilot.objects.filter(tp=self)
+        return ilots
 
     class Meta:
-        ordering = ['sequence', 'numero', 'ilot']
+        ordering = ['sequence', 'numero']
 
     def url_pdf(self):
-        return url(self,"si","pdf","TP",self.ilot)
+        return url(self,"si","pdf","TP",0)
 
     def url_prive(self):
-        return url(self,"si","prive","TP",self.ilot)
+        return url(self,"si","prive","TP",0)
 
     def url_git(self):
-        return url(self,"si","git","TP",self.ilot)
+        return url(self,"si","gilotit","TP",0)
 
+class ilot(models.Model):
+    tp = models.ForeignKey(tp, on_delete=models.CASCADE)
+    numero = models.IntegerField()
+    systeme = models.ForeignKey(systeme, on_delete=models.CASCADE)
+
+    def __str__(self):
+            return 'S'+str("%02d" % self.tp.sequence.numero)+'-TP'\
+            +str("%02d" % self.tp.numero)+'-I'+str("%02d" % self.numero)\
+            +' ('+str(self.systeme.nom)+')'
+
+    def nom_tp(self):
+            return 'S'+str("%02d" % self.tp.sequence.numero)+'-TP'\
+            +str("%02d" % self.tp.numero)+' '+self.tp.nom+' Ilot '+str("%02d" % self.numero)
+
+    def nom_court(self):
+        return str("%02d" % self.numero)+' '+self.systeme.nom
+
+    def nom(self):
+        return str("%02d" % self.numero)+' '+self.systeme.nom
+
+    class Meta:
+        ordering = ['tp', 'numero']
+
+    def url_pdf(self):
+        return url(self,"si","pdf","TP",self.numero)
+
+    def url_prive(self):
+        return url(self,"si","prive","TP",self.numero)
+
+    def url_git(self):
+        return url(self,"si","git","TP",self.numero)
 
 class khole(ressource):
 
@@ -378,7 +415,7 @@ class khole(ressource):
 
 
 class ressource_info(models.Model):
-    sequence = models.ForeignKey(sequence, on_delete=models.CASCADE)
+    sequence = models.ForeignKey(sequence_info, on_delete=models.CASCADE)
     numero = models.IntegerField()
     nom = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)

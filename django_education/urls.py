@@ -30,7 +30,7 @@ urlpatterns = [
     ),
     path('si/<int:id_sequence>/', afficher_sequence_si),
     path('info/<int:id_sequence>/', afficher_sequence_info),
-    url('^si/annales_ds', lister_ds_si),
+    url('^si/ds/', lister_ds_si),
     url('^si/', lister_ressources_si),
     url('^info/', lister_ressources_info),
     url('^competences', lister_competences),

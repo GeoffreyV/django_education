@@ -1,7 +1,7 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from django.contrib.auth.admin import UserAdmin
-from .models import sequence, filiere_prepa, ecole, concours, sujet, systeme, cours, td, tp, matiere, langue_vivante,\
+from .models import sequence, filiere_prepa, ecole, concours, sujet, systeme, cours, td, tp, ilot, matiere, langue_vivante,\
     Etudiant, Professeur, Utilisateur, cours_info, td_info, tp_info, competence, khole, DS, Note, parametre,\
     grandeur, type_de_fichier, type_image_systeme, fichier_systeme, image_systeme
 
@@ -33,6 +33,7 @@ admin.site.register(type_image_systeme)
 admin.site.register(systeme, SystemeAdmin)
 admin.site.register(td)
 admin.site.register(tp)
+admin.site.register(ilot)
 admin.site.register(cours_info)
 admin.site.register(td_info)
 admin.site.register(tp_info)

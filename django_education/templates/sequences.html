@@ -21,19 +21,10 @@
             {% for sequence in sequences %}
                 <tr>
                     <td class="five">{{sequence.str_numero}}</td>
-                    <td class="ninety"> <a href="/si/{{sequence.id}}/" %}">{{sequence.nom}}</a></td>
-                    <td class="five"> <a href="/si/{{sequence.id}}/" %}"><i class='fas fa-angle-right'></i></a></td>
+                    <td class="ninety"> <a href="/si/{{sequence.numero}}/" %}">{{sequence.nom}}</a></td>
+                    <td class="five"> <a href="/si/{{sequence.numero}}/" %}"><i class='fas fa-angle-right'></i></a></td>
                 </tr>
             {% endfor %}
-            </table>
-    </div>
-
-    <table id="DS" class="table table-striped sequences">
-
-                <tr>
-                    <td class="ninety"> <a href="annales_ds" %}">Historique des DS</a></td>
-                    <td class="ten"> <a href="annales_ds" %}"><i class='fas fa-angle-right'></i></a></td>
-                </tr>
             </table>
     </div>
 
@@ -48,18 +39,10 @@
             {% for sequence in sequences %}
                 <tr>
                     <td class="five">{{sequence.str_numero}}</td>
-                    <td class="ninety"> <a href="/info/{{sequence.id}}/" %}">{{sequence.nom}}</a></td>
-                    <td class="five"> <a href="/info/{{sequence.id}}/" %}"><i class='fas fa-angle-right'></i></a></td>
+                    <td class="ninety"> <a href="/info/{{sequence.numero}}/" %}">{{sequence.nom}}</a></td>
+                    <td class="five"> <a href="/info/{{sequence.numero}}/" %}"><i class='fas fa-angle-right'></i></a></td>
                 </tr>
             {% endfor %}
-            </table>
-
-            <table id="DS" class="table table-striped sequences">
-
-                <tr>
-                    <td class="ninety"> <a href="{{dossier_ds}}" %}">Historique des DS</a></td>
-                    <td class="ten"> <a href="{{dossier_ds}}" %}"><i class='fas fa-angle-right'></i></a></td>
-                </tr>
             </table>
     </div>
     <!-- /.row -->
