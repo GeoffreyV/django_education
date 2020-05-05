@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'django_education',
     'gunicorn',
     'django_filters',
+    'django_tex',
 ]
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.free.fr'
@@ -76,6 +76,11 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
+    },
+    {
+        'NAME': 'tex',
+        'BACKEND': 'django_tex.engine.TeXEngine',
+        'APP_DIRS': True,
     },
 ]
 
@@ -123,6 +128,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+LATEX_GRAPHICSPATH = [
+    os.path.join(BASE_DIR, 'django_education/static/img'),
+]
 
 TEMPLATES[0]['DIRS']=[os.path.join(BASE_DIR,'django_education/templates')]
 

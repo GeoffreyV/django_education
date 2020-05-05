@@ -1,16 +1,18 @@
 # -*-coding: utf-8 -*-
 
-from django.shortcuts import render, redirect, HttpResponseRedirect, render_to_response
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from .models import Utilisateur, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
-    td, td_info, tp, ilot,tp_info, khole, Note, Etudiant, langue_vivante, DS, systeme, parametre, fichier_systeme,\
-    image_systeme
+    td, td_info, tp, ilot,tp_info, khole, Note, Etudiant, Professeur, langue_vivante, DS, systeme, parametre, fichier_systeme,\
+    image_systeme, video, ressource, item_synthese, fiche_synthese, reponse_item_synthese
 
 from quiz.models import Quiz, Category, Progress
 from django.utils import timezone
 from django.db.models import Sum, Avg, Func
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from .forms import ContactForm
+from django_tex.shortcuts import render_to_pdf
+
+from .forms import ContactForm, ReponseItemSyntheseForm
 import datetime
 from jchart import Chart
 from jchart.config import Axes, DataSet, rgba
@@ -117,6 +119,7 @@ def lister_ds_si(request):
 def afficher_sequence_si(request, id_sequence):
     sequence_a_afficher=sequence.objects.get(numero=id_sequence)
     courss=cours.objects.filter(sequence__numero=id_sequence)
+    videos=video.objects.filter(ressource__sequence__numero=id_sequence)
     tds=td.objects.filter(sequence__numero=id_sequence)
     tps=tp.objects.filter(sequence__numero=id_sequence)
     liste_ilots=[]
@@ -126,8 +129,20 @@ def afficher_sequence_si(request, id_sequence):
         liste_ilots.append([tp_one,ilots])
     kholes=khole.objects.filter(sequence__numero=id_sequence)
     quizzes=Quiz.objects.filter(category__category__startswith="SI-S%02d" % id_sequence)
-    return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':liste_ilots,'kholes':kholes,'quizzes':quizzes,'si':True})
+    return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':liste_ilots,'kholes':kholes,'quizzes':quizzes,'videos':videos,'si':True})
 
+def afficher_sequence_videos(request, id_sequence):
+    sequence_a_afficher=sequence.objects.get(numero=id_sequence)
+    videos=video.objects.filter(ressource__sequence=sequence_a_afficher)
+    type_page='la séquence '+sequence_a_afficher.str_numero()+': '+sequence_a_afficher.nom
+    return render(request, 'videos.html',{'sequence':sequence_a_afficher,'videos':videos,'type_page':type_page})
+
+def afficher_ressource_videos(request, id_sequence, id_ressource):
+    sequence_a_afficher=sequence.objects.get(numero=id_sequence)
+    ressource_a_afficher=ressource.objects.get(id=id_ressource)
+    videos=video.objects.filter(ressource=id_ressource)
+    type_page='le '+ressource_a_afficher.type_de_ressource()[0]+' '+ressource_a_afficher.str_numero()+': '+ressource_a_afficher.nom
+    return render(request, 'videos.html',{'sequence':sequence_a_afficher,'ressource':ressource_a_afficher,'videos':videos,'type_page':type_page})
 
 def afficher_sequence_info(request, id_sequence):
     sequence_a_afficher=sequence_info.objects.get(id=id_sequence)
@@ -217,20 +232,17 @@ def resultats_quizz(request):
         cats.append(categorie.category)
     notes_triees=[]
     for eleve in eleves:
-        notes=str(eleve['user__progress__score']).split(',')
+        notes=str(eleve['user__progress__score']).split(',')[:-1]
         notes_triees_eleve=[['#FFFFFF','-/-'] for i in range(len(cats))]
-        for cat in cats:
-            try:
-                test_col=float(notes[notes.index(cat)+1])/float(notes[notes.index(cat)+2])
-                if test_col<0.3:
-                    color='#f01547'
-                elif test_col >=0.3 and test_col<0.7:
-                    color='#ff5733'
-                elif test_col>=0.7:
-                    color='#3dd614'
-                notes_triees_eleve[notes.index(cat)//3]=[color,str(notes[notes.index(cat)+1])+'/'+str(notes[notes.index(cat)+2])]
-            except ValueError:
-                thing_index = -1
+        for i in range(len(notes)//3):
+            test_col=float(notes[3*i+1])/float(notes[3*i+2])
+            if test_col<0.3:
+                color='#f01547'
+            elif test_col >=0.3 and test_col<0.7:
+                color='#ff5733'
+            elif test_col>=0.7:
+                color='#3dd614'
+            notes_triees_eleve[cats.index(notes[3*i])]=[color,str(notes[3*i+1])+'/'+str(notes[3*i+2])]
         notes_triees.append([eleve['user__last_name'].replace(' "','').replace('" ','').replace('"',''), \
                              eleve['user__first_name'].replace(' "','').replace('" ','').replace('"',''),notes_triees_eleve])
     context = {
@@ -239,8 +251,38 @@ def resultats_quizz(request):
     return render(request, 'resultats_quizz.html', context)
 
 @login_required(login_url='/accounts/login/')
+def resultats_quizz_eleve(request):
+    progres=Progress.objects.get(user=request.user)
+    categories=Category.objects.all()
+    cats=[]
+    for categorie in categories:
+        cats.append(categorie.category)
+    notes_triees=[]
+    notes=str(progres.score).split(',')[:-1]
+    notes_triees_eleve=[['#FFFFFF','-/-'] for i in range(len(cats))]
+    for i in range(len(notes)//3):
+        test_col=float(notes[3*i+1])/float(notes[3*i+2])
+        if test_col<0.3:
+            color='#f01547'
+        elif test_col >=0.3 and test_col<0.7:
+            color='#ff5733'
+        elif test_col>=0.7:
+            color='#3dd614'
+        notes_triees_eleve[cats.index(notes[3*i])]=[color,str(notes[3*i+1])+'/'+str(notes[3*i+2])]
+    print(notes_triees_eleve)
+    notes_triees.append([request.user.first_name,request.user.last_name,notes_triees_eleve])
+    context = {
+    'notes_triees':notes_triees, 'cats':cats
+    }
+    return render(request, 'resultats_quizz.html', context)
+
+@login_required(login_url='/accounts/login/')
 def ds_eleve(request, id_etudiant):
-    dss=Note.objects.filter(etudiant=id_etudiant).values('ds').order_by('ds').distinct()
+    if request.user.is_teacher or (request.user.is_student and request.user.id==id_etudiant):
+        dss=Note.objects.filter(etudiant=id_etudiant).values('ds').order_by('ds').distinct()
+    else:
+        return render(request, '/index')
+
     liste_ds=[]
     for ds in dss:
         ds=DS.objects.get(id=ds['ds'])
@@ -264,11 +306,14 @@ def resultats(request, id_etudiant):
 
 @login_required(login_url='/accounts/login/')
 def details(request, id_etudiant):
-    context = {
-        'chart': DetailsCharts(id_etudiant), 'details': True,
-    }
-    return render(request, 'resultats.html', context)
-
+    if request.user.is_teacher or (request.user.is_student and request.user.id==id_etudiant):
+        context = {
+           'chart': DetailsCharts(id_etudiant), 'details': True,
+        }
+        return render(request, 'resultats.html', context)
+    else:
+        return render(request, '/index')
+    
 class Round(Func):
     function = 'ROUND'
     arity = 2
@@ -450,7 +495,6 @@ def contact(request):
             form = ContactForm()
     return render(request, 'contact.html', {'form': form, 'thanks': False})
 
-
 def thanks(request):
     return render(request, 'contact.html', {'thanks': True})
 
@@ -469,3 +513,111 @@ def afficher_data_js(request, id_systeme):
     nom_systeme=systeme.objects.get(id=id_systeme)
     url=remove_accents('https://raw.githubusercontent.com/Costadoat/Sciences-Ingenieur/master/Systemes/'+str(nom_systeme)+'/SysMl/data.js')
     return HttpResponse(urlopen(url).read())
+
+@login_required(login_url='/accounts/login/')
+def fiche_ressource_edit(request,id_sequence,id_ressource,id_etudiant=None):
+    fiche = fiche_synthese.objects.get(ressource__id=id_ressource)
+    items=item_synthese.objects.filter(fiche_synthese=fiche)
+    number=len(items)
+    if request.user.is_authenticated:
+        if request.user.is_student or (request.user.is_teacher and id_etudiant!=None):
+            if id_etudiant==None:
+                etudiant=Etudiant.objects.get(user=request.user)
+            else:
+                etudiant=Etudiant.objects.get(user__id=id_etudiant)
+            # if this is a POST request we need to process the form data
+            if request.method == 'POST':
+                # create a form instance and populate it with data from the request:
+                form = ReponseItemSyntheseForm(request.POST,fiche=fiche)
+                if form.is_valid():
+                    for i in range(number):
+                        reponse=reponse_item_synthese.objects.update_or_create(item_synthese=items[i],etudiant=etudiant,\
+                            defaults={'reponse':form[items[i].reference()].value() },)
+            else:
+                reponses=reponse_item_synthese.objects.filter(item_synthese__fiche_synthese=fiche,etudiant=etudiant)
+                mes_reponses={}
+                for reponse in reponses:
+                    mes_reponses[str(reponse.item_synthese.reference())]=str(reponse.reponse)
+                form = ReponseItemSyntheseForm(initial=mes_reponses,fiche=fiche)
+            return render(request, 'fiche_synthese.html', {'Fiche': fiche,'Form': form, 'edit': True})
+        elif request.user.is_teacher:
+            return redirect('.')
+    else:
+        return redirect('/accounts/login/')
+
+
+@login_required(login_url='/accounts/login/')
+def generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant=None):
+    fiche = fiche_synthese.objects.get(ressource__sequence__id=id_sequence,ressource__numero=id_ressource)
+    items=item_synthese.objects.filter(fiche_synthese=fiche)
+    if request.user.is_authenticated:
+        if request.user.is_student:
+            utilisateur=Etudiant.objects.get(user=request.user)
+        elif request.user.is_teacher:
+            if id_etudiant!=None:
+                utilisateur=Etudiant.objects.get(user__id=id_etudiant)
+            else:
+                utilisateur=Professeur.objects.get(user=request.user)
+        fiche_display=[]
+        for item in items:
+            if request.user.is_student:
+                if reponse_item_synthese.objects.filter(item_synthese=item,etudiant=utilisateur):
+                    reponse=reponse_item_synthese.objects.get(item_synthese=item,etudiant=utilisateur)
+                else:
+                    reponse=None
+            elif request.user.is_teacher:
+                if id_etudiant==None:
+                    reponse=item
+                else:
+                    reponse=reponse_item_synthese.objects.get(item_synthese=item,etudiant__user__id=id_etudiant)
+            fiche_display.append([item,reponse])
+        context={'Fiche': fiche,'Items': fiche_display, 'edit': False,'Utilisateur': utilisateur, 'prof_etudiant':(id_etudiant!=None)}
+        return fiche,context
+    else:
+        return render(request, '/accounts/login/')
+
+@login_required(login_url='/accounts/login/')
+def fiche_ressource_display(request,id_sequence,id_ressource,id_etudiant=None):
+    fiche,context=generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant)
+    return render(request, 'fiche_synthese.html', context)
+
+@login_required(login_url='/accounts/login/')
+def generer_fiche_synthese_PDF(request,id_sequence,id_ressource,id_etudiant=None):
+    fiche,context=generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant)
+    template_name = 'test.tex'
+    return render_to_pdf(request, template_name, context, filename='test.pdf')
+
+@login_required(login_url='/accounts/login/')
+def gen_liste_fiches_ressource_eleve(eleve):
+    les_fiches=[]
+    fiches = fiche_synthese.objects.all()
+    for fiche in fiches:
+        vide=True
+        reponses = reponse_item_synthese.objects.filter(etudiant=eleve,item_synthese__fiche_synthese=fiche)
+        for reponse in reponses:
+            if reponse.reponse!="":
+                vide=False
+        les_fiches.append([fiche,reponses,vide])
+    context = {'Fiches': les_fiches}
+    return context, les_fiches
+
+@login_required(login_url='/accounts/login/')
+def liste_fiches_ressource(request, *args):
+    if request.user.is_authenticated:
+        if request.user.is_student:
+            utilisateur=Etudiant.objects.get(user=request.user)
+            context=gen_liste_fiches_ressource_eleve(utilisateur)[0]
+            return render(request, 'liste_fiches.html', context)
+        elif request.user.is_teacher:
+            eleves=Etudiant.objects.filter(annee='PTSI').order_by('user__last_name','user__first_name')
+            les_fiches=[]
+            for eleve in eleves:
+                la_fiche=gen_liste_fiches_ressource_eleve(eleve)[1]
+                les_fiches.append([eleve,la_fiche])
+            context = {'Eleves': les_fiches}
+            return render(request, 'liste_fiches_prof.html', context)
+        else:
+            return render(request, '/accounts/login/')
+    else:
+        return render(request, '/accounts/login/')
+

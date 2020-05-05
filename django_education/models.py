@@ -250,6 +250,15 @@ class ressource(models.Model):
     def url_git(self):
         return url(self,"si","git",self.type_de_ressource()[1],self.ilot())
 
+    class Meta:
+        ordering = ['sequence', 'numero']
+
+    def exist_video(self):
+        return video.objects.filter(ressource=self)
+
+    def exist_fiche(self):
+        return fiche_synthese.objects.get(ressource=self)
+
 def url(self,matiere,lien,type,ilot):
     if matiere=='si':
         if ilot==0:
@@ -413,6 +422,25 @@ class khole(ressource):
     def url_git(self):
         return url(self,"si","git","KH",0)
 
+class video(models.Model):
+    competence = models.ManyToManyField(competence)
+    ressource = models.ForeignKey(ressource, on_delete=models.CASCADE)
+    numero = models.IntegerField()
+    nom = models.CharField(max_length=100)
+    nom_fichier = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
+    systeme = models.ManyToManyField('systeme', blank=True)
+
+    def __str__(self):
+        return str("S%02d" % self.ressource.sequence.numero)+'-'+self.ressource.type_de_ressource()[1]+str("%02d" % self.ressource.numero)+' '+str("%02d" % self.numero)+' '+self.nom
+
+    class Meta:
+        ordering = ['ressource__sequence', 'numero']
+
+    def url(self):
+        dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.ressource.sequence.numero) + ' ' + \
+              self.ressource.sequence.nom + '/Videos/'
+        return dossier+self.nom_fichier+'?raw=true'
 
 class ressource_info(models.Model):
     sequence = models.ForeignKey(sequence_info, on_delete=models.CASCADE)
@@ -691,3 +719,68 @@ class Note(models.Model):
 
     class Meta:
         ordering = ['competence']
+
+class fiche_synthese(models.Model):
+    ressource = models.ForeignKey(ressource, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "%02d" % self.ressource.sequence.numero+' '+self.ressource.sequence.nom+' - '+\
+    "%02d" % self.ressource.numero+' '+self.ressource.nom
+
+    def reference(self):
+        return "S%02d" % self.ressource.sequence.numero+'-'+self.ressource.type_de_ressource()[1]+\
+    "%02d" % self.ressource.numero
+
+    def nom_court(self):
+        return "S%02d" % self.ressource.sequence.numero+'-'+self.ressource.type_de_ressource()[1]+\
+    "%02d" % self.ressource.numero+' '+self.ressource.nom
+
+class item_synthese(models.Model):
+    fiche_synthese = models.ForeignKey(fiche_synthese, on_delete=models.CASCADE)
+    numero = models.IntegerField()
+    question = models.CharField(max_length=1000)
+    COLOR = [
+        ('text-white bg-primary','Primary'),
+        ('text-white bg-secondary','Secondary'),
+        ('text-white bg-success','Success'),
+        ('text-white bg-danger','Danger'),
+        ('text-white bg-warning','Warning'),
+        ('bg-light','Light'),
+        ('text-white bg-dark','Dark'),
+        ]
+    couleur = models.CharField(
+        max_length=100,
+        choices=COLOR,
+        default='Light',
+    )
+    reponse = models.CharField(max_length=1000)
+
+    class Meta:
+        ordering = ['fiche_synthese', 'numero']
+
+    def __str__(self):
+        return "%02d" % self.fiche_synthese.ressource.sequence.numero+' '+self.fiche_synthese.ressource.sequence.nom\
+                    +" - %02d" % self.fiche_synthese.ressource.numero+' '\
+               +self.fiche_synthese.ressource.nom\
+               +' '+ "%02d" % self.numero
+
+    def reference(self):
+        return "%02d" % self.fiche_synthese.ressource.sequence.numero+'_'+"%02d" % self.fiche_synthese.ressource.numero+'_'+ "%02d" % self.numero
+
+    def short_name(self):
+        return "S%02d" % self.fiche_synthese.ressource.sequence.numero+'-'+self.fiche_synthese.ressource.type_de_ressource()[1]+"%02d" % self.fiche_synthese.ressource.numero+' '+ "%02d" % self.numero
+
+class reponse_item_synthese(models.Model):
+    item_synthese = models.ForeignKey(item_synthese, on_delete=models.CASCADE)
+    etudiant = models.ForeignKey('Etudiant', on_delete=models.CASCADE)
+    reponse = models.CharField(max_length=1000, null=True, blank=True)
+
+    class Meta:
+        ordering = ['item_synthese']
+
+    def __str__(self):
+        return "%02d" % self.item_synthese.fiche_synthese.ressource.sequence.numero+' '\
+               +self.item_synthese.fiche_synthese.ressource.sequence.nom\
+            +" - %02d" % self.item_synthese.fiche_synthese.ressource.numero+' '\
+               +self.item_synthese.fiche_synthese.ressource.nom\
+               +' '+ "%02d" % self.item_synthese.numero+' '+str(self.etudiant.user.id)

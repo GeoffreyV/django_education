@@ -365,6 +365,12 @@ ressources {
 .fifteen {
   width: 15%;
 }
+.sixty {
+  width: 60%;
+}
+.sixtyfive {
+  width: 65%;
+}
 .seventy {
   width: 70%;
 }
@@ -416,4 +422,13 @@ sequences {
         max-height: 100%;
 
     }
+}
+
+th.rotate {
+  transform:
+    /* Magic Numbers */
+    translate(0px, 0px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
 }
