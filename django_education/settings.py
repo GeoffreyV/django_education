@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'gunicorn',
     'django_filters',
     'django_tex',
+    'django.contrib.sitemaps',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

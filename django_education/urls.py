@@ -6,6 +6,8 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django_filters.views import FilterView
 from .filters import SystemeFiltre
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import SequenceSitemap, SystemeSitemap, CompetenceSitemap
 
 from .views import index, upload_eleves,\
     lister_ressources_si, afficher_sequence_si, lister_ressources_info, afficher_sequence_info, lister_competences,\
@@ -15,8 +17,15 @@ from .views import index, upload_eleves,\
     afficher_ressource_videos, fiche_ressource_edit, fiche_ressource_display, generer_fiche_synthese_PDF,\
     liste_fiches_ressource
 
+sitemaps = {
+    "sequences": SequenceSitemap,
+    "systemes": SystemeSitemap,
+    "competences": CompetenceSitemap,
+}
+
 app_name = 'registration'
 urlpatterns = [
+   path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^password-change-done/$',
         auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'),

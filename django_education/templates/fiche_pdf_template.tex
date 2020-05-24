@@ -16,21 +16,21 @@
 \newcommand{\institute}{Lycée Dorian}
 
 \usepackage[most]{tcolorbox}
-\definecolor{lightgreen}{rgb}{0.56, 0.93, 0.56}
-\definecolor{moonstoneblue}{rgb}{0.45, 0.66, 0.76}
+%\definecolor{lightgreen}{rgb}{0.56, 0.93, 0.56}
+%\definecolor{moonstoneblue}{rgb}{0.45, 0.66, 0.76}
 \usepackage{color}
-\usepackage{xcolor}
-\usepackage{colortbl}
+%\usepackage{xcolor}
+%\usepackage{colortbl}
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{amsfonts}
 \usepackage{amsmath}
-\usepackage{varioref}
-\usepackage{tabularx}
-\usepackage{textcomp}
-\usepackage{tikz}
-\usepackage{gensymb}
-\usepackage{etoolbox}
+%\usepackage{varioref}
+%\usepackage{tabularx}
+%\usepackage{textcomp}
+%\usepackage{tikz}
+%\usepackage{gensymb}
+%\usepackage{etoolbox}
 
 \definecolor{text-white bg-secondary}{HTML}{989898}
 \definecolor{text-white bg-primary}{rgb}{0.59,0.69,0.84}
@@ -40,13 +40,13 @@
 \definecolor{text-white bg-warning}{rgb}{0.90,0.42,0.15}
 \definecolor{text-white bg-success}{rgb}{0.13,0.54,0.13}
 
-\hypersetup{                    % parametrage des hyperliens
-    colorlinks=true,                % colorise les liens
-    breaklinks=true,                % permet les retours à la ligne pour les liens trop longs
-    urlcolor= blfr,                 % couleur des hyperliens
-    linkcolor= orange,                % couleur des liens internes aux documents (index, figures, tableaux, equations,...)
-    citecolor= forestgreen                % couleur des liens vers les references bibliographiques
-    }
+%\hypersetup{                    % parametrage des hyperliens
+%    colorlinks=true,                % colorise les liens
+%    breaklinks=true,                % permet les retours à la ligne pour les liens trop longs
+%    urlcolor= blfr,                 % couleur des hyperliens
+%    linkcolor= orange,                % couleur des liens internes aux documents (index, figures, tableaux, equations,...)
+%    citecolor= forestgreen                % couleur des liens vers les references bibliographiques
+%    }
 
 % Mise en page
 \pagestyle{fancy}
@@ -67,18 +67,6 @@
 \setlength{\textheight}{700pt} 		% Hauteur de l'icone zone de texte (25cm)
 %\setlength\fboxrule{1 pt}
 \renewcommand{\baselinestretch}{1}
-\setcounter{tocdepth}{1}
-
-\newcommand{\BackgroundPic}{
-\put(0,0){
-\parbox[b][\paperheight]{\paperwidth}{
-\vfill
-\begin{center}
-\hspace{0.5cm}\vspace{0.5cm}
-\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{fond3}
-\end{center}
-\vfill
-}}}
 
 \newcommand{\BackgroundPicdeux}{
 \put(25,-30){
@@ -90,30 +78,14 @@
 \vfill
 }}}
 
-\newcommand{\BackgroundPictrois}{
-\put(25,-30){
-\parbox[b][\paperheight]{\paperwidth}{
-\vfill
-\begin{center}
-\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{fond4}
-\end{center}
-\vfill
-}}}
-\newcommand{\titre}[1]
-{\begin{center}
-\cadre{0.8}{\huge #1}
-\end{center}
-}
-
-
 % En tête et pied de page
 \fancypagestyle{normal}{
-\fancyhf{}
 \lhead{Fiche de lecture: {{Fiche.nom_court()}} }
 \rhead{\includegraphics[width=1cm]{LogoRenb}}
 \lfoot{\auteurun}
 \cfoot{Page \thepage}
 }
+\renewcommand{\footrulewidth}{0.4pt}
 
 \begin{document}
 \pagestyle{normal}

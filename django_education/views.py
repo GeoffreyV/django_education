@@ -125,7 +125,7 @@ def afficher_sequence_si(request, id_sequence):
     liste_ilots=[]
     for tp_one in tps:
         ilots=ilot.objects.filter(tp=tp_one)
-        print(ilots[0].systeme.nom)
+        #print(ilots[0].systeme.nom)
         liste_ilots.append([tp_one,ilots])
     kholes=khole.objects.filter(sequence__numero=id_sequence)
     quizzes=Quiz.objects.filter(category__category__startswith="SI-S%02d" % id_sequence)
@@ -584,7 +584,7 @@ def fiche_ressource_display(request,id_sequence,id_ressource,id_etudiant=None):
 @login_required(login_url='/accounts/login/')
 def generer_fiche_synthese_PDF(request,id_sequence,id_ressource,id_etudiant=None):
     fiche,context=generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant)
-    template_name = 'test.tex'
+    template_name = 'fiche_pdf_template.tex'
     return render_to_pdf(request, template_name, context, filename='test.pdf')
 
 @login_required(login_url='/accounts/login/')

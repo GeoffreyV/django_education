@@ -3,6 +3,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import datetime
+from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 import unicodedata
 from math import ceil
@@ -40,6 +41,8 @@ class sequence(models.Model):
     class Meta:
         ordering = ['numero']
 
+    def get_absolute_url(self):
+        return '/si/%i/' % self.numero
 
 class sequence_info(models.Model):
     numero = models.IntegerField()
@@ -96,6 +99,10 @@ class systeme(models.Model):
 
     class Meta:
             ordering = ['nom']
+
+    def get_absolute_url(self):
+        return '/systeme/%i/' % self.id
+
 
 class grandeur(models.Model):
     nom = models.CharField(max_length=100)
@@ -194,6 +201,8 @@ class competence(models.Model):
     class Meta:
         ordering = ['id']
 
+    def get_absolute_url(self):
+        return '/competence/%i/' % self.id
 
 class competence_info(models.Model):
     reference = models.CharField(max_length=30)
@@ -439,7 +448,8 @@ class video(models.Model):
 
     def url(self):
         dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.ressource.sequence.numero) + ' ' + \
-              self.ressource.sequence.nom + '/Videos/'
+              self.ressource.sequence.nom +'/'+self.ressource.type_de_ressource()[1]+str("%02d" % self.ressource.numero)+' '+self.ressource.nom+ \
+             '/Videos/'
         return dossier+self.nom_fichier+'?raw=true'
 
 class ressource_info(models.Model):
