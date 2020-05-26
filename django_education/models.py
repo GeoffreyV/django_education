@@ -444,7 +444,7 @@ class video(models.Model):
         return str("S%02d" % self.ressource.sequence.numero)+'-'+self.ressource.type_de_ressource()[1]+str("%02d" % self.ressource.numero)+' '+str("%02d" % self.numero)+' '+self.nom
 
     class Meta:
-        ordering = ['ressource__sequence', 'numero']
+        ordering = ['ressource__sequence', 'ressource__numero', 'numero']
 
     def url(self):
         dossier = github + 'Sciences-Ingenieur/raw/master/' + str("S%02d" % self.ressource.sequence.numero) + ' ' + \
