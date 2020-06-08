@@ -202,7 +202,7 @@ class competence(models.Model):
         ordering = ['id']
 
     def get_absolute_url(self):
-        return '/competence/%i/' % self.id
+        return '/competence/%i/%i' % (self.famille.id,self.id)
 
 class competence_info(models.Model):
     reference = models.CharField(max_length=30)
