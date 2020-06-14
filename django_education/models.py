@@ -621,7 +621,7 @@ class DS(models.Model):
     sujet_support=models.ManyToManyField(sujet, blank=True)
     nb_questions=models.IntegerField(null=True, blank=True)
     nb_parties=models.IntegerField(null=True, blank=True)
-    coefficients=models.CharField(max_length=100, null=True, blank=True)
+    coefficients=models.CharField(max_length=1000, null=True, blank=True)
     ajustement=models.FloatField(null=True, blank=True)
     question_parties=models.CharField(max_length=100, null=True, blank=True)
     points_parties=models.CharField(max_length=100, null=True, blank=True)
