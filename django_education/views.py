@@ -499,20 +499,16 @@ def thanks(request):
     return render(request, 'contact.html', {'thanks': True})
 
 def afficher_sysml(request,id_systeme):
-    return render(request, 'sysml.html', {'thanks': True, 'id_systeme':id_systeme})
+    nom_systeme=systeme.objects.get(id=id_systeme)
+    url=remove_accents('https://ghcdn.rawgit.org/Costadoat/Sciences-Ingenieur/master/Systemes/'+str(nom_systeme)+'/SysMl/data.js')
+    return render(request, 'sysml.html', {'thanks': True, 'id_systeme':id_systeme, 'url_data_js':url})
 
 def relative_url_sysml(request, id_systeme, dossier, data):
     nom_systeme=systeme.objects.get(id=id_systeme)
     return redirect(remove_accents('https://github.com/Costadoat/Sciences-Ingenieur/raw/master/Systemes/'+str(nom_systeme)+'/SysMl/'+dossier+'/'+data))
 
-
 def relative_url_image_sysml(request, id_systeme, data):
     return redirect('/static/sysml_player/images/'+data)
-
-def afficher_data_js(request, id_systeme):
-    nom_systeme=systeme.objects.get(id=id_systeme)
-    url=remove_accents('https://raw.githubusercontent.com/Costadoat/Sciences-Ingenieur/master/Systemes/'+str(nom_systeme)+'/SysMl/data.js')
-    return HttpResponse(urlopen(url).read())
 
 @login_required(login_url='/accounts/login/')
 def fiche_ressource_edit(request,id_sequence,id_ressource,id_etudiant=None):

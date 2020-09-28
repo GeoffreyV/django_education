@@ -749,6 +749,8 @@ class item_synthese(models.Model):
     fiche_synthese = models.ForeignKey(fiche_synthese, on_delete=models.CASCADE)
     numero = models.IntegerField()
     question = models.CharField(max_length=1000)
+    image = models.ImageField(upload_to='upload/images_ressources/')
+    #, height_field=None, width_field=None, max_length=100, **options)
     COLOR = [
         ('text-white bg-primary','Primary'),
         ('text-white bg-secondary','Secondary'),

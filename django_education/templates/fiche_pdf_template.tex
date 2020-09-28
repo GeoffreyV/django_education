@@ -108,6 +108,12 @@
     ~\
 
 {{ item.0.question}}
+          {% if item.0.image %}
+     \begin{center}
+        \includegraphics[width=0.8\linewidth]{../{{item.0.image}}}
+     \end{center}
+      {% endif %}
+
 \end{tcolorbox}
 
 {% if Utilisateur.user.is_student %}

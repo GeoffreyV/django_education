@@ -16,5 +16,4 @@ class ReponseItemSyntheseForm(forms.Form):
         for item in items:
             self.fields[item.reference()] = forms.CharField(widget=forms.Textarea, required=False)
             self.fields[item.reference()] .widget.attrs['class'] = 'form-control'
-            self.fields[item.reference()].help_text = item.question
-            self.fields[item.reference()].help_text = item.question
+            self.fields[item.reference()].help_text = [item.question,item.couleur,item.image]
