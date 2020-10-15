@@ -727,8 +727,13 @@ class Note(models.Model):
     ds = models.ForeignKey('DS', on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
 
-    class Meta:
-        ordering = ['competence']
+#    class Meta:
+#        ordering = ['id']
+
+    def __str__(self):
+        return str(self.ds.date)+' '+self.etudiant.user.last_name.capitalize()+' '\
+                +self.etudiant.user.first_name.capitalize()+' '+str(self.numero)
+
 
 class fiche_synthese(models.Model):
     ressource = models.ForeignKey(ressource, on_delete=models.CASCADE)
@@ -749,7 +754,7 @@ class item_synthese(models.Model):
     fiche_synthese = models.ForeignKey(fiche_synthese, on_delete=models.CASCADE)
     numero = models.IntegerField()
     question = models.CharField(max_length=1000)
-    image = models.ImageField(upload_to='upload/images_ressources/')
+    image = models.ImageField(upload_to='uploads/images_ressources/', blank = True)
     #, height_field=None, width_field=None, max_length=100, **options)
     COLOR = [
         ('text-white bg-primary','Primary'),

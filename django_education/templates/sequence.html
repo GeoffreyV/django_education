@@ -45,7 +45,7 @@
                                 <td class="five"></td>
                             {% endif %}
                             {% if cours.exist_fiche %}
-                                <td class="five"> <a href="{{cours.id}}/fiche_ressource/"><i class='far fa-file-alt'></i></a></td>
+                                <td class="five"> <a href="{{cours.numero}}/fiche_ressource/"><i class='far fa-file-alt'></i></a></td>
                             {% else %}
                                 <td class="five"></td>
                             {% endif %}
@@ -122,7 +122,7 @@
 		            <tr>
 			        <td class="five"></td>
 				<td class="five">{{ilot.numero}}</td>
-				<td class="seventyfive"><small>{{ilot.systeme.nom}}</small></td>
+				<td class="seventyfive"><a href="/systeme/{{ilot.systeme.id}}"><small>{{ilot.systeme.nom}}</small></a></td>
 		 	        <td class="five"> <a href="{{ilot.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
                     <td class="five"> <a href="{{ilot.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
                     <td class="five"> <a href="{{ilot.url_git}}"><i class='fab fa-github'></i></a></td>
