@@ -4,12 +4,12 @@
 {% graphicspath %}
 \usepackage{eso-pic}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[french]{babel}
-\usepackage[gen]{eurosym}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage[french]{babel}
+%\usepackage[gen]{eurosym}
 \usepackage{fancyhdr}
-\usepackage{hyperref}
+%\usepackage{hyperref}
 \usepackage{fancybox}
 
 \newcommand{\auteurun}{ {{Utilisateur.user.last_name}} {{Utilisateur.user.first_name}} }
@@ -21,10 +21,10 @@
 \usepackage{color}
 %\usepackage{xcolor}
 %\usepackage{colortbl}
-\usepackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
-\usepackage{amsfonts}
-\usepackage{amsmath}
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{\sfdefault}
+%\usepackage{amsfonts}
+%\usepackage{amsmath}
 %\usepackage{varioref}
 %\usepackage{tabularx}
 %\usepackage{textcomp}
@@ -100,7 +100,7 @@
     colback={{item.0.couleur}}!20,
     colframe={{item.0.couleur}},
     colbacktitle={{item.0.couleur}},
-    title=Question,
+    title=Question {{item.0.numero}},
     fonttitle=\bfseries\color{black},
     boxed title style={size=small,colframe={{item.0.couleur}},sharp corners},
     sharp corners,

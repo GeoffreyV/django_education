@@ -44,7 +44,7 @@ urlpatterns = [
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/pdf', generer_fiche_synthese_PDF),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/', fiche_ressource_display),
     path('si/<int:id_etudiant>/<int:id_sequence>/<int:id_ressource>/fiche_ressource/edit', fiche_ressource_edit),
-    path('si/<int:id_etudiant>/<int:id_sequence>/<int:id_ressource>/fiche_ressource/pdf', generer_fiche_synthese_PDF),
+    path('si/<int:id_etudiant>/<int:id_sequence>/<int:id_ressource>/fiche_ressource/pdf', generer_fiche_synthese_PDF, name='totot'),
     path('si/<int:id_etudiant>/<int:id_sequence>/<int:id_ressource>/fiche_ressource/', fiche_ressource_display),
     path('mes_fiches_ressource/', liste_fiches_ressource),
     path('si/<int:id_sequence>/videos/', afficher_sequence_videos),

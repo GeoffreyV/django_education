@@ -409,10 +409,10 @@ class DetailsCharts(Chart):
         self.etudiant_note = Etudiant.objects.filter(user=id_etudiant).values('user','user__last_name', 'user__first_name')
         notes = Note.objects.filter(etudiant__user=id_etudiant).exclude(value=9).exclude(competence=0)\
             .values('competence', 'competence__famille', 'competence__nom', 'competence__reference', 'competence__famille__nom')\
-            .annotate(moyenne=Round(Avg('value'),2)).order_by('competence__reference')
+            .annotate(moyenne=Round(Avg('value'),2)).order_by('competence')
         notes_toute_classe = Note.objects.filter(etudiant__user__date_joined__gte=rentree_scolaire())\
             .exclude(value=9).exclude(competence=0).values('competence', 'competence__famille', 'competence__nom', 'competence__reference', 'competence__famille__nom')\
-            .annotate(moyenne=Round(Avg('value'),2)).order_by('competence__reference')
+            .annotate(moyenne=Round(Avg('value'),2)).order_by('competence')
         self.liste_label=[]
         self.liste_comp=[]
         self.notes_eleve=[]
@@ -437,6 +437,8 @@ class DetailsCharts(Chart):
                     self.liste_comp[index][5]="warning"
                 self.notes_eleve.append(note['moyenne'])
                 self.liste_comp[index][4]=note['moyenne']
+            else:
+                self.notes_eleve.append(0)
             index+=1
 
     def get_liste_comp(self):
@@ -567,21 +569,22 @@ def generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant=None):
                 else:
                     reponse=reponse_item_synthese.objects.get(item_synthese=item,etudiant__user__id=id_etudiant)
             fiche_display.append([item,reponse])
+            fichier='S'+"%02i" % id_sequence + 'C' + "%02i" % int(fiche.ressource.numero)+'_Fiche.pdf'
         context={'Fiche': fiche,'Items': fiche_display, 'edit': False,'Utilisateur': utilisateur, 'prof_etudiant':(id_etudiant!=None)}
-        return fiche,context
+        return fiche,context,fichier
     else:
         return render(request, '/accounts/login/')
 
 @login_required(login_url='/accounts/login/')
 def fiche_ressource_display(request,id_sequence,id_ressource,id_etudiant=None):
-    fiche,context=generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant)
+    fiche,context,fichier=generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant)
     return render(request, 'fiche_synthese.html', context)
 
 @login_required(login_url='/accounts/login/')
 def generer_fiche_synthese_PDF(request,id_sequence,id_ressource,id_etudiant=None):
-    fiche,context=generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant)
+    fiche,context,fichier=generer_fiche_synthese(request,id_sequence,id_ressource,id_etudiant)
     template_name = 'fiche_pdf_template.tex'
-    return render_to_pdf(request, template_name, context, filename='test.pdf')
+    return render_to_pdf(request, template_name, context, filename=fichier)
 
 @login_required(login_url='/accounts/login/')
 def gen_liste_fiches_ressource_eleve(eleve):
