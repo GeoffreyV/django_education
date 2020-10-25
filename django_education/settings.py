@@ -139,6 +139,12 @@ STATICFILES_DIRS=[
    os.path.join(BASE_DIR, 'django_education/static'),
 ]
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR + '/' + 'db.sqlite3'),
+    }
+}
 #SESSION_COOKIE_SECURE=True
 #SESSION_COOKIE_HTTPONLY=True
 #SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
