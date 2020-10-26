@@ -36,7 +36,7 @@ class Menus(models.Model):
 class MenuItems(models.Model):
     title = models.CharField(max_length=100)
     parent = models.ForeignKey(Menus, on_delete=models.CASCADE)
-
+    link = models.CharField(max_length=100)
     def __str__(self):
         return self.title
 
