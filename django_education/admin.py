@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import sequence, filiere_prepa, ecole, concours, sujet, systeme, cours, td, tp, ilot, matiere, langue_vivante,\
     Etudiant, Professeur, Utilisateur, cours_info, td_info, tp_info, competence, khole, DS, Note, parametre,\
     grandeur, type_de_fichier, type_image_systeme, fichier_systeme, image_systeme, video, fiche_synthese, item_synthese,\
-    reponse_item_synthese
+    reponse_item_synthese, Menus, MenuItems
 
 from multichoice.models import MCQuestion, Answer
 from quiz.models import Question
@@ -113,3 +113,5 @@ admin.site.register(khole)
 admin.site.register(DS)
 admin.site.register(Note)
 admin.site.register(video, VideoAdmin)
+admin.site.register(Menus)
+admin.site.register(MenuItems)
