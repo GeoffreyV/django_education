@@ -42,6 +42,24 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
+          {% for menu in menus %}
+          {% if menu.menuitems_set.count > 0 %}
+          <li class="nav-item dropdown">
+           <a class="nav-link dropdown-toggle dropbtn" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             {{menu.title}}
+           </a>
+           <div class="dropdown-menu dropdown-menu-right dropdown-content" aria-labelledby="navbarDropdownPortfolio">
+             {% for item in menu.menuitems_set.all %}
+             <a class="dropdown-item" href="#">{{item.title}}</a>
+             {% endfor %}
+           </div>
+           {% else %}
+           <li class="nav-item">
+               <a class="nav-link" href="/accounts/login">{{menu.title}}</a>
+           </li>
+           {% endif %}
+          </li>
+          {% endfor %}
            <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle dropbtn" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Sciences Ingénieur

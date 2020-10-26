@@ -313,7 +313,7 @@ def details(request, id_etudiant):
         return render(request, 'resultats.html', context)
     else:
         return render(request, '/index')
-    
+
 class Round(Func):
     function = 'ROUND'
     arity = 2
@@ -619,4 +619,3 @@ def liste_fiches_ressource(request, *args):
             return render(request, '/accounts/login/')
     else:
         return render(request, '/accounts/login/')
-
