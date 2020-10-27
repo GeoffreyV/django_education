@@ -52,6 +52,12 @@
              {% if matiere.sequence_set.count > 0 %}
               <a class="dropdown-item" href="{% url 'django_education-ressources' matiere.nom_cours%}">Ressources</a>
              {% endif %}
+             {% if matiere.competence_set.count > 0 %}
+              <a class="dropdown-item" href="{% url 'django_education-lister_competences' matiere.nom_cours%}">Compétences</a>
+             {% endif %}
+             {% if matiere.systeme_set.count > 0 %}
+              <a class="dropdown-item" href="{% url 'lister_systemes' matiere.nom_cours%}">Systèmes</a>
+             {% endif %}
              {% if matiere.ds_set.count > 0 %}
               <a class="dropdown-item" href="{% url 'django_education-lister_ds' matiere.nom_cours%}">DS</a>
              {% endif %}

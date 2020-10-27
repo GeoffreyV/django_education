@@ -12,7 +12,12 @@
   </br>
 
           <div align="right">
-            <a href="/systemes" ><button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour</button></a>
+            {% if matiere != None %}
+            <a href="{% url 'lister_systemes' matiere %}" >
+            {% else %}
+            <a href="{% url 'lister_systemes' %}" >
+            {% endif %}
+              <button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour</button></a>
          </div>
   </br>
 

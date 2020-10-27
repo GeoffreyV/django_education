@@ -39,7 +39,6 @@ urlpatterns = [
         auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'),
         name='password_change'
     ),
-    path('<str:matiere>/<int:id_sequence>/', afficher_sequence, name='django_education-afficher_sequence'),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/edit', fiche_ressource_edit),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/pdf', generer_fiche_synthese_PDF),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/', fiche_ressource_display),
@@ -50,9 +49,12 @@ urlpatterns = [
     path('si/<int:id_sequence>/videos/', afficher_sequence_videos),
     path('si/<int:id_sequence>/r<int:id_ressource>/videos/', afficher_ressource_videos),
     path('<str:matiere>/ds/', lister_ds, name='django_education-lister_ds'),
-    path('competences', lister_competences),
+    path('<str:matiere>/competences', lister_competences, name='django_education-lister_competences'),
+    path('<str:matiere>/systemes/', FilterView.as_view(filterset_class=SystemeFiltre,
+            template_name='systemes.html'), name='lister_systemes'),
     path('systemes/', FilterView.as_view(filterset_class=SystemeFiltre,
             template_name='systemes.html'), name='lister_systemes'),
+    path('<str:matiere>/systeme/<int:id_systeme>/', afficher_systeme),
     path('systeme/<int:id_systeme>/', afficher_systeme),
     path('systeme/<int:id_systeme>/sysml', afficher_sysml),
     path('systeme/<int:id_systeme>/images/<str:data>', relative_url_image_sysml),
@@ -76,4 +78,5 @@ urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
     path('<str:matiere>/', lister_ressources, name='django_education-ressources'),
+    path('<str:matiere>/<int:id_sequence>/', afficher_sequence, name='django_education-afficher_sequence'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
