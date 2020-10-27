@@ -83,7 +83,6 @@ class ItemSyntheseAdmin(admin.ModelAdmin):
     get_question.short_description = 'Question'
 
 admin.site.register(sequence)
-admin.site.register(sequence_info)
 admin.site.register(filiere_prepa)
 admin.site.register(ecole)
 admin.site.register(concours)
@@ -103,7 +102,7 @@ admin.site.register(ilot)
 admin.site.register(cours_info)
 admin.site.register(td_info)
 admin.site.register(tp_info)
-admin.site.register(Matiere)
+admin.site.register(matiere)
 admin.site.register(langue_vivante)
 admin.site.register(Utilisateur)
 admin.site.register(Etudiant)
