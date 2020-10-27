@@ -22,11 +22,7 @@
                 <tr>
                     <td class="five">{{sequence.str_numero}}</td>
                     <td class="ninety"> <a href="{{sequence.get_absolute_url}}" %}">{{sequence.nom}}</a></td>
-<<<<<<< Updated upstream
-                    <td class="five"> <a href="{% url 'django_education-afficher_sequence' matiere sequence.numero %}" %}"><i class='fas fa-angle-right'></i></a></td>
-=======
                     <td class="five"> <a href="{{sequence.get_absolute_url}}" %}"><i class='fas fa-angle-right'></i></a></td>
->>>>>>> Stashed changes
                 </tr>
             {% endfor %}
             </table>
