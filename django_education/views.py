@@ -116,6 +116,12 @@ def lister_ds_si(request):
     liste_ds.append(annee)
     return render(request, 'annales_ds.html', {'liste_ds':liste_ds, 'si':True})
 
+def afficher_sequence(request, matiere, id_sequence):
+    if (matiere == 'si'):
+        return afficher_sequence_si(request, id_sequence)
+    elif (matiere == 'info'):
+        return afficher_sequence_info(request, id_sequence)
+
 def afficher_sequence_si(request, id_sequence):
     sequence_a_afficher=sequence.objects.get(numero=id_sequence)
     courss=cours.objects.filter(sequence__numero=id_sequence)
