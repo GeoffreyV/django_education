@@ -95,14 +95,17 @@ def afficher_systeme(request, id_systeme):
         })
 
 
-def lister_ressources_si(request):
-    sequences=sequence.objects.all()
-    return render(request, 'sequences.html', {'sequences':sequences, 'si':True})
+def lister_ressources(request,matiere):
+    if (matiere == 'si'):
+        sequences=sequence.objects.all()
+    elif (matiere == 'info'):
+        sequences=sequence_info.objects.all()
+    return render(request, 'sequences.html', {'sequences':sequences})
 
 def lister_ressources_info(request):
     sequences=sequence_info.objects.all()
     dossier_ds = github + 'Informatique/raw/master/DS/'
-    return render(request, 'sequences.html', {'sequences':sequences, 'dossier_ds':dossier_ds, 'info':True})
+    return render(request, 'sequences.html', {'sequences':sequences, 'dossier_ds':dossier_ds, 'repertory':repertoire})
 
 def lister_ds_si(request):
     dss=DS.objects.all()

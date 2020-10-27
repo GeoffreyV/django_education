@@ -10,7 +10,7 @@ from django.contrib.sitemaps.views import sitemap
 from .sitemaps import SequenceSitemap, SystemeSitemap, CompetenceSitemap
 
 from .views import index, upload_eleves,\
-    lister_ressources_si, afficher_sequence_si, lister_ressources_info, afficher_sequence_info, lister_competences,\
+    lister_ressources, afficher_sequence_si, lister_ressources_info, afficher_sequence_info, lister_competences,\
     afficher_famille_competence,  afficher_competence, relative_url_view, relative_url_view_systeme,\
     resultats, resultats_vierge, details, ds_eleve, resultats_quizz, resultats_quizz_eleve, contact, thanks, afficher_systeme, lister_ds_si,\
     afficher_sysml, relative_url_sysml, relative_url_image_sysml, afficher_sequence_videos,\
@@ -39,7 +39,10 @@ urlpatterns = [
         auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'),
         name='password_change'
     ),
+    path('<str:matiere>/', lister_ressources, name='django_education-ressources'),
+    #path('info/', lister_ressources_info, name='django_education-si'),
     path('si/<int:id_sequence>/', afficher_sequence_si),
+    path('info/<int:id_sequence>/', afficher_sequence_info),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/edit', fiche_ressource_edit),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/pdf', generer_fiche_synthese_PDF),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/', fiche_ressource_display),
@@ -49,10 +52,7 @@ urlpatterns = [
     path('mes_fiches_ressource/', liste_fiches_ressource),
     path('si/<int:id_sequence>/videos/', afficher_sequence_videos),
     path('si/<int:id_sequence>/r<int:id_ressource>/videos/', afficher_ressource_videos),
-    path('info/<int:id_sequence>/', afficher_sequence_info),
     path('si/ds/', lister_ds_si),
-    path('si/', lister_ressources_si),
-    path('info/', lister_ressources_info),
     path('competences', lister_competences),
     path('systemes/', FilterView.as_view(filterset_class=SystemeFiltre,
             template_name='systemes.html'), name='lister_systemes'),
