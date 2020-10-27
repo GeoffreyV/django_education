@@ -50,7 +50,10 @@
            </a>
            <div class="dropdown-menu dropdown-menu-right dropdown-content" aria-labelledby="navbarDropdownPortfolio">
              {% if matiere.sequence_set.count > 0 %}
-             <a class="dropdown-item" href="{% url 'django_education-ressources' matiere.nom_cours%}">Ressources</a>
+              <a class="dropdown-item" href="{% url 'django_education-ressources' matiere.nom_cours%}">Ressources</a>
+             {% endif %}
+             {% if matiere.ds_set.count > 0 %}
+              <a class="dropdown-item" href="{% url 'django_education-lister_ds' matiere.nom_cours%}">DS</a>
              {% endif %}
            </div>
            {% endif %}

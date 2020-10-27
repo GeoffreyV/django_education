@@ -12,7 +12,7 @@ from .sitemaps import SequenceSitemap, SystemeSitemap, CompetenceSitemap
 from .views import index, upload_eleves,\
     lister_ressources, afficher_sequence, lister_competences,\
     afficher_famille_competence,  afficher_competence, relative_url_view, relative_url_view_systeme,\
-    resultats, resultats_vierge, details, ds_eleve, resultats_quizz, resultats_quizz_eleve, contact, thanks, afficher_systeme, lister_ds_si,\
+    resultats, resultats_vierge, details, ds_eleve, resultats_quizz, resultats_quizz_eleve, contact, thanks, afficher_systeme, lister_ds,\
     afficher_sysml, relative_url_sysml, relative_url_image_sysml, afficher_sequence_videos,\
     afficher_ressource_videos, fiche_ressource_edit, fiche_ressource_display, generer_fiche_synthese_PDF,\
     liste_fiches_ressource
@@ -49,7 +49,7 @@ urlpatterns = [
     path('mes_fiches_ressource/', liste_fiches_ressource),
     path('si/<int:id_sequence>/videos/', afficher_sequence_videos),
     path('si/<int:id_sequence>/r<int:id_ressource>/videos/', afficher_ressource_videos),
-    path('si/ds/', lister_ds_si),
+    path('<str:matiere>/ds/', lister_ds, name='django_education-lister_ds'),
     path('competences', lister_competences),
     path('systemes/', FilterView.as_view(filterset_class=SystemeFiltre,
             template_name='systemes.html'), name='lister_systemes'),
