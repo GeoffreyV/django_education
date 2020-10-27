@@ -101,7 +101,7 @@ def lister_ressources(request,matiere):
     else:
         return render(request, '404.html')
 
-def lister_ds_si(request):
+def lister_ds(request, matiere):
     dss=DS.objects.all()
     liste_ds=[]
     annee=[str(dss[0].annee()),[]]

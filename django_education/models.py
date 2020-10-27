@@ -650,6 +650,7 @@ class DS(models.Model):
     points_parties=models.CharField(max_length=100, null=True, blank=True)
     moyenne=models.FloatField(null=True, blank=True)
     ecart_type=models.FloatField(null=True, blank=True)
+    matiere=models.ForeignKey(Matiere,on_delete='SET_NULL',null=True)
 
     def annee(self):
         return annee_scolaire(self.date)
