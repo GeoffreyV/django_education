@@ -21,8 +21,8 @@
             {% for sequence in sequences %}
                 <tr>
                     <td class="five">{{sequence.str_numero}}</td>
-                    <td class="ninety"> <a href="{% url 'django_education-ressources' 'si' %}{{sequence.numero}}/" %}">{{sequence.nom}}</a></td>
-                    <td class="five"> <a href="{% url 'django_education-ressources' 'si' %}{{sequence.numero}}/" %}"><i class='fas fa-angle-right'></i></a></td>
+                    <td class="ninety"> <a href="{% url 'django_education-ressources' matiere %}{{sequence.numero}}/" %}">{{sequence.nom}}</a></td>
+                    <td class="five"> <a href="{% url 'django_education-ressources' matiere %}{{sequence.numero}}/" %}"><i class='fas fa-angle-right'></i></a></td>
                 </tr>
             {% endfor %}
             </table>
