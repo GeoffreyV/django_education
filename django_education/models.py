@@ -67,7 +67,7 @@ class sequence(models.Model):
         ordering = ['numero']
 
     def get_absolute_url(self):
-        return '/si/%i/' % self.numero
+        return reverse('django_education-afficher_sequence', args=[str(self.matiere), str(self.numero)])
 
 class sequence_info(models.Model):
     numero = models.IntegerField()
@@ -82,6 +82,9 @@ class sequence_info(models.Model):
 
     class Meta:
         ordering = ['numero']
+
+    def get_absolute_url(self):
+        return '/info/%i/' % self.numero
 
 
 class filiere_prepa(models.Model):
