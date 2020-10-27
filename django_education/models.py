@@ -27,6 +27,15 @@ def annee_scolaire(date):
     else:
         return str(date.year)+'-'+str(date.year+1)
 
+class Matiere(models.Model):
+    nom=models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nom
+
+    class Meta:
+        ordering = ['id']
+
 class Menus(models.Model):
     title = models.CharField(max_length=100)
 
@@ -45,6 +54,8 @@ class sequence(models.Model):
     numero = models.IntegerField()
     nom = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
+
+    matiere = models.ForeignKey(Matiere, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%02d" % self.numero+' '+self.nom
@@ -547,17 +558,7 @@ class tp_info(ressource_info):
         return url(self,"info","python","TP",0)
 
 
-class matiere(models.Model):
-    nom=models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nom
-
-    class Meta:
-        ordering = ['id']
-
-
-class langue_vivante(matiere):
+class langue_vivante(Matiere):
     langue=models.CharField(max_length=100)
 
     def __str__(self):
@@ -604,7 +605,7 @@ class Professeur(models.Model):
         choices=ANNEE,
         default='PTSI',
     )
-    matiere = models.ForeignKey('matiere', on_delete=models.PROTECT)
+    matiere = models.ForeignKey('Matiere', on_delete=models.PROTECT)
 
     def __str__(self):
         return self.user.last_name+' '+self.user.first_name
