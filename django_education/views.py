@@ -114,13 +114,7 @@ def lister_ds_si(request):
     return render(request, 'annales_ds.html', {'liste_ds':liste_ds, 'si':True})
 
 def afficher_sequence(request, matiere, id_sequence):
-    if (matiere == 'si'):
-        return afficher_sequence_si(request, id_sequence)
-    elif (matiere == 'info'):
-        return afficher_sequence_info(request, id_sequence)
-
-def afficher_sequence_si(request, id_sequence):
-    sequence_a_afficher=sequence.objects.get(numero=id_sequence)
+    sequence_a_afficher=sequence.objects.filter(matiere__nom=matiere).get(numero=id_sequence)
     courss=cours.objects.filter(sequence__numero=id_sequence)
     videos=video.objects.filter(ressource__sequence__numero=id_sequence)
     tds=td.objects.filter(sequence__numero=id_sequence)
@@ -146,15 +140,6 @@ def afficher_ressource_videos(request, id_sequence, id_ressource):
     videos=video.objects.filter(ressource=id_ressource)
     type_page='le '+ressource_a_afficher.type_de_ressource()[0]+' '+ressource_a_afficher.str_numero()+': '+ressource_a_afficher.nom
     return render(request, 'videos.html',{'sequence':sequence_a_afficher,'ressource':ressource_a_afficher,'videos':videos,'type_page':type_page})
-
-def afficher_sequence_info(request, id_sequence):
-    sequence_a_afficher=sequence_info.objects.get(id=id_sequence)
-    courss=cours_info.objects.filter(sequence=id_sequence)
-    tds=td_info.objects.filter(sequence=id_sequence)
-    tps=tp_info.objects.filter(sequence=id_sequence)
-    quizzes=Quiz.objects.filter(category__category="Info-S%02d" % id_sequence)
-    return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':tps,'quizzes':quizzes,'info':True})
-
 
 def lister_competences(request):
     competences=famille_competence.objects.all()
