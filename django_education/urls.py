@@ -10,7 +10,7 @@ from django.contrib.sitemaps.views import sitemap
 from .sitemaps import SequenceSitemap, SystemeSitemap, CompetenceSitemap
 
 from .views import index, upload_eleves,\
-    lister_ressources, afficher_sequence_si, lister_ressources_info, afficher_sequence_info, lister_competences,\
+    lister_ressources, afficher_sequence_si, afficher_sequence_info, lister_competences,\
     afficher_famille_competence,  afficher_competence, relative_url_view, relative_url_view_systeme,\
     resultats, resultats_vierge, details, ds_eleve, resultats_quizz, resultats_quizz_eleve, contact, thanks, afficher_systeme, lister_ds_si,\
     afficher_sysml, relative_url_sysml, relative_url_image_sysml, afficher_sequence_videos,\

@@ -100,12 +100,9 @@ def lister_ressources(request,matiere):
         sequences=sequence.objects.all()
     elif (matiere == 'info'):
         sequences=sequence_info.objects.all()
-    return render(request, 'sequences.html', {'sequences':sequences})
-
-def lister_ressources_info(request):
-    sequences=sequence_info.objects.all()
-    dossier_ds = github + 'Informatique/raw/master/DS/'
-    return render(request, 'sequences.html', {'sequences':sequences, 'dossier_ds':dossier_ds, 'repertory':repertoire})
+    else :
+        sequences=null
+    return render(request, 'sequences.html', {'sequences':sequences, 'matiere':matiere})
 
 def lister_ds_si(request):
     dss=DS.objects.all()
