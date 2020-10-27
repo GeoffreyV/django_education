@@ -73,7 +73,7 @@ def upload_eleves(request):
         return render(request, 'simple_upload.html',{'done': True})
     return render(request, 'simple_upload.html')
 
-def afficher_systeme(request, id_systeme):
+def afficher_systeme(request,matiere=None, id_systeme=1):
     systeme_a_afficher=systeme.objects.get(id=id_systeme)
     courss=cours.objects.filter(systeme=systeme_a_afficher)
     tds=td.objects.filter(systeme=systeme_a_afficher)
@@ -90,7 +90,7 @@ def afficher_systeme(request, id_systeme):
                                             'ilots':ilots,'kholes':kholes,'dss':dss,'utilise':utilise, 'parametres':parametres,\
                                             'exist_parametre':len(parametres)>0, 'fichiers':fichiers,\
                                             'exist_fichier':len(fichiers)>0, 'images':images,\
-                                            'exist_image':len(images)>0
+                                            'exist_image':len(images)>0, 'matiere':matiere
         })
 
 
@@ -141,7 +141,7 @@ def afficher_ressource_videos(request, id_sequence, id_ressource):
     type_page='le '+ressource_a_afficher.type_de_ressource()[0]+' '+ressource_a_afficher.str_numero()+': '+ressource_a_afficher.nom
     return render(request, 'videos.html',{'sequence':sequence_a_afficher,'ressource':ressource_a_afficher,'videos':videos,'type_page':type_page})
 
-def lister_competences(request):
+def lister_competences(request, matiere):
     competences=famille_competence.objects.all()
     return render(request, 'competences.html', {'competences':competences})
 

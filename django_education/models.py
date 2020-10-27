@@ -120,6 +120,8 @@ class systeme(models.Model):
     description = models.CharField(max_length=1000)
     image = models.FileField(upload_to='systemes/')
     sysml = models.BooleanField(default=False)
+    matiere = models.ManyToManyField(Matiere, blank=True)
+
     def __str__(self):
         return self.nom
 
@@ -224,6 +226,7 @@ class competence(models.Model):
     description = models.CharField(max_length=1000)
     semestre = models.IntegerField()
     active = models.BooleanField()
+    matiere = models.ManyToManyField(Matiere)
 
     def __str__(self):
         return str(self.reference)+' '+self.nom
