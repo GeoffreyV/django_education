@@ -29,6 +29,8 @@ def annee_scolaire(date):
 
 class Matiere(models.Model):
     nom=models.CharField(max_length=100)
+    nom_cours = models.CharField(max_length=100, default=nom)
+    display = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nom
@@ -58,7 +60,7 @@ class sequence(models.Model):
     matiere = models.ForeignKey(Matiere, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "%02d" % self.numero+' '+self.nom
+        return '[' + self.matiere.nom +'] ' +  "%02d" % self.numero+' '+self.nom
 
     def str_numero(self):
         return "%02d" % self.numero

@@ -42,21 +42,17 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
-          {% for menu in menus %}
-          {% if menu.menuitems_set.count > 0 %}
+          {% for matiere in matieres %}
+          {% if matiere.display %}
           <li class="nav-item dropdown">
            <a class="nav-link dropdown-toggle dropbtn" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             {{menu.title}}
+             {{matiere.nom}}
            </a>
            <div class="dropdown-menu dropdown-menu-right dropdown-content" aria-labelledby="navbarDropdownPortfolio">
-             {% for item in menu.menuitems_set.all %}
-             <a class="dropdown-item" href="{{item.link}}">{% if item.printed_title != "" %}{{item.printed_title}}{% else %}{{item.title}}{% endif %}</a>
-             {% endfor %}
+             {% if matiere.sequence_set.count > 0 %}
+             <a class="dropdown-item" href="{% url 'django_education-ressources' matiere.nom_cours%}">Ressources</a>
+             {% endif %}
            </div>
-           {% else %}
-           <li class="nav-item">
-               <a class="nav-link" href="/accounts/login">{{menu.title}}</a>
-           </li>
            {% endif %}
           </li>
           {% endfor %}

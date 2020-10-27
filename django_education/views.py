@@ -95,8 +95,8 @@ def afficher_systeme(request, id_systeme):
 
 
 def lister_ressources(request,matiere):
-    if (Matiere.objects.filter(nom=matiere).exists()):
-        sequences=Matiere.objects.get(nom=matiere).sequence_set.all()
+    if (Matiere.objects.filter(nom_cours=matiere).exists()):
+        sequences=Matiere.objects.get(nom_cours=matiere).sequence_set.all()
         return render(request, 'sequences.html', {'sequences':sequences, 'matiere':matiere})
     else:
         return render(request, '404.html')

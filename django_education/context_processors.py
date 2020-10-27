@@ -1,8 +1,10 @@
-from .models import Menus
+from .models import Menus, Matiere
 
 def access_menus(request):
     """
         Definition of global menu
     """
     menus = Menus.objects.all()
-    return {'menus':menus}
+    matieres = Matiere.objects.all()
+
+    return {'menus':menus, 'matieres':matieres}
