@@ -1,7 +1,7 @@
 # -*-coding: utf-8 -*-
 
 from django.shortcuts import render, redirect, HttpResponseRedirect
-from .models import Utilisateur, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
+from .models import Utilisateur, Matiere, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
     td, td_info, tp, ilot,tp_info, khole, Note, Etudiant, Professeur, langue_vivante, DS, systeme, parametre, fichier_systeme,\
     image_systeme, video, ressource, item_synthese, fiche_synthese, reponse_item_synthese
 
@@ -40,7 +40,6 @@ def index(request):
 
 
 def upload_eleves(request):
-
     def remove_space(nom_init):
         nom=nom_init
         while nom[0]==' ':
@@ -96,13 +95,11 @@ def afficher_systeme(request, id_systeme):
 
 
 def lister_ressources(request,matiere):
-    if (matiere == 'si'):
-        sequences=sequence.objects.all()
-    elif (matiere == 'info'):
-        sequences=sequence_info.objects.all()
-    else :
-        sequences=null
-    return render(request, 'sequences.html', {'sequences':sequences, 'matiere':matiere})
+    if (Matiere.objects.filter(nom=matiere).exists()):
+        sequences=Matiere.objects.get(nom=matiere).sequence_set.all()
+        return render(request, 'sequences.html', {'sequences':sequences, 'matiere':matiere})
+    else:
+        return render(request, '404.html')
 
 def lister_ds_si(request):
     dss=DS.objects.all()
