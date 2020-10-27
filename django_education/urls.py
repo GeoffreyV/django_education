@@ -39,7 +39,6 @@ urlpatterns = [
         auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'),
         name='password_change'
     ),
-    path('<str:matiere>/', lister_ressources, name='django_education-ressources'),
     path('<str:matiere>/<int:id_sequence>/', afficher_sequence, name='django_education-afficher_sequence'),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/edit', fiche_ressource_edit),
     path('si/<int:id_sequence>/<int:id_ressource>/fiche_ressource/pdf', generer_fiche_synthese_PDF),
@@ -75,5 +74,6 @@ urlpatterns = [
     path('contact/', contact),
     path('thanks/', thanks),
     path('', index),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('<str:matiere>/', lister_ressources, name='django_education-ressources'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
