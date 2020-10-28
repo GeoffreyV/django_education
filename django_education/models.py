@@ -278,7 +278,7 @@ class ressource(models.Model):
                 pass
 
     def __str__(self):
-        return 'S'+str("%02d" % self.sequence.numero)+'-'+self.type_de_ressource()[1]+str("%02d" % self.numero)+' '+self.nom
+        return str(self.sequence.matiere__nom_cours) + 'S'+str("%02d" % self.sequence.numero)+'-'+self.type_de_ressource()[1]+str("%02d" % self.numero)+' '+self.nom
 
     def ilot(self):
         if self.type_de_ressource()[1]=='TP':
@@ -345,7 +345,7 @@ def url(self,matiere,lien,type,ilot):
 class cours(ressource):
 
     def __str__(self):
-        return str("%02d" % self.sequence.numero)+'-'+str("%02d" % self.numero)+' '+self.nom
+        return str("%02d" % self.numero)+' '+self.nom
 
     def str_numero(self):
         return str("%02d" % self.numero)

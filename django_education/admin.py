@@ -23,6 +23,16 @@ class SequenceAdmin(admin.ModelAdmin):
     list_filter = ('matiere',)
     ordering = ['matiere', 'nom']
 
+class CoursAdmin(admin.ModelAdmin):
+    def matiere(self,obj):
+        return obj.sequence.matiere
+
+    list_display = ('__str__', 'matiere', 'sequence')
+    list_filter = ['sequence__matiere', ]
+    ordering = ['sequence__matiere', 'sequence' ]
+
+
+
 class SystemeAdmin(admin.ModelAdmin):
     inlines=[
         ParametreInline,
@@ -111,7 +121,7 @@ admin.site.register(langue_vivante)
 admin.site.register(Utilisateur)
 admin.site.register(Etudiant)
 admin.site.register(Professeur)
-admin.site.register(cours)
+admin.site.register(cours,CoursAdmin)
 admin.site.register(competence)
 admin.site.register(khole)
 admin.site.register(DS)
