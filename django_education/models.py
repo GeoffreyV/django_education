@@ -36,6 +36,9 @@ class Matiere(models.Model):
     class Meta:
         ordering = ['id']
 
+    def get_absolute_url(self):
+        return reverse('django_education-ressources', args=[str(self.nom_cours)])
+
 class Menus(models.Model):
     title = models.CharField(max_length=100)
 
@@ -67,7 +70,7 @@ class sequence(models.Model):
         ordering = ['numero']
 
     def get_absolute_url(self):
-        return reverse('django_education-afficher_sequence', args=[str(self.matiere), str(self.numero)])
+        return reverse('django_education-afficher_sequence', args=[str(self.matiere.nom_cours), str(self.numero)])
 
 class sequence_info(models.Model):
     numero = models.IntegerField()

@@ -114,7 +114,7 @@ def lister_ds_si(request):
     return render(request, 'annales_ds.html', {'liste_ds':liste_ds, 'si':True})
 
 def afficher_sequence(request, matiere, id_sequence):
-    sequence_a_afficher=sequence.objects.filter(matiere__nom=matiere).get(numero=id_sequence)
+    sequence_a_afficher=sequence.objects.filter(matiere__nom_cours=matiere).get(numero=id_sequence)
     courss=cours.objects.filter(sequence__numero=id_sequence)
     videos=video.objects.filter(ressource__sequence__numero=id_sequence)
     tds=td.objects.filter(sequence__numero=id_sequence)
@@ -126,7 +126,7 @@ def afficher_sequence(request, matiere, id_sequence):
         liste_ilots.append([tp_one,ilots])
     kholes=khole.objects.filter(sequence__numero=id_sequence)
     quizzes=Quiz.objects.filter(category__category__startswith="SI-S%02d" % id_sequence)
-    return render(request, 'sequence.html', {'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':liste_ilots,'kholes':kholes,'quizzes':quizzes,'videos':videos,'si':True})
+    return render(request, 'sequence.html', {'matiere':Matiere.objects.get(nom_cours=matiere),'sequence':sequence_a_afficher,'courss':courss,'tds':tds,'tps':liste_ilots,'kholes':kholes,'quizzes':quizzes,'videos':videos})
 
 def afficher_sequence_videos(request, id_sequence):
     sequence_a_afficher=sequence.objects.get(numero=id_sequence)

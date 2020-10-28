@@ -7,11 +7,7 @@
 {% block content1 %}
 
     <div align="right">
-        {% if si %}
-        <a href="/si" ><button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour</button></a>
-        {% else %}
-        <a href="/info" ><button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour</button></a>
-        {% endif %}
+        <a href="{{ matiere.get_absolute_url }}" %><button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour</button></a>
     </div>
 
 
