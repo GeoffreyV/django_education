@@ -146,12 +146,12 @@ def lister_competences(request, matiere):
     return render(request, 'competences.html', {'competences':competences})
 
 
-def afficher_famille_competence(request, id_famille):
+def afficher_famille_competence(request, id_famille, matiere=None):
     famille=famille_competence.objects.get(id=id_famille)
     competence_a_afficher=competence.objects.filter(famille=id_famille)
     return render(request, 'competence.html', {'famille':famille,'competences':competence_a_afficher})
 
-def afficher_competence(request, id_famille, id_competence):
+def afficher_competence(request, id_famille, id_competence, matiere=None):
     famille=famille_competence.objects.get(id=id_famille)
     competence_a_afficher=competence.objects.get(id=id_competence)
     courss=cours.objects.filter(competence=id_competence)
