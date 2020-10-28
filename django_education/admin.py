@@ -18,6 +18,10 @@ class FichierInline(admin.TabularInline):
 class ImageInline(admin.TabularInline):
     model=image_systeme
 
+class SequenceAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'matiere')
+    list_filter = ('matiere',)
+    ordering = ['matiere', 'nom']
 
 class SystemeAdmin(admin.ModelAdmin):
     inlines=[
@@ -82,7 +86,7 @@ class ItemSyntheseAdmin(admin.ModelAdmin):
         return str(obj.short_name())+' '+str(obj.question)
     get_question.short_description = 'Question'
 
-admin.site.register(sequence)
+admin.site.register(sequence, SequenceAdmin)
 admin.site.register(filiere_prepa)
 admin.site.register(ecole)
 admin.site.register(concours)

@@ -63,7 +63,7 @@ class sequence(models.Model):
     matiere = models.ForeignKey(Matiere, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '[' + self.matiere.nom +'] ' +  "%02d" % self.numero+' '+self.nom
+        return "%02d" % self.numero+' - '+self.nom
 
     def str_numero(self):
         return "%02d" % self.numero
