@@ -28,6 +28,7 @@ def annee_scolaire(date):
         return str(date.year)+'-'+str(date.year+1)
 
 class ParametresGeneaux(models.Model):
+    titre_page=models.CharField(max_length=50, default="GEII")
     nom_etablissement=models.CharField(max_length=100, default="Nom Etablissement")
     auteurs=models.CharField(max_length=100, default="Nom Prénom")
     annee_droits = models.CharField(max_length=100, default="2020")
