@@ -32,8 +32,8 @@
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/">
-            <img src="{% static 'img/LogoRenb.svg' %}" alt="" height="42" width="42"></a>
-      <a class="navbar-brand" href="/">PTSI-PT Lycée Dorian</a>
+            <img src="{% static 'img/LogoRenb.png' %}" alt="" height="42" width="42"></a>
+      <a class="navbar-brand" href="/">{{params_generaux.nom_etablissement}}</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -122,7 +122,7 @@
  <!-- Footer -->
    <footer class="py-5 bg-light">
     <div class="container">
-      <p class="m-0 text-center text-black">Copyright &copy; Renaud Costadoat 2019</p>
+      <p class="m-0 text-center text-black">Copyright &copy; {{params_generaux.auteurs}} {{params_generaux.annee_droits}}</p>
     </div>
     <!-- /.container -->
   </footer>

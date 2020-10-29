@@ -1,4 +1,4 @@
-from .models import Menus, Matiere
+from .models import Menus, Matiere, ParametresGeneaux
 
 def access_menus(request):
     """
@@ -6,5 +6,6 @@ def access_menus(request):
     """
     menus = Menus.objects.all()
     matieres = Matiere.objects.all()
+    params_generaux = ParametresGeneaux.objects.first()
 
-    return {'menus':menus, 'matieres':matieres}
+    return {'menus':menus, 'matieres':matieres, 'params_generaux':params_generaux}

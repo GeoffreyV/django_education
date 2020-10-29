@@ -27,6 +27,11 @@ def annee_scolaire(date):
     else:
         return str(date.year)+'-'+str(date.year+1)
 
+class ParametresGeneaux(models.Model):
+    nom_etablissement=models.CharField(max_length=100, default="Nom Etablissement")
+    auteurs=models.CharField(max_length=100, default="Nom Prénom")
+    annee_droits = models.CharField(max_length=100, default="2020")
+
 class Matiere(models.Model):
     nom=models.CharField(max_length=100)
     nom_cours = models.CharField(max_length=100, default=nom)
