@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import sequence, sequence_info, filiere_prepa, ecole, concours, sujet, systeme, cours, td, tp, ilot, Matiere, langue_vivante,\
+from .models import sequence, sequence_info, filiere_prepa, ecole, concours, sujet, systeme, cours, td, tp, ilot, matiere, langue_vivante,\
     Etudiant, Professeur, Utilisateur, cours_info, td_info, tp_info, competence, khole, DS, Note, parametre,\
     grandeur, type_de_fichier, type_image_systeme, fichier_systeme, image_systeme, video, fiche_synthese, item_synthese,\
     reponse_item_synthese, Menus, MenuItems
@@ -83,7 +83,6 @@ class ItemSyntheseAdmin(admin.ModelAdmin):
     get_question.short_description = 'Question'
 
 admin.site.register(sequence)
-admin.site.register(sequence_info)
 admin.site.register(filiere_prepa)
 admin.site.register(ecole)
 admin.site.register(concours)
@@ -103,7 +102,7 @@ admin.site.register(ilot)
 admin.site.register(cours_info)
 admin.site.register(td_info)
 admin.site.register(tp_info)
-admin.site.register(Matiere)
+admin.site.register(matiere)
 admin.site.register(langue_vivante)
 admin.site.register(Utilisateur)
 admin.site.register(Etudiant)
