@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import sequence, sequence_info, filiere_prepa, ecole, concours, sujet, systeme, cours, td, tp, ilot, matiere, langue_vivante,\
+from .models import sequence, sequence_info, filiere_prepa, ecole, concours, sujet, systeme, cours, td, tp, ilot, Matiere, langue_vivante,\
     Etudiant, Professeur, Utilisateur, cours_info, td_info, tp_info, competence, khole, DS, Note, parametre,\
     grandeur, type_de_fichier, type_image_systeme, fichier_systeme, image_systeme, video, fiche_synthese, item_synthese,\
     reponse_item_synthese, Menus, MenuItems, ParametresGeneaux
