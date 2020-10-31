@@ -81,4 +81,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('<str:matiere>/', lister_ressources, name='django_education-ressources'),
     path('<str:matiere>/<int:id_sequence>/', afficher_sequence, name='django_education-afficher_sequence'),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

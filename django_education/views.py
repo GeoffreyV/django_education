@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from .models import Utilisateur, Matiere, sequence, sequence_info, famille_competence, competence, cours, cours_info,\
     td, td_info, tp, ilot,tp_info, khole, Note, Etudiant, Professeur, langue_vivante, DS, systeme, parametre, fichier_systeme,\
-    image_systeme, video, ressource, item_synthese, fiche_synthese, reponse_item_synthese
+    image_systeme, video, ressource, item_synthese, fiche_synthese, reponse_item_synthese, Slide
 
 from quiz.models import Quiz, Category, Progress
 from django.utils import timezone
@@ -36,7 +36,8 @@ def rentree_scolaire():
     return rentree
 
 def index(request):
-    return render(request,'index.html')
+    slides = Slide.objects.all()
+    return render(request,'index.html',{'slides':slides})
 
 
 def upload_eleves(request):

@@ -6,33 +6,32 @@
    <header>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        {% if slides %}
+        {% for slide in slides %}
+        {% if forloop.first %}
+          <li data-target="#carouselExampleIndicators" class="active" data-slide-to="{{slide.img.id}}"></li>
+        {% else %}
+          <li data-target="#carouselExampleIndicators" data-slide-to="{{slide.img.id}}"></li>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
       </ol>
       <div class="carousel-inner" role="listbox">
         <!-- Slide One - Set the background image for this slide in the line below -->
-        <div class="carousel-item active" style="background-image: url('{% static "img/Slide1.jp2" %}')">
+        {% if slides %}
+        {% for slide in slides %}
+        {% if forloop.first %}
+        <div class="carousel-item active" style="background-image:url('{{ slide.img.url }}')">
+        {% else %}
+        <div class="carousel-item" style="background-image:url('{{ slide.img.url }}')">
+        {% endif%}
           <div class="carousel-caption d-none d-md-block">
-            <h3>Sciences de l'Ingénieur en CPGE</h3>
-            <p>Ressources pour l'étude des SI en CPGE</p>
+            <h3>{{slide.title}}</h3>
+            <p>{{slide.description}}</p>
           </div>
         </div>
-        <!-- Slide Two - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('{% static "img/Slide2.jp2" %}')">
-          <div class="carousel-caption d-none d-md-block">
-            <h3>La PTSI/PT du Lycée Dorian (75011)</h3>
-            <p>Infos et actualités sur le <a href="https://www.lycee-dorian.fr/">site</a> du lycée</p>
-          </div>
-        </div>
-        <!-- Slide Three - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('{% static "img/Slide3.jp2" %}')">
-          <div class="carousel-caption d-none d-md-block">
-            <h3>L'organisation par compétences</h3>
-            <p>Ce site propose les ressources par compétences et permet leur évaluation.</p>
-          </div>
-        </div>
-      </div>
+        {% endfor %}
+        {% endif %}
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
