@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Liste des séquences{% endblock %}
+{% block bodyId %}sequencePage{% endblock %}
+
+{% block titre_page %}Séquence {{sequence.str_numero}} - {{sequence.nom}}{% endblock %}
+
+{% block content1 %}
+
+    <div align="right">
+        <a href="{{ matiere.get_absolute_url }}" %><button type="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Retour</button></a>
+    </div>
+
+
+    <br>
+
+    <div class="card">
+        <div class="card-body">
+            <p> <b> Objectif: </b> <br> {{sequence.description}} </p>
+        </div>
+    </div>
+
+    {% if videos %}
+        <div class="body">
+            <h2 class="my-4"> Vidéos </h2><br>
+            <p> Pour afficher les vidéos disponibles pour cette séquence, <a href="videos/" > cliquer ici <i class='fas fa-film'></i> </a>.</p><br><br>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {% for key, values in ressources.items %}
+            <h2 class="my-4"> {{key}} </h2><br>
+            <table id="cours" class="table ressources">
+                {% for item in values %}
+                    <tr>
+                        <td class="ten">{{item.str_numero}}</td>
+                            <td class="sixtyfive"> {{item.nom}}</td>
+                            {% if item.video_set %}
+                                <td class="five"> <a href="r{{item.id}}/videos/"><i class='fas fa-film'></i></a></td>
+                            {% else %}
+                                <td class="five"></td>
+                            {% endif %}
+                            {% if item.fiche_set %}
+                                <td class="five"> <a href="{{item.numero}}/fiche_ressource/"><i class='far fa-file-alt'></i></a></td>
+                            {% else %}
+                                <td class="five"></td>
+                            {% endif %}
+                        <td class="five"> <a href="{{item.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
+                        <td class="five"> <a href="{{item.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
+                        <td class="five"> <a href="{{item.url_git}}"><i class='fab fa-github'></i></a></td>
+                    </tr>
+                          {% for ilot in item.ilot_set.all %}
+            		            <tr>
+                			        <td class="five"></td>
+                      				<td class="five">{{ilot.numero}}</td>
+                      				<td class="seventyfive"><a href="/systeme/{{ilot.systeme.id}}"><small>{{ilot.systeme.nom}}</small></a></td>
+                		 	        <td class="five"> <a href="{{ilot.url_pdf}}"><i class='fas far fa-file-pdf'></i></a></td>
+                              <td class="five"> <a href="{{ilot.url_prive}}"><i class='fas far fa-eye-slash'></i></a></td>
+                              <td class="five"> <a href="{{ilot.url_git}}"><i class='fab fa-github'></i></a></td>
+            			          </tr>
+        		              {% endfor %}
+              {% endfor %}
+            </table>
+        {% endfor %}
+        {% if quizzes %}
+            <h2 class="my-4"> Quizzes </h2><br>
+            <table id="quizzes" class="table ressources">
+                {% for quiz in quizzes %}
+                    <tr>
+                        <td class="ten"><span style="text-transform:uppercase">{{quiz.url}}</span></td>
+                        <td class="seventyfive">{{quiz.title}}</td>
+                        <td class="fifteen"> <a href="/q/{{quiz.url}}"><i class="fas fa-check-square"></i></a></td>
+                    </tr>
+                {% endfor %}
+           </table>
+        {% endif %}
+
+
+
+
+{% endblock %}

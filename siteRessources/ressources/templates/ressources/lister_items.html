@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Liste des séquences{% endblock %}
+{% block bodyId %}sequencePage{% endblock %}
+
+{% block titre_page %}
+{{ titre }}
+{% endblock %}
+
+{%block content1%}
+
+
+
+ <!-- Marketing Icons Section -->
+    <div class="row">
+
+    <table id="items" class="table table-striped sequences">
+            {% for item in items_list %}
+                <tr>
+                    {% if item.str_numero != "" %}
+                    <td class="five">{{item.str_numero}}</td>
+                    {% endif %}
+                    <td class="ninety"> <a href="{{item.get_absolute_url}}" %}">{{item.nom}}</a></td>
+                    {% if item.image %}
+                    <td class="col-xs-3" style="text-align:center"><img src="" height="100" alt="myimage" /></td>
+                    {% endif %}
+                    <td class="five"> <a href="{{item.get_absolute_url}}" %}"><i class='fas fa-angle-right'></i></a></td>
+                </tr>
+            {% endfor %}
+            </table>
+    </div>
+
+{% endblock %}
