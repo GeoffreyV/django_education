@@ -24,7 +24,8 @@ from ressources.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('ressources/', include('ressources.urls'))
+    path('ressources/', include('ressources.urls')),
+    path('contact/', include('sendemail.urls')), # new
 
 ]
 
