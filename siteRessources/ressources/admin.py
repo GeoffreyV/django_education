@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Matiere, Sequence, Competence, Famille_competence,\
-Systeme, Ilot, Ressource, ParametresGeneaux
+Systeme, Ilot, Ressource, ParametresGeneaux, Slide
 # Register your models here.
 
 
@@ -20,3 +20,4 @@ admin.site.register(Sequence)
 admin.site.register(Ressource, RessourceAdmin)
 admin.site.register(Systeme)
 admin.site.register(Ilot)
+admin.site.register(Slide)
