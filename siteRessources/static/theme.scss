@@ -1,0 +1,52 @@
+//
+// $font-stack:    open-sans;
+// body {
+//   font: 100% $font-stack;
+// }
+//
+// .navbar {
+// font-family: $font-stack
+// }
+
+$primary: #63003C;
+$secondary: #313E48;
+$alert: #C60B46;
+
+// Required
+@import "static/bootstrap/scss/functions";
+@import "static/bootstrap/scss/variables";
+@import "static/bootstrap/scss/mixins";
+
+
+// @import "static/bootstrap/scss/root";
+@import "static/bootstrap/scss/reboot";
+@import "static/bootstrap/scss/type";
+@import "static/bootstrap/scss/images";
+// @import "static/bootstrap/scss/code";
+@import "static/bootstrap/scss/grid";
+@import "static/bootstrap/scss/tables";
+@import "static/bootstrap/scss/forms";
+@import "static/bootstrap/scss/buttons";
+@import "static/bootstrap/scss/transitions";
+@import "static/bootstrap/scss/dropdown";
+@import "static/bootstrap/scss/button-group";
+@import "static/bootstrap/scss/input-group";
+@import "static/bootstrap/scss/custom-forms";
+@import "static/bootstrap/scss/nav";
+@import "static/bootstrap/scss/navbar";
+@import "static/bootstrap/scss/card";
+//@import "static/bootstrap/scss/breadcrumb";
+@import "static/bootstrap/scss/pagination";
+//@import "static/bootstrap/scss/badge";
+//@import "static/bootstrap/scss/jumbotron";
+@import "static/bootstrap/scss/alert";
+@import "static/bootstrap/scss/progress";
+@import "static/bootstrap/scss/media";
+//@import "static/bootstrap/scss/list-group";
+//@import "static/bootstrap/scss/close";
+//@import "static/bootstrap/scss/modal";
+//@import "static/bootstrap/scss/tooltip";
+//@import "static/bootstrap/scss/popover";
+@import "static/bootstrap/scss/carousel";
+@import "static/bootstrap/scss/utilities";
+@import "static/bootstrap/scss/print";
